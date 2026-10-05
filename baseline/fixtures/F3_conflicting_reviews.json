@@ -1,0 +1,247 @@
+{
+  "id": "F3_conflicting_reviews",
+  "covers": [
+    "conflicting_reviews",
+    "multiple_tweaks",
+    "untested_suggestions"
+  ],
+  "description": "Two reviews swap the same dairy ingredient for different things (2% milk vs heavy cream). The 5-star review wins; the 4-star swap is a recorded conflict.",
+  "provenance": {
+    "file": "data/recipe_77935_creamy-sweet-potato-with-ginger-soup.json",
+    "review_indices": [
+      3,
+      5
+    ]
+  },
+  "recipe": {
+    "recipe_id": "F3",
+    "title": "Creamy Sweet Potato With Ginger Soup",
+    "ingredients": [
+      "2 tablespoons olive oil",
+      "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+      "1 large onion, cut into large dice",
+      "1 tablespoon butter",
+      "1 pinch sugar",
+      "3 large garlic cloves, thickly sliced",
+      "1.5 teaspoons ground ginger",
+      "0.5 teaspoon ground nutmeg",
+      "0.125 teaspoon cayenne pepper",
+      "3 cups chicken broth, homemade or from a carton or can",
+      "1.5 cups half-and-half (or whole milk)",
+      "Salt and freshly ground pepper, to taste",
+      "Garnish: chopped honey-roasted peanuts"
+    ],
+    "instructions": [
+      "Gather the ingredients.",
+      "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+      "Reduce heat to low and add butter, sugar and garlic; continue cooking until all vegetables are a rich spotty caramel color, about 10 minutes longer.",
+      "Add ginger, nutmeg and cayenne pepper; continue to saute until fragrant, 30 seconds to 1 minute longer.",
+      "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+      "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid&#39;s pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To &#39;clean&#39; the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+      "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve."
+    ],
+    "reviews": [
+      {
+        "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+        "rating": 5,
+        "has_modification": true
+      },
+      {
+        "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+        "rating": 4,
+        "has_modification": true
+      }
+    ]
+  },
+  "tweaks": [
+    {
+      "id": "F3.S6",
+      "review": 0,
+      "quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those",
+      "type": "ingredient_substitution",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "availability",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 1,
+          "find": "1.5 pounds peeled raw sweet potatoes",
+          "replace": "1 large sweet potato and 3 white potatoes, peeled"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 1,
+          "find": "Add sweet potatoes, then onion",
+          "replace": "Add potatoes, then onion"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 4,
+          "find": "until sweet potatoes are tender",
+          "replace": "until potatoes are tender"
+        }
+      ],
+      "note": "Availability-driven; decision 2 (exclude such swaps?) is still open."
+    },
+    {
+      "id": "F3.S7",
+      "review": 0,
+      "quote": "I also substituted 2% milk instead of half-and-half or whole milk",
+      "type": "ingredient_substitution",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "unclear",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 10,
+          "find": "1.5 cups half-and-half (or whole milk)",
+          "replace": "1.5 cups 2% milk"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 5,
+          "find": "pour in a little half-and-half",
+          "replace": "pour in a little 2% milk"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 6,
+          "find": "add enough half-and-half",
+          "replace": "add enough 2% milk"
+        }
+      ]
+    },
+    {
+      "id": "F3.S11",
+      "review": 1,
+      "quote": "I added extra cayenne pepper",
+      "type": "quantity_adjustment",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 8,
+          "find": "0.125 teaspoon cayenne pepper",
+          "replace": "0.125 teaspoon cayenne pepper, or more to taste"
+        }
+      ]
+    },
+    {
+      "id": "F3.S12",
+      "review": 1,
+      "quote": "lots of black pepper",
+      "type": "quantity_adjustment",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 11,
+          "find": "freshly ground pepper",
+          "replace": "plenty of freshly ground black pepper"
+        }
+      ]
+    },
+    {
+      "id": "F3.S13",
+      "review": 1,
+      "quote": "used heavy cream instead of 1/2 & 1/2",
+      "type": "ingredient_substitution",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 10,
+          "find": "1.5 cups half-and-half (or whole milk)",
+          "replace": "1.5 cups heavy cream"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 5,
+          "find": "pour in a little half-and-half",
+          "replace": "pour in a little heavy cream"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 6,
+          "find": "add enough half-and-half",
+          "replace": "add enough heavy cream"
+        }
+      ]
+    },
+    {
+      "id": "F3.S14",
+      "review": 1,
+      "quote": "I think it would also work fine in the oven",
+      "type": "technique_change",
+      "status": "suggested",
+      "outcome": "unclear",
+      "motive": "improvement",
+      "edits": [],
+      "note": "Speculation; no oven details to edit with."
+    }
+  ],
+  "expected": {
+    "applied": [
+      "F3.S6",
+      "F3.S7",
+      "F3.S11",
+      "F3.S12"
+    ],
+    "skipped": {
+      "F3.S13": [
+        "conflict"
+      ],
+      "F3.S14": [
+        "not_tried",
+        "no_edits"
+      ]
+    },
+    "title_claims_enhancement": true,
+    "recipe": {
+      "ingredients": [
+        "2 tablespoons olive oil",
+        "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+        "1 large onion, cut into large dice",
+        "1 tablespoon butter",
+        "1 pinch sugar",
+        "3 large garlic cloves, thickly sliced",
+        "1.5 teaspoons ground ginger",
+        "0.5 teaspoon ground nutmeg",
+        "0.125 teaspoon cayenne pepper, or more to taste",
+        "3 cups chicken broth, homemade or from a carton or can",
+        "1.5 cups 2% milk",
+        "Salt and plenty of freshly ground black pepper, to taste",
+        "Garnish: chopped honey-roasted peanuts"
+      ],
+      "instructions": [
+        "Gather the ingredients.",
+        "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+        "Reduce heat to low and add butter, sugar and garlic; continue cooking until all vegetables are a rich spotty caramel color, about 10 minutes longer.",
+        "Add ginger, nutmeg and cayenne pepper; continue to saute until fragrant, 30 seconds to 1 minute longer.",
+        "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+        "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+        "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve."
+      ]
+    }
+  },
+  "policy": "Apply a tweak only if the reviewer tried it and reported a positive outcome. Reviews are applied in order of rating (high first), then file order; when two reviews change the same recipe line, the earlier one wins and the later tweak is recorded as a conflict. Every tweak not applied is reported with a reason."
+}

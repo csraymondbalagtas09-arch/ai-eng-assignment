@@ -1,0 +1,124 @@
+{
+  "id": "F2_untested_suggestions",
+  "covers": [
+    "untested_suggestions"
+  ],
+  "description": "Two reviews: one unspecified tried change and two 'next time / I would prefer' suggestions. Nothing should change.",
+  "provenance": {
+    "file": "data/recipe_19117_spicy-apple-cake.json",
+    "review_indices": [
+      0,
+      1
+    ]
+  },
+  "recipe": {
+    "recipe_id": "F2",
+    "title": "Spicy Apple Cake",
+    "ingredients": [
+      "1.5 cups all-purpose flour",
+      "1 teaspoon ground cinnamon",
+      "1 teaspoon baking powder",
+      "0.5 teaspoon baking soda",
+      "0.5 teaspoon salt",
+      "0.5 teaspoon ground nutmeg",
+      "1 cup brown sugar",
+      "0.5 cup shortening",
+      "0.25 cup white sugar",
+      "2 eggs",
+      "1 teaspoon vanilla extract",
+      "0.5 cup milk",
+      "2 cups apple - peeled, cored, and chopped",
+      "2 cups sifted confectioners' sugar",
+      "0.25 cup shortening",
+      "0.25 teaspoon ground cinnamon",
+      "1 pinch ground nutmeg",
+      "0.25 cup evaporated milk"
+    ],
+    "instructions": [
+      "Preheat the oven to 350 degrees F (175 degrees C). Grease and flour a 9-inch square pan.",
+      "Sift together flour, 1 teaspoon cinnamon, baking powder, baking soda, salt, and nutmeg. Set aside.",
+      "Cream brown sugar, 1/2 cup shortening, and white sugar together in a large bowl until light and fluffy. Beat in eggs one at a time, then stir in vanilla. Beat in flour mixture alternately with milk, mixing until just combined. Stir in chopped apples.",
+      "Spread batter evenly in the prepared pan. Bake in the preheated oven until a toothpick inserted into the center of cake comes out clean, 35 to 40 minutes. Let cool.",
+      "Combine confectioners&#39; sugar, 1/4 cup shortening, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+    ],
+    "reviews": [
+      {
+        "text": "Mmmm, this cake was so good. I made it exactly as directed except I used a different frosting only because I had some leftover from another cake. The next time I make this I will add one more cup of apples because more is better right?!",
+        "rating": 5,
+        "has_modification": true
+      },
+      {
+        "text": "Will make this one again! (maybe for Thanksgiving dessert) I would prefer some more apple chunks in it, but that is just my preference. This cake is sweet and delicious.",
+        "rating": 5,
+        "has_modification": true
+      }
+    ]
+  },
+  "tweaks": [
+    {
+      "id": "F2.A1",
+      "review": 0,
+      "quote": "I used a different frosting only because I had some leftover from another cake",
+      "type": "ingredient_substitution",
+      "status": "tried",
+      "outcome": "unclear",
+      "motive": "availability",
+      "edits": [],
+      "note": "No specifics given, so it cannot be expressed as an edit."
+    },
+    {
+      "id": "F2.A2",
+      "review": 0,
+      "quote": "The next time I make this I will add one more cup of apples",
+      "type": "quantity_adjustment",
+      "status": "suggested",
+      "outcome": "unclear",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 12,
+          "find": "2 cups apple",
+          "replace": "3 cups apple"
+        }
+      ]
+    },
+    {
+      "id": "F2.A3",
+      "review": 1,
+      "quote": "I would prefer some more apple chunks in it",
+      "type": "quantity_adjustment",
+      "status": "suggested",
+      "outcome": "unclear",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 12,
+          "find": "2 cups apple - peeled, cored, and chopped",
+          "replace": "2 cups apple - peeled, cored, and chopped, or more (amount not specified)"
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "applied": [],
+    "skipped": {
+      "F2.A1": [
+        "outcome_not_positive",
+        "no_edits"
+      ],
+      "F2.A2": [
+        "not_tried"
+      ],
+      "F2.A3": [
+        "not_tried"
+      ]
+    },
+    "title_claims_enhancement": false,
+    "recipe": "unchanged"
+  },
+  "policy": "Apply a tweak only if the reviewer tried it and reported a positive outcome. Reviews are applied in order of rating (high first), then file order; when two reviews change the same recipe line, the earlier one wins and the later tweak is recorded as a conflict. Every tweak not applied is reported with a reason."
+}

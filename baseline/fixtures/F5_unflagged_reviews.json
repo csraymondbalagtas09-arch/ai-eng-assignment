@@ -1,0 +1,189 @@
+{
+  "id": "F5_unflagged_reviews",
+  "covers": [
+    "unflagged_reviews",
+    "untested_suggestions"
+  ],
+  "description": "Review 0 contains tweaks but lacks the keyword flag; review 1 mixes a disliked change, a liked change and advice.",
+  "provenance": {
+    "file": "data/recipe_144299_nikujaga-japanese-style-meat-and-potatoes-.json",
+    "review_indices": [
+      0,
+      1
+    ]
+  },
+  "recipe": {
+    "recipe_id": "F5",
+    "title": "Nikujaga (Japanese-Style Meat and Potatoes)",
+    "ingredients": [
+      "8 snow peas",
+      "1 tablespoon vegetable oil",
+      "0.25 pound sirloin steak, thinly sliced",
+      "4 potatoes, cut into bite sized pieces",
+      "2 cups dashi soup",
+      "0.25 cup soy sauce",
+      "0.25 cup sake",
+      "1 tablespoon white sugar",
+      "1 onion, chopped"
+    ],
+    "instructions": [
+      "Put the snow peas in a small saucepan with enough water to cover; bring to a boil and immediately remove from heat. Drain and set aside.",
+      "Heat the oil in a large skillet over medium heat; cook the beef in the oil until browned. Add the potatoes; cook and stir until soft, 5 to 7 minutes. Stir the dashi soup, soy sauce, sake, and sugar into the mixture; simmer for 10 minutes.",
+      "Reduce heat to low and scatter the chopped onion over the mixture; allow to simmer until the liquid is nearly completely evaporated, about 15 minutes more. Top the mixture with the snow peas to serve."
+    ],
+    "reviews": [
+      {
+        "text": "Great recipe and not hard, even for someone like me who never cooks. The taste is really good, but i agree with everyone else about the measurements. You need at least a 1lb of beef for this. Also, I threw in carrots since i had them around.",
+        "rating": 5
+      },
+      {
+        "text": "Overall it was pretty good but the measurements were way off. HAS to be a typo. 1/4lb of meat to serve 4??? I used a lil over 1lb and it even then it was swimming in the broth. After following the recipe, i added extra soy and sugar only because i thought the flavor was a little on the lite side. Overall good.** If you cant find dashi, beef broth/stock works just fine. My japanese mom happen to have some so i was able to get some from her.",
+        "rating": 4,
+        "has_modification": true
+      }
+    ]
+  },
+  "tweaks": [
+    {
+      "id": "F5.N1",
+      "review": 0,
+      "quote": "You need at least a 1lb of beef for this",
+      "type": "quantity_adjustment",
+      "status": "suggested",
+      "outcome": "unclear",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 2,
+          "find": "0.25 pound sirloin steak",
+          "replace": "1 pound sirloin steak"
+        }
+      ],
+      "note": "Advice; the review does not say they did it."
+    },
+    {
+      "id": "F5.N2",
+      "review": 0,
+      "quote": "I threw in carrots since i had them around",
+      "type": "addition",
+      "status": "tried",
+      "outcome": "unclear",
+      "motive": "availability",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "add_after",
+          "line": 3,
+          "find": "4 potatoes, cut into bite sized pieces",
+          "add": "carrots (amount not specified)"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 1,
+          "find": "Add the potatoes;",
+          "replace": "Add the potatoes and carrots;"
+        }
+      ]
+    },
+    {
+      "id": "F5.N3",
+      "review": 1,
+      "quote": "I used a lil over 1lb",
+      "type": "quantity_adjustment",
+      "status": "tried",
+      "outcome": "mixed",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 2,
+          "find": "0.25 pound sirloin steak",
+          "replace": "a little over 1 pound sirloin steak"
+        }
+      ],
+      "note": "'even then it was swimming in the broth'"
+    },
+    {
+      "id": "F5.N4",
+      "review": 1,
+      "quote": "i added extra soy and sugar",
+      "type": "quantity_adjustment",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 5,
+          "find": "0.25 cup soy sauce",
+          "replace": "0.25 cup soy sauce, or more to taste"
+        },
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 7,
+          "find": "1 tablespoon white sugar",
+          "replace": "1 tablespoon white sugar, or more to taste"
+        }
+      ]
+    },
+    {
+      "id": "F5.N5",
+      "review": 1,
+      "quote": "If you cant find dashi, beef broth/stock works just fine",
+      "type": "ingredient_substitution",
+      "status": "suggested",
+      "outcome": "unclear",
+      "motive": "availability",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 4,
+          "find": "2 cups dashi soup",
+          "replace": "2 cups dashi soup (or beef broth)"
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "applied": [
+      "F5.N4"
+    ],
+    "skipped": {
+      "F5.N1": [
+        "not_tried"
+      ],
+      "F5.N2": [
+        "outcome_not_positive"
+      ],
+      "F5.N3": [
+        "outcome_not_positive"
+      ],
+      "F5.N5": [
+        "not_tried"
+      ]
+    },
+    "title_claims_enhancement": true,
+    "recipe": {
+      "ingredients": [
+        "8 snow peas",
+        "1 tablespoon vegetable oil",
+        "0.25 pound sirloin steak, thinly sliced",
+        "4 potatoes, cut into bite sized pieces",
+        "2 cups dashi soup",
+        "0.25 cup soy sauce, or more to taste",
+        "0.25 cup sake",
+        "1 tablespoon white sugar, or more to taste",
+        "1 onion, chopped"
+      ],
+      "instructions": "unchanged"
+    }
+  },
+  "policy": "Apply a tweak only if the reviewer tried it and reported a positive outcome. Reviews are applied in order of rating (high first), then file order; when two reviews change the same recipe line, the earlier one wins and the later tweak is recorded as a conflict. Every tweak not applied is reported with a reason."
+}

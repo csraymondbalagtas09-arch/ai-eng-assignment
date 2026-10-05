@@ -1,0 +1,208 @@
+{
+  "id": "F4_ambiguous_targets",
+  "covers": [
+    "ambiguous_edit_targets"
+  ],
+  "description": "Edit-level cases (no extraction): targets that are ambiguous, absent, paraphrased, or a short span inside a long step.",
+  "provenance": {
+    "cake": "data/recipe_19117_spicy-apple-cake.json",
+    "cookies": "data/recipe_10813_best-chocolate-chip-cookies.json"
+  },
+  "recipes": {
+    "cake": {
+      "recipe_id": "F4cake",
+      "title": "Spicy Apple Cake",
+      "ingredients": [
+        "1.5 cups all-purpose flour",
+        "1 teaspoon ground cinnamon",
+        "1 teaspoon baking powder",
+        "0.5 teaspoon baking soda",
+        "0.5 teaspoon salt",
+        "0.5 teaspoon ground nutmeg",
+        "1 cup brown sugar",
+        "0.5 cup shortening",
+        "0.25 cup white sugar",
+        "2 eggs",
+        "1 teaspoon vanilla extract",
+        "0.5 cup milk",
+        "2 cups apple - peeled, cored, and chopped",
+        "2 cups sifted confectioners' sugar",
+        "0.25 cup shortening",
+        "0.25 teaspoon ground cinnamon",
+        "1 pinch ground nutmeg",
+        "0.25 cup evaporated milk"
+      ],
+      "instructions": [
+        "Preheat the oven to 350 degrees F (175 degrees C). Grease and flour a 9-inch square pan.",
+        "Sift together flour, 1 teaspoon cinnamon, baking powder, baking soda, salt, and nutmeg. Set aside.",
+        "Cream brown sugar, 1/2 cup shortening, and white sugar together in a large bowl until light and fluffy. Beat in eggs one at a time, then stir in vanilla. Beat in flour mixture alternately with milk, mixing until just combined. Stir in chopped apples.",
+        "Spread batter evenly in the prepared pan. Bake in the preheated oven until a toothpick inserted into the center of cake comes out clean, 35 to 40 minutes. Let cool.",
+        "Combine confectioners&#39; sugar, 1/4 cup shortening, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+      ]
+    },
+    "cookies": {
+      "recipe_id": "F4cookies",
+      "title": "Best Chocolate Chip Cookies",
+      "ingredients": [
+        "1 cup butter, softened",
+        "1 cup white sugar",
+        "1 cup packed brown sugar",
+        "2 eggs",
+        "2 teaspoons vanilla extract",
+        "1 teaspoon baking soda",
+        "2 teaspoons hot water",
+        "0.5 teaspoon salt",
+        "3 cups all-purpose flour",
+        "2 cups semisweet chocolate chips",
+        "1 cup chopped walnuts"
+      ],
+      "instructions": [
+        "Gather your ingredients, making sure your butter is softened, and your eggs are room temperature.",
+        "Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+        "Beat in eggs, one at a time, then stir in vanilla.",
+        "Dissolve baking soda in hot water. Add to batter along with salt.",
+        "Stir in flour, chocolate chips, and walnuts.",
+        "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+        "Bake in the preheated oven until edges are nicely browned, about 10 minutes.",
+        "Cool on the baking sheets briefly before removing to a wire rack to cool completely.",
+        "Store in an airtight container or serve immediately and enjoy!"
+      ]
+    }
+  },
+  "edit_cases": [
+    {
+      "id": "F4.1",
+      "recipe": "cake",
+      "why": "Exact full line, among two similar shortening lines",
+      "edit": {
+        "target": "ingredients",
+        "operation": "replace",
+        "line": 14,
+        "find": "0.25 cup shortening",
+        "replace": "0.25 cup butter"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 14,
+        "after": "0.25 cup butter"
+      }
+    },
+    {
+      "id": "F4.2",
+      "recipe": "cake",
+      "why": "Short span found in two ingredient lines (7 and 14); line hint says 14",
+      "edit": {
+        "target": "ingredients",
+        "operation": "replace",
+        "line": 14,
+        "find": "shortening",
+        "replace": "butter"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 14,
+        "after": "0.25 cup butter",
+        "refuse_acceptable": true
+      }
+    },
+    {
+      "id": "F4.3",
+      "recipe": "cake",
+      "why": "Unique span inside a long frosting step",
+      "edit": {
+        "target": "instructions",
+        "operation": "replace",
+        "line": 4,
+        "find": "1/4 cup shortening",
+        "replace": "1/4 cup butter"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 4,
+        "after": "Combine confectioners&#39; sugar, 1/4 cup butter, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+      }
+    },
+    {
+      "id": "F4.4",
+      "recipe": "cake",
+      "why": "Short span found in two steps (1 and 4); line hint says 4",
+      "edit": {
+        "target": "instructions",
+        "operation": "replace",
+        "line": 4,
+        "find": "cinnamon",
+        "replace": "ground cinnamon"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 4,
+        "after": "Combine confectioners&#39; sugar, 1/4 cup shortening, 1/4 teaspoon ground cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake.",
+        "refuse_acceptable": true
+      }
+    },
+    {
+      "id": "F4.5",
+      "recipe": "cookies",
+      "why": "Span repeated within one step ('white sugar, and brown sugar')",
+      "edit": {
+        "target": "instructions",
+        "operation": "replace",
+        "line": 1,
+        "find": "sugar",
+        "replace": "honey"
+      },
+      "expect": {
+        "outcome": "refuse"
+      }
+    },
+    {
+      "id": "F4.6",
+      "recipe": "cookies",
+      "why": "Target absent but similar to another line (pecans vs walnuts)",
+      "edit": {
+        "target": "ingredients",
+        "operation": "remove",
+        "line": 10,
+        "find": "1 cup chopped pecans"
+      },
+      "expect": {
+        "outcome": "refuse"
+      }
+    },
+    {
+      "id": "F4.7",
+      "recipe": "cookies",
+      "why": "Paraphrased target: '1/2' vs '0.5' teaspoon salt",
+      "edit": {
+        "target": "ingredients",
+        "operation": "replace",
+        "line": 7,
+        "find": "1/2 teaspoon salt",
+        "replace": "1 teaspoon salt"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 7,
+        "after": "1 teaspoon salt",
+        "refuse_acceptable": true
+      }
+    },
+    {
+      "id": "F4.8",
+      "recipe": "cookies",
+      "why": "Short unique span inside a long step",
+      "edit": {
+        "target": "instructions",
+        "operation": "replace",
+        "line": 1,
+        "find": "350 degrees F",
+        "replace": "375 degrees F"
+      },
+      "expect": {
+        "outcome": "apply",
+        "line": 1,
+        "after": "Preheat the oven to 375 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth."
+      }
+    }
+  ]
+}

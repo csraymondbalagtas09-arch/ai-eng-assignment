@@ -1,0 +1,76 @@
+{
+  "id": "observed_llm",
+  "description": "The only real-model outputs available: modifications in the committed enhanced files, labelled against the tweaks in the source review. They show what the live LLM extracted, but not under a controlled prompt: files in data/enhanced/ were written by an earlier code version (they contain confidence_score, which the original models lack).",
+  "observations": [
+    {
+      "id": "O1",
+      "output": "src/data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "original (schema matches)",
+      "source": {"file": "data/recipe_10813_best-chocolate-chip-cookies.json", "review_index": 0},
+      "tweaks_in_review": {"C1": "I used an ice cream scoop, that made 16 big cookies", "C2": "I did add an additional egg yolk"},
+      "captured": ["C2"],
+      "defects": [],
+      "checks": [
+        {"kind": "ingredient_present", "text": "1 additional egg yolk"}
+      ]
+    },
+    {
+      "id": "O2",
+      "output": "data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "earlier (has confidence_score)",
+      "source": {"file": "data/recipe_10813_best-chocolate-chip-cookies.json", "review_index": 1},
+      "tweaks_in_review": {
+        "C3": "I used a half cup of sugar and one-and-a-half cups of brown sugar",
+        "C4": "I omitted the water",
+        "C5": "I added a teaspoon of cream of tartar to the batter",
+        "C6": "I refrigerated the batter for at least an hour before scooping and baking"
+      },
+      "captured": ["C3"],
+      "defects": ["Three of the four numbered tweaks were dropped"],
+      "checks": [
+        {"kind": "ingredient_present", "text": "1.5 cups packed brown sugar"},
+        {"kind": "ingredient_present", "text": "2 teaspoons hot water"},
+        {"kind": "ingredient_absent_substring", "text": "cream of tartar"},
+        {"kind": "instructions_unchanged"}
+      ]
+    },
+    {
+      "id": "O3",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "source": {"file": "data/recipe_77935_creamy-sweet-potato-with-ginger-soup.json", "review_index": 0},
+      "tweaks_in_review": {
+        "S1": "I made this with canned yams",
+        "S2": "I added roasted Brussels Sprouts and peppers",
+        "S3": "I drizzled heavy cream at the end"
+      },
+      "captured": ["S2"],
+      "defects": [
+        "Amounts and cuts invented: '1 cup', 'halved', 'diced', 'bell' are not in the review",
+        "Two ingredients written on one line",
+        "No step adds the new vegetables"
+      ],
+      "checks": [
+        {"kind": "ingredient_present", "text": "1 cup roasted Brussels Sprouts, halved; 1 cup roasted bell peppers, diced"},
+        {"kind": "words_not_in_review", "line": "1 cup roasted Brussels Sprouts, halved; 1 cup roasted bell peppers, diced", "words": ["1", "cup", "halved", "diced", "bell"]},
+        {"kind": "instructions_unchanged"}
+      ]
+    },
+    {
+      "id": "O4",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "source": {"file": "data/recipe_77935_creamy-sweet-potato-with-ginger-soup.json", "review_index": 2},
+      "tweaks_in_review": {"S5": "when I make it again I will use fresh ginger"},
+      "captured": ["S5"],
+      "defects": [
+        "An untried suggestion was applied",
+        "Ground-to-fresh ginger swapped 1:1, an amount the reviewer never gave"
+      ],
+      "checks": [
+        {"kind": "ingredient_present", "text": "1.5 teaspoons fresh ginger"},
+        {"kind": "words_not_in_review", "line": "1.5 teaspoons fresh ginger", "words": ["1.5", "teaspoons"]}
+      ]
+    }
+  ]
+}

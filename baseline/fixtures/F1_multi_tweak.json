@@ -1,0 +1,180 @@
+{
+  "id": "F1_multi_tweak",
+  "covers": [
+    "multiple_tweaks"
+  ],
+  "description": "One review lists four numbered tweaks of four different types.",
+  "provenance": {
+    "file": "data/recipe_10813_best-chocolate-chip-cookies.json",
+    "review_indices": [
+      1
+    ]
+  },
+  "recipe": {
+    "recipe_id": "F1",
+    "title": "Best Chocolate Chip Cookies",
+    "ingredients": [
+      "1 cup butter, softened",
+      "1 cup white sugar",
+      "1 cup packed brown sugar",
+      "2 eggs",
+      "2 teaspoons vanilla extract",
+      "1 teaspoon baking soda",
+      "2 teaspoons hot water",
+      "0.5 teaspoon salt",
+      "3 cups all-purpose flour",
+      "2 cups semisweet chocolate chips",
+      "1 cup chopped walnuts"
+    ],
+    "instructions": [
+      "Gather your ingredients, making sure your butter is softened, and your eggs are room temperature.",
+      "Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+      "Beat in eggs, one at a time, then stir in vanilla.",
+      "Dissolve baking soda in hot water. Add to batter along with salt.",
+      "Stir in flour, chocolate chips, and walnuts.",
+      "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+      "Bake in the preheated oven until edges are nicely browned, about 10 minutes.",
+      "Cool on the baking sheets briefly before removing to a wire rack to cool completely.",
+      "Store in an airtight container or serve immediately and enjoy!"
+    ],
+    "reviews": [
+      {
+        "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+        "rating": 5,
+        "has_modification": true
+      }
+    ]
+  },
+  "tweaks": [
+    {
+      "id": "F1.T1",
+      "review": 0,
+      "quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar",
+      "type": "quantity_adjustment",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 1,
+          "find": "1 cup white sugar",
+          "replace": "0.5 cup white sugar"
+        },
+        {
+          "target": "ingredients",
+          "operation": "replace",
+          "line": 2,
+          "find": "1 cup packed brown sugar",
+          "replace": "1.5 cups packed brown sugar"
+        }
+      ]
+    },
+    {
+      "id": "F1.T2",
+      "review": 0,
+      "quote": "I omitted the water",
+      "type": "removal",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "remove",
+          "line": 6,
+          "find": "2 teaspoons hot water"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 3,
+          "find": "Dissolve baking soda in hot water. Add to batter",
+          "replace": "Add baking soda to batter"
+        }
+      ]
+    },
+    {
+      "id": "F1.T3",
+      "review": 0,
+      "quote": "I added a teaspoon of cream of tartar to the batter",
+      "type": "addition",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "ingredients",
+          "operation": "add_after",
+          "line": 7,
+          "find": "0.5 teaspoon salt",
+          "add": "1 teaspoon cream of tartar"
+        },
+        {
+          "target": "instructions",
+          "operation": "replace",
+          "line": 3,
+          "find": "along with salt.",
+          "replace": "along with salt and cream of tartar."
+        }
+      ]
+    },
+    {
+      "id": "F1.T4",
+      "review": 0,
+      "quote": "I refrigerated the batter for at least an hour before scooping and baking",
+      "type": "technique_change",
+      "status": "tried",
+      "outcome": "positive",
+      "motive": "improvement",
+      "edits": [
+        {
+          "target": "instructions",
+          "operation": "add_after",
+          "line": 4,
+          "find": "Stir in flour, chocolate chips, and walnuts.",
+          "add": "Cover and refrigerate the dough for at least 1 hour."
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "applied": [
+      "F1.T1",
+      "F1.T2",
+      "F1.T3",
+      "F1.T4"
+    ],
+    "skipped": {},
+    "title_claims_enhancement": true,
+    "recipe": {
+      "ingredients": [
+        "1 cup butter, softened",
+        "0.5 cup white sugar",
+        "1.5 cups packed brown sugar",
+        "2 eggs",
+        "2 teaspoons vanilla extract",
+        "1 teaspoon baking soda",
+        "0.5 teaspoon salt",
+        "1 teaspoon cream of tartar",
+        "3 cups all-purpose flour",
+        "2 cups semisweet chocolate chips",
+        "1 cup chopped walnuts"
+      ],
+      "instructions": [
+        "Gather your ingredients, making sure your butter is softened, and your eggs are room temperature.",
+        "Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+        "Beat in eggs, one at a time, then stir in vanilla.",
+        "Add baking soda to batter along with salt and cream of tartar.",
+        "Stir in flour, chocolate chips, and walnuts.",
+        "Cover and refrigerate the dough for at least 1 hour.",
+        "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+        "Bake in the preheated oven until edges are nicely browned, about 10 minutes.",
+        "Cool on the baking sheets briefly before removing to a wire rack to cool completely.",
+        "Store in an airtight container or serve immediately and enjoy!"
+      ]
+    }
+  },
+  "policy": "Apply a tweak only if the reviewer tried it and reported a positive outcome. Reviews are applied in order of rating (high first), then file order; when two reviews change the same recipe line, the earlier one wins and the later tweak is recorded as a conflict. Every tweak not applied is reported with a reason."
+}
