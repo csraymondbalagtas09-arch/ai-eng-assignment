@@ -1,0 +1,753 @@
+{
+  "recipe_id": "77935_enhanced",
+  "original_recipe_id": "77935",
+  "title": "Creamy Sweet Potato With Ginger Soup (Community Enhanced)",
+  "ingredients": [
+    "2 tablespoons olive oil",
+    "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+    "1 large onion, cut into large dice",
+    "1 tablespoon butter",
+    "1 pinch sugar",
+    "3 large garlic cloves, thickly sliced",
+    "1.5 teaspoons ground ginger",
+    "0.5 teaspoon ground nutmeg",
+    "0.125 teaspoon cayenne pepper, or more to taste",
+    "3 cups chicken broth, homemade or from a carton or can",
+    "1.5 cups 2% milk",
+    "Salt and plenty of freshly ground black pepper, to taste",
+    "Garnish: chopped honey-roasted peanuts"
+  ],
+  "instructions": [
+    "Gather the ingredients.",
+    "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+    "Reduce heat to low and add butter, sugar and garlic; continue cooking until all vegetables are a rich spotty caramel color, about 10 minutes longer.",
+    "Add ginger, nutmeg and cayenne pepper; continue to saute until fragrant, 30 seconds to 1 minute longer.",
+    "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+    "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+    "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve."
+  ],
+  "modifications_applied": [
+    {
+      "source_review": {
+        "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-26e7c1fada",
+        "sources": [
+          "reviews[3]",
+          "featured_tweaks[2]"
+        ],
+        "featured": true,
+        "rank": 3
+      },
+      "modification_type": "ingredient_substitution",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+          "to_text": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+          "operation": "replace"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+          "to_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+          "operation": "replace"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+          "to_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-26e7c1fada.t1",
+      "evidence_quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those"
+    },
+    {
+      "source_review": {
+        "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-26e7c1fada",
+        "sources": [
+          "reviews[3]",
+          "featured_tweaks[2]"
+        ],
+        "featured": true,
+        "rank": 3
+      },
+      "modification_type": "ingredient_substitution",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "1.5 cups half-and-half (or whole milk)",
+          "to_text": "1.5 cups 2% milk",
+          "operation": "replace"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+          "to_text": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+          "operation": "replace"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+          "to_text": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-26e7c1fada.t2",
+      "evidence_quote": "I also substituted 2% milk instead of half-and-half or whole milk"
+    },
+    {
+      "source_review": {
+        "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+        "reviewer": null,
+        "rating": 4,
+        "review_id": "rev-d23b070482",
+        "sources": [
+          "reviews[5]",
+          "featured_tweaks[4]"
+        ],
+        "featured": true,
+        "rank": 5
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "0.125 teaspoon cayenne pepper",
+          "to_text": "0.125 teaspoon cayenne pepper, or more to taste",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-d23b070482.t1",
+      "evidence_quote": "I added extra cayenne pepper"
+    },
+    {
+      "source_review": {
+        "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+        "reviewer": null,
+        "rating": 4,
+        "review_id": "rev-d23b070482",
+        "sources": [
+          "reviews[5]",
+          "featured_tweaks[4]"
+        ],
+        "featured": true,
+        "rank": 5
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "Salt and freshly ground pepper, to taste",
+          "to_text": "Salt and plenty of freshly ground black pepper, to taste",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-d23b070482.t2",
+      "evidence_quote": "lots of black pepper"
+    }
+  ],
+  "enhancement_summary": {
+    "total_changes": 8,
+    "change_types": [
+      "ingredient_substitution",
+      "quantity_adjustment"
+    ],
+    "expected_impact": "As stated by the reviewer.; As stated by the reviewer.; As stated by the reviewer. (and 1 more improvements)"
+  },
+  "description": "Made with sweet potatoes and seasoned with ginger, nutmeg, and cayenne pepper, this creamy soup is topped with honey-roasted peanuts.",
+  "servings": "8",
+  "prep_time": null,
+  "cook_time": null,
+  "total_time": null,
+  "created_at": "2026-10-05T20:39:10.590084",
+  "pipeline_version": "2.0.0",
+  "source_recipe_hash": "a49b43e465c77227",
+  "extraction_results": [
+    {
+      "review_id": "rev-24b0a3dc6c",
+      "status": "failed",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [
+        "retry: the API call failed (no recorded response for review rev-24b0a3dc6c)",
+        "the API call failed (no recorded response for review rev-24b0a3dc6c)"
+      ],
+      "attempts": 2
+    },
+    {
+      "review_id": "rev-b9fd601a6f",
+      "status": "failed",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [
+        "retry: the API call failed (no recorded response for review rev-b9fd601a6f)",
+        "the API call failed (no recorded response for review rev-b9fd601a6f)"
+      ],
+      "attempts": 2
+    },
+    {
+      "review_id": "rev-26e7c1fada",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-26e7c1fada.t1",
+          "review_id": "rev-26e7c1fada",
+          "modification_type": "ingredient_substitution",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-26e7c1fada.t1.e1",
+              "tweak_id": "rev-26e7c1fada.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1.5 pounds peeled raw sweet potatoes",
+              "replace": "1 large sweet potato and 3 white potatoes, peeled",
+              "add": null,
+              "line_id": "ing-1"
+            },
+            {
+              "id": "rev-26e7c1fada.t1.e2",
+              "tweak_id": "rev-26e7c1fada.t1",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Add sweet potatoes, then onion",
+              "replace": "Add potatoes, then onion",
+              "add": null,
+              "line_id": "step-1"
+            },
+            {
+              "id": "rev-26e7c1fada.t1.e3",
+              "tweak_id": "rev-26e7c1fada.t1",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "until sweet potatoes are tender",
+              "replace": "until potatoes are tender",
+              "add": null,
+              "line_id": "step-4"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-26e7c1fada.t2",
+          "review_id": "rev-26e7c1fada",
+          "modification_type": "ingredient_substitution",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I also substituted 2% milk instead of half-and-half or whole milk",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-26e7c1fada.t2.e1",
+              "tweak_id": "rev-26e7c1fada.t2",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1.5 cups half-and-half (or whole milk)",
+              "replace": "1.5 cups 2% milk",
+              "add": null,
+              "line_id": "ing-10"
+            },
+            {
+              "id": "rev-26e7c1fada.t2.e2",
+              "tweak_id": "rev-26e7c1fada.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "pour in a little half-and-half",
+              "replace": "pour in a little 2% milk",
+              "add": null,
+              "line_id": "step-5"
+            },
+            {
+              "id": "rev-26e7c1fada.t2.e3",
+              "tweak_id": "rev-26e7c1fada.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "add enough half-and-half",
+              "replace": "add enough 2% milk",
+              "add": null,
+              "line_id": "step-6"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-043991c914",
+      "status": "failed",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [
+        "retry: the API call failed (no recorded response for review rev-043991c914)",
+        "the API call failed (no recorded response for review rev-043991c914)"
+      ],
+      "attempts": 2
+    },
+    {
+      "review_id": "rev-d23b070482",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-d23b070482.t1",
+          "review_id": "rev-d23b070482",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I added extra cayenne pepper",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-d23b070482.t1.e1",
+              "tweak_id": "rev-d23b070482.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "0.125 teaspoon cayenne pepper",
+              "replace": "0.125 teaspoon cayenne pepper, or more to taste",
+              "add": null,
+              "line_id": "ing-8"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-d23b070482.t2",
+          "review_id": "rev-d23b070482",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "lots of black pepper",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-d23b070482.t2.e1",
+              "tweak_id": "rev-d23b070482.t2",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "freshly ground pepper",
+              "replace": "plenty of freshly ground black pepper",
+              "add": null,
+              "line_id": "ing-11"
+            }
+          ],
+          "warnings": [
+            "ing-11: words in neither review nor recipe: plenty"
+          ]
+        },
+        {
+          "id": "rev-d23b070482.t3",
+          "review_id": "rev-d23b070482",
+          "modification_type": "ingredient_substitution",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "used heavy cream instead of 1/2 & 1/2",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-d23b070482.t3.e1",
+              "tweak_id": "rev-d23b070482.t3",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1.5 cups half-and-half (or whole milk)",
+              "replace": "1.5 cups heavy cream",
+              "add": null,
+              "line_id": "ing-10"
+            },
+            {
+              "id": "rev-d23b070482.t3.e2",
+              "tweak_id": "rev-d23b070482.t3",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "pour in a little half-and-half",
+              "replace": "pour in a little heavy cream",
+              "add": null,
+              "line_id": "step-5"
+            },
+            {
+              "id": "rev-d23b070482.t3.e3",
+              "tweak_id": "rev-d23b070482.t3",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "add enough half-and-half",
+              "replace": "add enough heavy cream",
+              "add": null,
+              "line_id": "step-6"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-d23b070482.t4",
+          "review_id": "rev-d23b070482",
+          "modification_type": "technique_change",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I think it would also work fine in the oven",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "edits": [],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-8d336a5962",
+      "status": "failed",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [
+        "retry: the API call failed (no recorded response for review rev-8d336a5962)",
+        "the API call failed (no recorded response for review rev-8d336a5962)"
+      ],
+      "attempts": 2
+    }
+  ],
+  "tweak_outcomes": [
+    {
+      "tweak_id": "rev-26e7c1fada.t1",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-26e7c1fada.t1.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-1",
+          "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+          "after": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-26e7c1fada.t1.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-1",
+          "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+          "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-26e7c1fada.t1.e3",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-4",
+          "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+          "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-26e7c1fada.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-26e7c1fada.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-10",
+          "before": "1.5 cups half-and-half (or whole milk)",
+          "after": "1.5 cups 2% milk",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-26e7c1fada.t2.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-5",
+          "before": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+          "after": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-26e7c1fada.t2.e3",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-6",
+          "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+          "after": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-d23b070482.t1",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-d23b070482.t1.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-8",
+          "before": "0.125 teaspoon cayenne pepper",
+          "after": "0.125 teaspoon cayenne pepper, or more to taste",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-d23b070482.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-d23b070482.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-11",
+          "before": "Salt and freshly ground pepper, to taste",
+          "after": "Salt and plenty of freshly ground black pepper, to taste",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-d23b070482.t3",
+      "status": "refused",
+      "reason": null,
+      "detail": "rev-d23b070482.t3.e1: conflict: ing-10 was already changed by rev-26e7c1fada.t2; rev-d23b070482.t3.e2: conflict: 'pour in a little half-and-half' is no longer on step-5; rev-26e7c1fada.t2 changed it; rev-d23b070482.t3.e3: conflict: 'add enough half-and-half' is no longer on step-6; rev-26e7c1fada.t2 changed it",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-d23b070482.t3.e1",
+          "status": "refused",
+          "reason": "conflict",
+          "detail": "ing-10 was already changed by rev-26e7c1fada.t2",
+          "line_id": "ing-10",
+          "before": null,
+          "after": null,
+          "match_method": null,
+          "match_score": null
+        },
+        {
+          "edit_id": "rev-d23b070482.t3.e2",
+          "status": "refused",
+          "reason": "conflict",
+          "detail": "'pour in a little half-and-half' is no longer on step-5; rev-26e7c1fada.t2 changed it",
+          "line_id": "step-5",
+          "before": null,
+          "after": null,
+          "match_method": null,
+          "match_score": null
+        },
+        {
+          "edit_id": "rev-d23b070482.t3.e3",
+          "status": "refused",
+          "reason": "conflict",
+          "detail": "'add enough half-and-half' is no longer on step-6; rev-26e7c1fada.t2 changed it",
+          "line_id": "step-6",
+          "before": null,
+          "after": null,
+          "match_method": null,
+          "match_score": null
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-d23b070482.t4",
+      "status": "skipped",
+      "reason": "not_tried",
+      "detail": "",
+      "edit_outcomes": []
+    }
+  ],
+  "status": "enhanced",
+  "reviews": [
+    {
+      "text": "I made this with canned yams. I added roasted Brussels Sprouts and peppers. I drizzled heavy cream at the end. Loved the contrast of the roasted greens to the sweet and spicy. Turned out amazing!",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-24b0a3dc6c",
+      "sources": [
+        "reviews[0]",
+        "featured_tweaks[0]"
+      ],
+      "featured": true,
+      "rank": 1
+    },
+    {
+      "text": "It was amazing!! The portion is only enough for 2-3 people. Very good as is but when I make it again I will use fresh ginger to give it more of a ginger flavour.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-b9fd601a6f",
+      "sources": [
+        "reviews[2]",
+        "featured_tweaks[1]"
+      ],
+      "featured": true,
+      "rank": 2
+    },
+    {
+      "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-26e7c1fada",
+      "sources": [
+        "reviews[3]",
+        "featured_tweaks[2]"
+      ],
+      "featured": true,
+      "rank": 3
+    },
+    {
+      "text": "Def has a kick! Very thick.. Even w 2% milk- will use more broth next time. Used fresh grated ginger. Hearty and yummy!",
+      "reviewer": null,
+      "rating": 4,
+      "review_id": "rev-043991c914",
+      "sources": [
+        "reviews[4]",
+        "featured_tweaks[3]"
+      ],
+      "featured": true,
+      "rank": 4
+    },
+    {
+      "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+      "reviewer": null,
+      "rating": 4,
+      "review_id": "rev-d23b070482",
+      "sources": [
+        "reviews[5]",
+        "featured_tweaks[4]"
+      ],
+      "featured": true,
+      "rank": 5
+    },
+    {
+      "text": "I kinda followed this recipe, how much is 1.5lbs of sweet potato any ways, was pretty awesome!! However, I forgot to get ground ginger and used minced, they don't measure out the same... lolI shared it with my cooking friends and we all really liked it, even if the ginger was rowdy AF..",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-8d336a5962",
+      "sources": [
+        "reviews[1]"
+      ],
+      "featured": false,
+      "rank": 6
+    }
+  ],
+  "recipe_diff": [
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-1",
+      "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+      "after": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+      "tweak_ids": [
+        "rev-26e7c1fada.t1"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-8",
+      "before": "0.125 teaspoon cayenne pepper",
+      "after": "0.125 teaspoon cayenne pepper, or more to taste",
+      "tweak_ids": [
+        "rev-d23b070482.t1"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-10",
+      "before": "1.5 cups half-and-half (or whole milk)",
+      "after": "1.5 cups 2% milk",
+      "tweak_ids": [
+        "rev-26e7c1fada.t2"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-11",
+      "before": "Salt and freshly ground pepper, to taste",
+      "after": "Salt and plenty of freshly ground black pepper, to taste",
+      "tweak_ids": [
+        "rev-d23b070482.t2"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-1",
+      "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+      "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+      "tweak_ids": [
+        "rev-26e7c1fada.t1"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-4",
+      "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+      "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+      "tweak_ids": [
+        "rev-26e7c1fada.t1"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-5",
+      "before": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+      "after": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+      "tweak_ids": [
+        "rev-26e7c1fada.t2"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-6",
+      "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+      "after": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+      "tweak_ids": [
+        "rev-26e7c1fada.t2"
+      ]
+    }
+  ],
+  "diff_verified": true,
+  "diff_problems": [],
+  "extraction_source": "replay of recorded responses (recipe_10813.json, recipe_144299.json, recipe_19117.json, recipe_77935.json)",
+  "model": "gpt-3.5-turbo",
+  "prompt_version": "37cc3c30e9f6"
+}

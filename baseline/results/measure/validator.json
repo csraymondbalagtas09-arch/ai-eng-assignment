@@ -1,0 +1,109 @@
+{
+  "mode": "mocked (defective answers written after implementation; valid answers = all labelled tweaks)",
+  "defects_rejected": "9/10",
+  "valid_accepted": "26/26",
+  "cases": [
+    {
+      "case": "D1 paraphrased quote",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "quote 'I left out the water' does not appear in the review; copy it exactly"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D2 invented amount (observed O3)",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: amount 1 in '1 cup roasted Brussels Sprouts, halved' is not stated in the review or derived from it and the recipe"
+      ],
+      "warnings": [
+        "ing-1: words in neither review nor recipe: halved"
+      ]
+    },
+    {
+      "case": "D3 find on the wrong line",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: find '2 teaspoons hot water' is not in ing-5 (it is in ing-6)"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D4 tweak not in the review",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "quote 'I added walnuts' does not appear in the review; copy it exactly"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D5 partial remove",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: remove must use the whole line as find: '2 teaspoons hot water'"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D6 replace without replacement",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: replace needs replacement text ('' deletes)"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D7 unit swap tsp -> tablespoon",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: amount 1 tbsp in '1 tablespoon salt' is not stated in the review with that unit; do not convert units"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D8 suggestion labelled tried",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "status is 'tried' but the quote describes a plan ('next time'); use 'suggested', or quote where the reviewer says they did it"
+      ],
+      "warnings": []
+    },
+    {
+      "case": "D9 invented descriptor",
+      "should": "reject",
+      "decision": "accept",
+      "correct": false,
+      "problems": [],
+      "warnings": [
+        "ing-2: words in neither review nor recipe: bell, diced"
+      ]
+    },
+    {
+      "case": "D10 unit conversion",
+      "should": "reject",
+      "decision": "reject",
+      "correct": true,
+      "problems": [
+        "edit 1: amount 0.33 in '0.33 tablespoon salt' is not stated in the review or derived from it and the recipe"
+      ],
+      "warnings": []
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "recipe_id": "144299_enhanced",
+  "original_recipe_id": "144299",
+  "title": "Nikujaga (Japanese-Style Meat and Potatoes) (Community Enhanced)",
+  "ingredients": [
+    "8 snow peas",
+    "1 tablespoon vegetable oil",
+    "0.25 pound sirloin steak, thinly sliced",
+    "4 potatoes, cut into bite sized pieces",
+    "2 cups dashi soup",
+    "0.25 cup soy sauce, or more to taste",
+    "0.25 cup sake",
+    "1 tablespoon white sugar, or more to taste",
+    "1 onion, chopped"
+  ],
+  "instructions": [
+    "Put the snow peas in a small saucepan with enough water to cover; bring to a boil and immediately remove from heat. Drain and set aside.",
+    "Heat the oil in a large skillet over medium heat; cook the beef in the oil until browned. Add the potatoes; cook and stir until soft, 5 to 7 minutes. Stir the dashi soup, soy sauce, sake, and sugar into the mixture; simmer for 10 minutes.",
+    "Reduce heat to low and scatter the chopped onion over the mixture; allow to simmer until the liquid is nearly completely evaporated, about 15 minutes more. Top the mixture with the snow peas to serve."
+  ],
+  "modifications_applied": [
+    {
+      "source_review": {
+        "text": "Overall it was pretty good but the measurements were way off. HAS to be a typo. 1/4lb of meat to serve 4??? I used a lil over 1lb and it even then it was swimming in the broth. After following the recipe, i added extra soy and sugar only because i thought the flavor was a little on the lite side. Overall good.** If you cant find dashi, beef broth/stock works just fine. My japanese mom happen to have some so i was able to get some from her.",
+        "reviewer": null,
+        "rating": 4,
+        "review_id": "rev-fa5985a5dd",
+        "sources": [
+          "reviews[1]",
+          "featured_tweaks[0]"
+        ],
+        "featured": true,
+        "rank": 1
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "0.25 cup soy sauce",
+          "to_text": "0.25 cup soy sauce, or more to taste",
+          "operation": "replace"
+        },
+        {
+          "type": "ingredient",
+          "from_text": "1 tablespoon white sugar",
+          "to_text": "1 tablespoon white sugar, or more to taste",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-fa5985a5dd.t2",
+      "evidence_quote": "i added extra soy and sugar"
+    }
+  ],
+  "enhancement_summary": {
+    "total_changes": 2,
+    "change_types": [
+      "quantity_adjustment"
+    ],
+    "expected_impact": "As stated by the reviewer."
+  },
+  "description": "This main dish recipe features sliced beef sirloin cooked with potatoes, and onion in a sauce made with prepared dashi soup, sake, and soy sauce.",
+  "servings": "4",
+  "prep_time": "PT15M",
+  "cook_time": "PT35M",
+  "total_time": "PT50M",
+  "created_at": "2026-10-05T20:39:10.562728",
+  "pipeline_version": "2.0.0",
+  "source_recipe_hash": "c68776ea6347bae4",
+  "extraction_results": [
+    {
+      "review_id": "rev-fa5985a5dd",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-fa5985a5dd.t1",
+          "review_id": "rev-fa5985a5dd",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I used a lil over 1lb",
+          "status": "tried",
+          "reviewer_outcome": "mixed",
+          "edits": [
+            {
+              "id": "rev-fa5985a5dd.t1.e1",
+              "tweak_id": "rev-fa5985a5dd.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "0.25 pound sirloin steak",
+              "replace": "a little over 1 pound sirloin steak",
+              "add": null,
+              "line_id": "ing-2"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-fa5985a5dd.t2",
+          "review_id": "rev-fa5985a5dd",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "i added extra soy and sugar",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-fa5985a5dd.t2.e1",
+              "tweak_id": "rev-fa5985a5dd.t2",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "0.25 cup soy sauce",
+              "replace": "0.25 cup soy sauce, or more to taste",
+              "add": null,
+              "line_id": "ing-5"
+            },
+            {
+              "id": "rev-fa5985a5dd.t2.e2",
+              "tweak_id": "rev-fa5985a5dd.t2",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1 tablespoon white sugar",
+              "replace": "1 tablespoon white sugar, or more to taste",
+              "add": null,
+              "line_id": "ing-7"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-fa5985a5dd.t3",
+          "review_id": "rev-fa5985a5dd",
+          "modification_type": "ingredient_substitution",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "If you cant find dashi, beef broth/stock works just fine",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "edits": [
+            {
+              "id": "rev-fa5985a5dd.t3.e1",
+              "tweak_id": "rev-fa5985a5dd.t3",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "2 cups dashi soup",
+              "replace": "2 cups dashi soup (or beef broth)",
+              "add": null,
+              "line_id": "ing-4"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-c0466b6484",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-c0466b6484.t1",
+          "review_id": "rev-c0466b6484",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "You need at least a 1lb of beef for this",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "edits": [
+            {
+              "id": "rev-c0466b6484.t1.e1",
+              "tweak_id": "rev-c0466b6484.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "0.25 pound sirloin steak",
+              "replace": "1 pound sirloin steak",
+              "add": null,
+              "line_id": "ing-2"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-c0466b6484.t2",
+          "review_id": "rev-c0466b6484",
+          "modification_type": "addition",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I threw in carrots since i had them around",
+          "status": "tried",
+          "reviewer_outcome": "unclear",
+          "edits": [
+            {
+              "id": "rev-c0466b6484.t2.e1",
+              "tweak_id": "rev-c0466b6484.t2",
+              "target": "ingredients",
+              "operation": "add_after",
+              "find": "4 potatoes, cut into bite sized pieces",
+              "replace": null,
+              "add": "carrots (amount not specified)",
+              "line_id": "ing-3"
+            },
+            {
+              "id": "rev-c0466b6484.t2.e2",
+              "tweak_id": "rev-c0466b6484.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Add the potatoes;",
+              "replace": "Add the potatoes and carrots;",
+              "add": null,
+              "line_id": "step-1"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    }
+  ],
+  "tweak_outcomes": [
+    {
+      "tweak_id": "rev-fa5985a5dd.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-fa5985a5dd.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-5",
+          "before": "0.25 cup soy sauce",
+          "after": "0.25 cup soy sauce, or more to taste",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-fa5985a5dd.t2.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-7",
+          "before": "1 tablespoon white sugar",
+          "after": "1 tablespoon white sugar, or more to taste",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-fa5985a5dd.t1",
+      "status": "skipped",
+      "reason": "outcome_not_positive",
+      "detail": "",
+      "edit_outcomes": []
+    },
+    {
+      "tweak_id": "rev-fa5985a5dd.t3",
+      "status": "skipped",
+      "reason": "not_tried",
+      "detail": "",
+      "edit_outcomes": []
+    },
+    {
+      "tweak_id": "rev-c0466b6484.t1",
+      "status": "skipped",
+      "reason": "not_tried",
+      "detail": "",
+      "edit_outcomes": []
+    },
+    {
+      "tweak_id": "rev-c0466b6484.t2",
+      "status": "skipped",
+      "reason": "outcome_not_positive",
+      "detail": "",
+      "edit_outcomes": []
+    }
+  ],
+  "status": "enhanced",
+  "reviews": [
+    {
+      "text": "Overall it was pretty good but the measurements were way off. HAS to be a typo. 1/4lb of meat to serve 4??? I used a lil over 1lb and it even then it was swimming in the broth. After following the recipe, i added extra soy and sugar only because i thought the flavor was a little on the lite side. Overall good.** If you cant find dashi, beef broth/stock works just fine. My japanese mom happen to have some so i was able to get some from her.",
+      "reviewer": null,
+      "rating": 4,
+      "review_id": "rev-fa5985a5dd",
+      "sources": [
+        "reviews[1]",
+        "featured_tweaks[0]"
+      ],
+      "featured": true,
+      "rank": 1
+    },
+    {
+      "text": "Great recipe and not hard, even for someone like me who never cooks. The taste is really good, but i agree with everyone else about the measurements. You need at least a 1lb of beef for this. Also, I threw in carrots since i had them around.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-c0466b6484",
+      "sources": [
+        "reviews[0]"
+      ],
+      "featured": false,
+      "rank": 2
+    }
+  ],
+  "recipe_diff": [
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-5",
+      "before": "0.25 cup soy sauce",
+      "after": "0.25 cup soy sauce, or more to taste",
+      "tweak_ids": [
+        "rev-fa5985a5dd.t2"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-7",
+      "before": "1 tablespoon white sugar",
+      "after": "1 tablespoon white sugar, or more to taste",
+      "tweak_ids": [
+        "rev-fa5985a5dd.t2"
+      ]
+    }
+  ],
+  "diff_verified": true,
+  "diff_problems": [],
+  "extraction_source": "replay of recorded responses (recipe_10813.json, recipe_144299.json, recipe_19117.json, recipe_77935.json)",
+  "model": "gpt-3.5-turbo",
+  "prompt_version": "37cc3c30e9f6"
+}

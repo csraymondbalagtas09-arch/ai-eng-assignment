@@ -1,0 +1,2525 @@
+{
+  "implementation": {
+    "label": "improved-fixtures",
+    "path": "src",
+    "fingerprint": "9d7ba74a2b3e716f"
+  },
+  "fixtures": [
+    {
+      "id": "F1_multi_tweak",
+      "covers": [
+        "multiple_tweaks"
+      ],
+      "description": "One review lists four numbered tweaks of four different types.",
+      "runs": [
+        {
+          "selection": "all reviews extracted (deterministic)",
+          "selection_mode": "deterministic",
+          "reviews_analysed": [
+            0
+          ],
+          "captured": [
+            "F1.T1",
+            "F1.T2",
+            "F1.T3",
+            "F1.T4"
+          ],
+          "groups": [
+            [
+              "F1.T1"
+            ],
+            [
+              "F1.T2"
+            ],
+            [
+              "F1.T3"
+            ],
+            [
+              "F1.T4"
+            ]
+          ],
+          "passed_on": [
+            "F1.T1",
+            "F1.T2",
+            "F1.T3",
+            "F1.T4"
+          ],
+          "edits_given": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 1,
+              "find": "1 cup white sugar",
+              "replace": "0.5 cup white sugar"
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 2,
+              "find": "1 cup packed brown sugar",
+              "replace": "1.5 cups packed brown sugar"
+            },
+            {
+              "target": "ingredients",
+              "operation": "remove",
+              "line": 6,
+              "find": "2 teaspoons hot water"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 3,
+              "find": "Dissolve baking soda in hot water. Add to batter",
+              "replace": "Add baking soda to batter"
+            },
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line": 7,
+              "find": "0.5 teaspoon salt",
+              "add": "1 teaspoon cream of tartar"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 3,
+              "find": "along with salt.",
+              "replace": "along with salt and cream of tartar."
+            },
+            {
+              "target": "instructions",
+              "operation": "add_after",
+              "line": 4,
+              "find": "Stir in flour, chocolate chips, and walnuts.",
+              "add": "Cover and refrigerate the dough for at least 1 hour."
+            }
+          ],
+          "entries": [
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F1.T1"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F1.T2"
+              ],
+              "type": "removal",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F1.T3"
+              ],
+              "type": "addition",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F1.T4"
+              ],
+              "type": "technique_change",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            }
+          ],
+          "output": {
+            "recipe_id": "F1_enhanced",
+            "original_recipe_id": "F1",
+            "title": "Best Chocolate Chip Cookies (Community Enhanced)",
+            "ingredients": [
+              "1 cup butter, softened",
+              "0.5 cup white sugar",
+              "1.5 cups packed brown sugar",
+              "2 eggs",
+              "2 teaspoons vanilla extract",
+              "1 teaspoon baking soda",
+              "0.5 teaspoon salt",
+              "1 teaspoon cream of tartar",
+              "3 cups all-purpose flour",
+              "2 cups semisweet chocolate chips",
+              "1 cup chopped walnuts"
+            ],
+            "instructions": [
+              "Gather your ingredients, making sure your butter is softened, and your eggs are room temperature.",
+              "Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+              "Beat in eggs, one at a time, then stir in vanilla.",
+              "Add baking soda to batter along with salt and cream of tartar.",
+              "Stir in flour, chocolate chips, and walnuts.",
+              "Cover and refrigerate the dough for at least 1 hour.",
+              "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+              "Bake in the preheated oven until edges are nicely browned, about 10 minutes.",
+              "Cool on the baking sheets briefly before removing to a wire rack to cool completely.",
+              "Store in an airtight container or serve immediately and enjoy!"
+            ],
+            "modifications_applied": [
+              {
+                "source_review": {
+                  "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-7c177579da",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "quantity_adjustment",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "1 cup white sugar",
+                    "to_text": "0.5 cup white sugar",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "ingredient",
+                    "from_text": "1 cup packed brown sugar",
+                    "to_text": "1.5 cups packed brown sugar",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-7c177579da.t1",
+                "evidence_quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar"
+              },
+              {
+                "source_review": {
+                  "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-7c177579da",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "removal",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "2 teaspoons hot water",
+                    "to_text": "",
+                    "operation": "remove"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Dissolve baking soda in hot water. Add to batter along with salt.",
+                    "to_text": "Add baking soda to batter along with salt.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-7c177579da.t2",
+                "evidence_quote": "I omitted the water"
+              },
+              {
+                "source_review": {
+                  "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-7c177579da",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "addition",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "",
+                    "to_text": "1 teaspoon cream of tartar",
+                    "operation": "add"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Add baking soda to batter along with salt.",
+                    "to_text": "Add baking soda to batter along with salt and cream of tartar.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-7c177579da.t3",
+                "evidence_quote": "I added a teaspoon of cream of tartar to the batter"
+              },
+              {
+                "source_review": {
+                  "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-7c177579da",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "technique_change",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "instruction",
+                    "from_text": "",
+                    "to_text": "Cover and refrigerate the dough for at least 1 hour.",
+                    "operation": "add"
+                  }
+                ],
+                "tweak_id": "rev-7c177579da.t4",
+                "evidence_quote": "I refrigerated the batter for at least an hour before scooping and baking"
+              }
+            ],
+            "enhancement_summary": {
+              "total_changes": 7,
+              "change_types": [
+                "addition",
+                "quantity_adjustment",
+                "removal",
+                "technique_change"
+              ],
+              "expected_impact": "As stated by the reviewer.; As stated by the reviewer.; As stated by the reviewer. (and 1 more improvements)"
+            },
+            "description": null,
+            "servings": null,
+            "prep_time": null,
+            "cook_time": null,
+            "total_time": null,
+            "pipeline_version": "2.0.0",
+            "source_recipe_hash": "ce03e6b0f7533f5f",
+            "extraction_results": [
+              {
+                "review_id": "rev-7c177579da",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-7c177579da.t1",
+                    "review_id": "rev-7c177579da",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-7c177579da.t1.e1",
+                        "tweak_id": "rev-7c177579da.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1 cup white sugar",
+                        "replace": "0.5 cup white sugar",
+                        "add": null,
+                        "line_id": "ing-1"
+                      },
+                      {
+                        "id": "rev-7c177579da.t1.e2",
+                        "tweak_id": "rev-7c177579da.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1 cup packed brown sugar",
+                        "replace": "1.5 cups packed brown sugar",
+                        "add": null,
+                        "line_id": "ing-2"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-7c177579da.t2",
+                    "review_id": "rev-7c177579da",
+                    "modification_type": "removal",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I omitted the water",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-7c177579da.t2.e1",
+                        "tweak_id": "rev-7c177579da.t2",
+                        "target": "ingredients",
+                        "operation": "remove",
+                        "find": "2 teaspoons hot water",
+                        "replace": null,
+                        "add": null,
+                        "line_id": "ing-6"
+                      },
+                      {
+                        "id": "rev-7c177579da.t2.e2",
+                        "tweak_id": "rev-7c177579da.t2",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "Dissolve baking soda in hot water. Add to batter",
+                        "replace": "Add baking soda to batter",
+                        "add": null,
+                        "line_id": "step-3"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-7c177579da.t3",
+                    "review_id": "rev-7c177579da",
+                    "modification_type": "addition",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I added a teaspoon of cream of tartar to the batter",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-7c177579da.t3.e1",
+                        "tweak_id": "rev-7c177579da.t3",
+                        "target": "ingredients",
+                        "operation": "add_after",
+                        "find": "0.5 teaspoon salt",
+                        "replace": null,
+                        "add": "1 teaspoon cream of tartar",
+                        "line_id": "ing-7"
+                      },
+                      {
+                        "id": "rev-7c177579da.t3.e2",
+                        "tweak_id": "rev-7c177579da.t3",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "along with salt.",
+                        "replace": "along with salt and cream of tartar.",
+                        "add": null,
+                        "line_id": "step-3"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-7c177579da.t4",
+                    "review_id": "rev-7c177579da",
+                    "modification_type": "technique_change",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I refrigerated the batter for at least an hour before scooping and baking",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-7c177579da.t4.e1",
+                        "tweak_id": "rev-7c177579da.t4",
+                        "target": "instructions",
+                        "operation": "add_after",
+                        "find": "Stir in flour, chocolate chips, and walnuts.",
+                        "replace": null,
+                        "add": "Cover and refrigerate the dough for at least 1 hour.",
+                        "line_id": "step-4"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              }
+            ],
+            "tweak_outcomes": [
+              {
+                "tweak_id": "rev-7c177579da.t1",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-7c177579da.t1.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-1",
+                    "before": "1 cup white sugar",
+                    "after": "0.5 cup white sugar",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-7c177579da.t1.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-2",
+                    "before": "1 cup packed brown sugar",
+                    "after": "1.5 cups packed brown sugar",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-7c177579da.t2",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-7c177579da.t2.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-6",
+                    "before": "2 teaspoons hot water",
+                    "after": null,
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-7c177579da.t2.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-3",
+                    "before": "Dissolve baking soda in hot water. Add to batter along with salt.",
+                    "after": "Add baking soda to batter along with salt.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-7c177579da.t3",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-7c177579da.t3.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-7",
+                    "before": null,
+                    "after": "1 teaspoon cream of tartar",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-7c177579da.t3.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-3",
+                    "before": "Add baking soda to batter along with salt.",
+                    "after": "Add baking soda to batter along with salt and cream of tartar.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-7c177579da.t4",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-7c177579da.t4.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-4",
+                    "before": null,
+                    "after": "Cover and refrigerate the dough for at least 1 hour.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              }
+            ],
+            "status": "enhanced",
+            "reviews": [
+              {
+                "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-7c177579da",
+                "sources": [
+                  "reviews[0]"
+                ],
+                "featured": false,
+                "rank": 1
+              }
+            ],
+            "recipe_diff": [
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-1",
+                "before": "1 cup white sugar",
+                "after": "0.5 cup white sugar",
+                "tweak_ids": [
+                  "rev-7c177579da.t1"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-2",
+                "before": "1 cup packed brown sugar",
+                "after": "1.5 cups packed brown sugar",
+                "tweak_ids": [
+                  "rev-7c177579da.t1"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "removed",
+                "line_id": "ing-6",
+                "before": "2 teaspoons hot water",
+                "after": null,
+                "tweak_ids": [
+                  "rev-7c177579da.t2"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "added",
+                "line_id": "ing-7",
+                "before": null,
+                "after": "1 teaspoon cream of tartar",
+                "tweak_ids": [
+                  "rev-7c177579da.t3"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-3",
+                "before": "Dissolve baking soda in hot water. Add to batter along with salt.",
+                "after": "Add baking soda to batter along with salt and cream of tartar.",
+                "tweak_ids": [
+                  "rev-7c177579da.t2",
+                  "rev-7c177579da.t3"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "added",
+                "line_id": "step-4",
+                "before": null,
+                "after": "Cover and refrigerate the dough for at least 1 hour.",
+                "tweak_ids": [
+                  "rev-7c177579da.t4"
+                ]
+              }
+            ],
+            "diff_verified": true,
+            "diff_problems": [],
+            "extraction_source": "model gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo",
+            "prompt_version": "37cc3c30e9f6"
+          },
+          "warnings": [],
+          "scores": {
+            "extraction": {
+              "reviews_analysed": "1/1",
+              "tweaks_captured": "4/4",
+              "tried_tweaks_captured": "4/4",
+              "captured_as_own_record": "4/4",
+              "missed": {},
+              "ineligible_passed_to_modifier": {}
+            },
+            "edits": {
+              "edits_given": 7,
+              "expected_line_changes": 9,
+              "correct": 9,
+              "missing": [],
+              "unexpected": [],
+              "recipe_exact": true
+            },
+            "reporting": {
+              "output_written": true,
+              "change_records": 7,
+              "noop_records": 0,
+              "claimed_but_not_in_text": [],
+              "in_text_but_not_recorded": [],
+              "summary_total_changes": 7,
+              "title_claims_enhancement": true,
+              "text_actually_changed": true,
+              "tweaks_accounted_for": "4/4",
+              "tweak_records_with_no_tweak": 0,
+              "type_mislabelled": [],
+              "records_with_review_pointer": "4/4",
+              "records_with_evidence_quote": "4/4",
+              "title_honest": true
+            },
+            "end_to_end": {
+              "recipe_exact": true,
+              "missing": [],
+              "unexpected": []
+            }
+          }
+        }
+      ],
+      "distinct_outputs_across_runs": 1
+    },
+    {
+      "id": "F2_untested_suggestions",
+      "covers": [
+        "untested_suggestions"
+      ],
+      "description": "Two reviews: one unspecified tried change and two 'next time / I would prefer' suggestions. Nothing should change.",
+      "runs": [
+        {
+          "selection": "all reviews extracted (deterministic)",
+          "selection_mode": "deterministic",
+          "reviews_analysed": [
+            0,
+            1
+          ],
+          "captured": [
+            "F2.A1",
+            "F2.A2",
+            "F2.A3"
+          ],
+          "groups": [
+            [
+              "F2.A1"
+            ],
+            [
+              "F2.A2"
+            ],
+            [
+              "F2.A3"
+            ]
+          ],
+          "passed_on": [],
+          "edits_given": [],
+          "entries": [
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F2.A1"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F2.A2"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F2.A3"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            }
+          ],
+          "output": {
+            "recipe_id": "F2_enhanced",
+            "original_recipe_id": "F2",
+            "title": "Spicy Apple Cake",
+            "ingredients": [
+              "1.5 cups all-purpose flour",
+              "1 teaspoon ground cinnamon",
+              "1 teaspoon baking powder",
+              "0.5 teaspoon baking soda",
+              "0.5 teaspoon salt",
+              "0.5 teaspoon ground nutmeg",
+              "1 cup brown sugar",
+              "0.5 cup shortening",
+              "0.25 cup white sugar",
+              "2 eggs",
+              "1 teaspoon vanilla extract",
+              "0.5 cup milk",
+              "2 cups apple - peeled, cored, and chopped",
+              "2 cups sifted confectioners' sugar",
+              "0.25 cup shortening",
+              "0.25 teaspoon ground cinnamon",
+              "1 pinch ground nutmeg",
+              "0.25 cup evaporated milk"
+            ],
+            "instructions": [
+              "Preheat the oven to 350 degrees F (175 degrees C). Grease and flour a 9-inch square pan.",
+              "Sift together flour, 1 teaspoon cinnamon, baking powder, baking soda, salt, and nutmeg. Set aside.",
+              "Cream brown sugar, 1/2 cup shortening, and white sugar together in a large bowl until light and fluffy. Beat in eggs one at a time, then stir in vanilla. Beat in flour mixture alternately with milk, mixing until just combined. Stir in chopped apples.",
+              "Spread batter evenly in the prepared pan. Bake in the preheated oven until a toothpick inserted into the center of cake comes out clean, 35 to 40 minutes. Let cool.",
+              "Combine confectioners' sugar, 1/4 cup shortening, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+            ],
+            "modifications_applied": [],
+            "enhancement_summary": {
+              "total_changes": 0,
+              "change_types": [],
+              "expected_impact": "Community-validated recipe improvements"
+            },
+            "description": null,
+            "servings": null,
+            "prep_time": null,
+            "cook_time": null,
+            "total_time": null,
+            "pipeline_version": "2.0.0",
+            "source_recipe_hash": "f5aded8e1c035ee7",
+            "extraction_results": [
+              {
+                "review_id": "rev-3ca4bfb800",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-3ca4bfb800.t1",
+                    "review_id": "rev-3ca4bfb800",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I used a different frosting only because I had some leftover from another cake",
+                    "status": "tried",
+                    "reviewer_outcome": "unclear",
+                    "edits": [],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-3ca4bfb800.t2",
+                    "review_id": "rev-3ca4bfb800",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "The next time I make this I will add one more cup of apples",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-3ca4bfb800.t2.e1",
+                        "tweak_id": "rev-3ca4bfb800.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "2 cups apple",
+                        "replace": "3 cups apple",
+                        "add": null,
+                        "line_id": "ing-12"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-4d178f3fcc",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-4d178f3fcc.t1",
+                    "review_id": "rev-4d178f3fcc",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I would prefer some more apple chunks in it",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-4d178f3fcc.t1.e1",
+                        "tweak_id": "rev-4d178f3fcc.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "2 cups apple - peeled, cored, and chopped",
+                        "replace": "2 cups apple - peeled, cored, and chopped, or more (amount not specified)",
+                        "add": null,
+                        "line_id": "ing-12"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              }
+            ],
+            "tweak_outcomes": [
+              {
+                "tweak_id": "rev-3ca4bfb800.t1",
+                "status": "skipped",
+                "reason": "outcome_not_positive",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-3ca4bfb800.t2",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-4d178f3fcc.t1",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              }
+            ],
+            "status": "unchanged",
+            "reviews": [
+              {
+                "text": "Mmmm, this cake was so good. I made it exactly as directed except I used a different frosting only because I had some leftover from another cake. The next time I make this I will add one more cup of apples because more is better right?!",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-3ca4bfb800",
+                "sources": [
+                  "reviews[0]"
+                ],
+                "featured": false,
+                "rank": 1
+              },
+              {
+                "text": "Will make this one again! (maybe for Thanksgiving dessert) I would prefer some more apple chunks in it, but that is just my preference. This cake is sweet and delicious.",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-4d178f3fcc",
+                "sources": [
+                  "reviews[1]"
+                ],
+                "featured": false,
+                "rank": 2
+              }
+            ],
+            "recipe_diff": [],
+            "diff_verified": true,
+            "diff_problems": [],
+            "extraction_source": "model gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo",
+            "prompt_version": "37cc3c30e9f6"
+          },
+          "warnings": [],
+          "scores": {
+            "extraction": {
+              "reviews_analysed": "2/2",
+              "tweaks_captured": "3/3",
+              "tried_tweaks_captured": "1/1",
+              "captured_as_own_record": "3/3",
+              "missed": {},
+              "ineligible_passed_to_modifier": {}
+            },
+            "edits": {
+              "edits_given": 0,
+              "expected_line_changes": 0,
+              "correct": 0,
+              "missing": [],
+              "unexpected": [],
+              "recipe_exact": true
+            },
+            "reporting": {
+              "output_written": true,
+              "change_records": 0,
+              "noop_records": 0,
+              "claimed_but_not_in_text": [],
+              "in_text_but_not_recorded": [],
+              "summary_total_changes": 0,
+              "title_claims_enhancement": false,
+              "text_actually_changed": false,
+              "tweaks_accounted_for": "3/3",
+              "tweak_records_with_no_tweak": 0,
+              "type_mislabelled": [],
+              "records_with_review_pointer": "3/3",
+              "records_with_evidence_quote": "3/3",
+              "title_honest": true
+            },
+            "end_to_end": {
+              "recipe_exact": true,
+              "missing": [],
+              "unexpected": []
+            }
+          }
+        }
+      ],
+      "distinct_outputs_across_runs": 1
+    },
+    {
+      "id": "F3_conflicting_reviews",
+      "covers": [
+        "conflicting_reviews",
+        "multiple_tweaks",
+        "untested_suggestions"
+      ],
+      "description": "Two reviews swap the same dairy ingredient for different things (2% milk vs heavy cream). The 5-star review wins; the 4-star swap is a recorded conflict.",
+      "runs": [
+        {
+          "selection": "all reviews extracted (deterministic)",
+          "selection_mode": "deterministic",
+          "reviews_analysed": [
+            0,
+            1
+          ],
+          "captured": [
+            "F3.S6",
+            "F3.S7",
+            "F3.S11",
+            "F3.S12",
+            "F3.S13",
+            "F3.S14"
+          ],
+          "groups": [
+            [
+              "F3.S6"
+            ],
+            [
+              "F3.S7"
+            ],
+            [
+              "F3.S11"
+            ],
+            [
+              "F3.S12"
+            ],
+            [
+              "F3.S13"
+            ],
+            [
+              "F3.S14"
+            ]
+          ],
+          "passed_on": [
+            "F3.S6",
+            "F3.S7",
+            "F3.S11",
+            "F3.S12"
+          ],
+          "edits_given": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 1,
+              "find": "1.5 pounds peeled raw sweet potatoes",
+              "replace": "1 large sweet potato and 3 white potatoes, peeled"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 1,
+              "find": "Add sweet potatoes, then onion",
+              "replace": "Add potatoes, then onion"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 4,
+              "find": "until sweet potatoes are tender",
+              "replace": "until potatoes are tender"
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 10,
+              "find": "1.5 cups half-and-half (or whole milk)",
+              "replace": "1.5 cups 2% milk"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 5,
+              "find": "pour in a little half-and-half",
+              "replace": "pour in a little 2% milk"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 6,
+              "find": "add enough half-and-half",
+              "replace": "add enough 2% milk"
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 8,
+              "find": "0.125 teaspoon cayenne pepper",
+              "replace": "0.125 teaspoon cayenne pepper, or more to taste"
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 11,
+              "find": "freshly ground pepper",
+              "replace": "plenty of freshly ground black pepper"
+            }
+          ],
+          "entries": [
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F3.S6"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F3.S7"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F3.S11"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F3.S12"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F3.S13"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F3.S14"
+              ],
+              "type": "technique_change",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            }
+          ],
+          "output": {
+            "recipe_id": "F3_enhanced",
+            "original_recipe_id": "F3",
+            "title": "Creamy Sweet Potato With Ginger Soup (Community Enhanced)",
+            "ingredients": [
+              "2 tablespoons olive oil",
+              "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+              "1 large onion, cut into large dice",
+              "1 tablespoon butter",
+              "1 pinch sugar",
+              "3 large garlic cloves, thickly sliced",
+              "1.5 teaspoons ground ginger",
+              "0.5 teaspoon ground nutmeg",
+              "0.125 teaspoon cayenne pepper, or more to taste",
+              "3 cups chicken broth, homemade or from a carton or can",
+              "1.5 cups 2% milk",
+              "Salt and plenty of freshly ground black pepper, to taste",
+              "Garnish: chopped honey-roasted peanuts"
+            ],
+            "instructions": [
+              "Gather the ingredients.",
+              "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+              "Reduce heat to low and add butter, sugar and garlic; continue cooking until all vegetables are a rich spotty caramel color, about 10 minutes longer.",
+              "Add ginger, nutmeg and cayenne pepper; continue to saute until fragrant, 30 seconds to 1 minute longer.",
+              "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+              "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+              "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve."
+            ],
+            "modifications_applied": [
+              {
+                "source_review": {
+                  "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-26e7c1fada",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "ingredient_substitution",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                    "to_text": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "to_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                    "to_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-26e7c1fada.t1",
+                "evidence_quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those"
+              },
+              {
+                "source_review": {
+                  "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-26e7c1fada",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "ingredient_substitution",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "1.5 cups half-and-half (or whole milk)",
+                    "to_text": "1.5 cups 2% milk",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+                    "to_text": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "to_text": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-26e7c1fada.t2",
+                "evidence_quote": "I also substituted 2% milk instead of half-and-half or whole milk"
+              },
+              {
+                "source_review": {
+                  "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+                  "reviewer": null,
+                  "rating": 4,
+                  "review_id": "rev-d23b070482",
+                  "sources": [
+                    "reviews[1]"
+                  ],
+                  "featured": false,
+                  "rank": 2
+                },
+                "modification_type": "quantity_adjustment",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "0.125 teaspoon cayenne pepper",
+                    "to_text": "0.125 teaspoon cayenne pepper, or more to taste",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-d23b070482.t1",
+                "evidence_quote": "I added extra cayenne pepper"
+              },
+              {
+                "source_review": {
+                  "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+                  "reviewer": null,
+                  "rating": 4,
+                  "review_id": "rev-d23b070482",
+                  "sources": [
+                    "reviews[1]"
+                  ],
+                  "featured": false,
+                  "rank": 2
+                },
+                "modification_type": "quantity_adjustment",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "Salt and freshly ground pepper, to taste",
+                    "to_text": "Salt and plenty of freshly ground black pepper, to taste",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-d23b070482.t2",
+                "evidence_quote": "lots of black pepper"
+              }
+            ],
+            "enhancement_summary": {
+              "total_changes": 8,
+              "change_types": [
+                "ingredient_substitution",
+                "quantity_adjustment"
+              ],
+              "expected_impact": "As stated by the reviewer.; As stated by the reviewer.; As stated by the reviewer. (and 1 more improvements)"
+            },
+            "description": null,
+            "servings": null,
+            "prep_time": null,
+            "cook_time": null,
+            "total_time": null,
+            "pipeline_version": "2.0.0",
+            "source_recipe_hash": "a49b43e465c77227",
+            "extraction_results": [
+              {
+                "review_id": "rev-26e7c1fada",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-26e7c1fada.t1",
+                    "review_id": "rev-26e7c1fada",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-26e7c1fada.t1.e1",
+                        "tweak_id": "rev-26e7c1fada.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 pounds peeled raw sweet potatoes",
+                        "replace": "1 large sweet potato and 3 white potatoes, peeled",
+                        "add": null,
+                        "line_id": "ing-1"
+                      },
+                      {
+                        "id": "rev-26e7c1fada.t1.e2",
+                        "tweak_id": "rev-26e7c1fada.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "Add sweet potatoes, then onion",
+                        "replace": "Add potatoes, then onion",
+                        "add": null,
+                        "line_id": "step-1"
+                      },
+                      {
+                        "id": "rev-26e7c1fada.t1.e3",
+                        "tweak_id": "rev-26e7c1fada.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "until sweet potatoes are tender",
+                        "replace": "until potatoes are tender",
+                        "add": null,
+                        "line_id": "step-4"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-26e7c1fada.t2",
+                    "review_id": "rev-26e7c1fada",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I also substituted 2% milk instead of half-and-half or whole milk",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-26e7c1fada.t2.e1",
+                        "tweak_id": "rev-26e7c1fada.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 cups half-and-half (or whole milk)",
+                        "replace": "1.5 cups 2% milk",
+                        "add": null,
+                        "line_id": "ing-10"
+                      },
+                      {
+                        "id": "rev-26e7c1fada.t2.e2",
+                        "tweak_id": "rev-26e7c1fada.t2",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "pour in a little half-and-half",
+                        "replace": "pour in a little 2% milk",
+                        "add": null,
+                        "line_id": "step-5"
+                      },
+                      {
+                        "id": "rev-26e7c1fada.t2.e3",
+                        "tweak_id": "rev-26e7c1fada.t2",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "add enough half-and-half",
+                        "replace": "add enough 2% milk",
+                        "add": null,
+                        "line_id": "step-6"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-d23b070482",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-d23b070482.t1",
+                    "review_id": "rev-d23b070482",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I added extra cayenne pepper",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-d23b070482.t1.e1",
+                        "tweak_id": "rev-d23b070482.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "0.125 teaspoon cayenne pepper",
+                        "replace": "0.125 teaspoon cayenne pepper, or more to taste",
+                        "add": null,
+                        "line_id": "ing-8"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-d23b070482.t2",
+                    "review_id": "rev-d23b070482",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "lots of black pepper",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-d23b070482.t2.e1",
+                        "tweak_id": "rev-d23b070482.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "freshly ground pepper",
+                        "replace": "plenty of freshly ground black pepper",
+                        "add": null,
+                        "line_id": "ing-11"
+                      }
+                    ],
+                    "warnings": [
+                      "ing-11: words in neither review nor recipe: plenty"
+                    ]
+                  },
+                  {
+                    "id": "rev-d23b070482.t3",
+                    "review_id": "rev-d23b070482",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "used heavy cream instead of 1/2 & 1/2",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-d23b070482.t3.e1",
+                        "tweak_id": "rev-d23b070482.t3",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 cups half-and-half (or whole milk)",
+                        "replace": "1.5 cups heavy cream",
+                        "add": null,
+                        "line_id": "ing-10"
+                      },
+                      {
+                        "id": "rev-d23b070482.t3.e2",
+                        "tweak_id": "rev-d23b070482.t3",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "pour in a little half-and-half",
+                        "replace": "pour in a little heavy cream",
+                        "add": null,
+                        "line_id": "step-5"
+                      },
+                      {
+                        "id": "rev-d23b070482.t3.e3",
+                        "tweak_id": "rev-d23b070482.t3",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "add enough half-and-half",
+                        "replace": "add enough heavy cream",
+                        "add": null,
+                        "line_id": "step-6"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-d23b070482.t4",
+                    "review_id": "rev-d23b070482",
+                    "modification_type": "technique_change",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I think it would also work fine in the oven",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              }
+            ],
+            "tweak_outcomes": [
+              {
+                "tweak_id": "rev-26e7c1fada.t1",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-26e7c1fada.t1.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-1",
+                    "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                    "after": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-26e7c1fada.t1.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-1",
+                    "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-26e7c1fada.t1.e3",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-4",
+                    "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                    "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-26e7c1fada.t2",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-26e7c1fada.t2.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-10",
+                    "before": "1.5 cups half-and-half (or whole milk)",
+                    "after": "1.5 cups 2% milk",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-26e7c1fada.t2.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-5",
+                    "before": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+                    "after": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-26e7c1fada.t2.e3",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-6",
+                    "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "after": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-d23b070482.t1",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-d23b070482.t1.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-8",
+                    "before": "0.125 teaspoon cayenne pepper",
+                    "after": "0.125 teaspoon cayenne pepper, or more to taste",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-d23b070482.t2",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-d23b070482.t2.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-11",
+                    "before": "Salt and freshly ground pepper, to taste",
+                    "after": "Salt and plenty of freshly ground black pepper, to taste",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-d23b070482.t3",
+                "status": "refused",
+                "reason": null,
+                "detail": "rev-d23b070482.t3.e1: conflict: ing-10 was already changed by rev-26e7c1fada.t2; rev-d23b070482.t3.e2: conflict: 'pour in a little half-and-half' is no longer on step-5; rev-26e7c1fada.t2 changed it; rev-d23b070482.t3.e3: conflict: 'add enough half-and-half' is no longer on step-6; rev-26e7c1fada.t2 changed it",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-d23b070482.t3.e1",
+                    "status": "refused",
+                    "reason": "conflict",
+                    "detail": "ing-10 was already changed by rev-26e7c1fada.t2",
+                    "line_id": "ing-10",
+                    "before": null,
+                    "after": null,
+                    "match_method": null,
+                    "match_score": null
+                  },
+                  {
+                    "edit_id": "rev-d23b070482.t3.e2",
+                    "status": "refused",
+                    "reason": "conflict",
+                    "detail": "'pour in a little half-and-half' is no longer on step-5; rev-26e7c1fada.t2 changed it",
+                    "line_id": "step-5",
+                    "before": null,
+                    "after": null,
+                    "match_method": null,
+                    "match_score": null
+                  },
+                  {
+                    "edit_id": "rev-d23b070482.t3.e3",
+                    "status": "refused",
+                    "reason": "conflict",
+                    "detail": "'add enough half-and-half' is no longer on step-6; rev-26e7c1fada.t2 changed it",
+                    "line_id": "step-6",
+                    "before": null,
+                    "after": null,
+                    "match_method": null,
+                    "match_score": null
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-d23b070482.t4",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              }
+            ],
+            "status": "enhanced",
+            "reviews": [
+              {
+                "text": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those to make this soup. I also substituted 2% milk instead of half-and-half or whole milk. It turned out delicious! I highly recommend it. Thanks for sharing the recipe.",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-26e7c1fada",
+                "sources": [
+                  "reviews[0]"
+                ],
+                "featured": false,
+                "rank": 1
+              },
+              {
+                "text": "Great soup! The vegetables caramelize beautifully with this method (though I think it would also work fine in the oven, which would take longer but keep my hands free for other things). I added extra cayenne pepper, lots of black pepper, and used heavy cream instead of 1/2 & 1/2; otherwise followed as written. I didn't find it at all too sweet - these are sweet potatoes, after all. Thanks for the recipe!",
+                "reviewer": null,
+                "rating": 4,
+                "review_id": "rev-d23b070482",
+                "sources": [
+                  "reviews[1]"
+                ],
+                "featured": false,
+                "rank": 2
+              }
+            ],
+            "recipe_diff": [
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-1",
+                "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                "after": "1 large sweet potato and 3 white potatoes, peeled, cut into 1-inch chunks",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t1"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-8",
+                "before": "0.125 teaspoon cayenne pepper",
+                "after": "0.125 teaspoon cayenne pepper, or more to taste",
+                "tweak_ids": [
+                  "rev-d23b070482.t1"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-10",
+                "before": "1.5 cups half-and-half (or whole milk)",
+                "after": "1.5 cups 2% milk",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t2"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-11",
+                "before": "Salt and freshly ground pepper, to taste",
+                "after": "Salt and plenty of freshly ground black pepper, to taste",
+                "tweak_ids": [
+                  "rev-d23b070482.t2"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-1",
+                "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t1"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-4",
+                "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until potatoes are tender, about 10 minutes.",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t1"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-5",
+                "before": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+                "after": "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little 2% milk, blend briefly, then add to the soup.)",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t2"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-6",
+                "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                "after": "Return to pan (or a soup pot); add enough 2% milk so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                "tweak_ids": [
+                  "rev-26e7c1fada.t2"
+                ]
+              }
+            ],
+            "diff_verified": true,
+            "diff_problems": [],
+            "extraction_source": "model gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo",
+            "prompt_version": "37cc3c30e9f6"
+          },
+          "warnings": [
+            "Tweak rev-d23b070482.t3 not applied: rev-d23b070482.t3.e1: conflict: ing-10 was already changed by rev-26e7c1fada.t2; rev-d23b070482.t3.e2: conflict: 'pour in a little half-and-half' is no longer on step-5; rev-26e7c1fada.t2 changed it; rev-d23b070482.t3.e3: conflict: 'add enough half-and-half' is no longer on step-6; rev-26e7c1fada.t2 changed it"
+          ],
+          "scores": {
+            "extraction": {
+              "reviews_analysed": "2/2",
+              "tweaks_captured": "6/6",
+              "tried_tweaks_captured": "5/5",
+              "captured_as_own_record": "6/6",
+              "missed": {},
+              "ineligible_passed_to_modifier": {}
+            },
+            "edits": {
+              "edits_given": 8,
+              "expected_line_changes": 16,
+              "correct": 16,
+              "missing": [],
+              "unexpected": [],
+              "recipe_exact": true
+            },
+            "reporting": {
+              "output_written": true,
+              "change_records": 8,
+              "noop_records": 0,
+              "claimed_but_not_in_text": [],
+              "in_text_but_not_recorded": [],
+              "summary_total_changes": 8,
+              "title_claims_enhancement": true,
+              "text_actually_changed": true,
+              "tweaks_accounted_for": "6/6",
+              "tweak_records_with_no_tweak": 0,
+              "type_mislabelled": [],
+              "records_with_review_pointer": "6/6",
+              "records_with_evidence_quote": "6/6",
+              "title_honest": true
+            },
+            "end_to_end": {
+              "recipe_exact": true,
+              "missing": [],
+              "unexpected": []
+            }
+          }
+        }
+      ],
+      "distinct_outputs_across_runs": 1
+    },
+    {
+      "id": "F4_ambiguous_targets",
+      "covers": [
+        "ambiguous_edit_targets"
+      ],
+      "description": "Edit-level cases (no extraction): targets that are ambiguous, absent, paraphrased, or a short span inside a long step.",
+      "edit_cases": [
+        {
+          "id": "F4.1",
+          "why": "Exact full line, among two similar shortening lines",
+          "expected": "ingredients[14] -> '0.25 cup butter'",
+          "actual": "applied correctly",
+          "actual_changes": [
+            "+ ingredients: 0.25 cup butter",
+            "- ingredients: 0.25 cup shortening"
+          ],
+          "records": 1,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.2",
+          "why": "Short span found in two ingredient lines (7 and 14); line hint says 14",
+          "expected": "ingredients[14] -> '0.25 cup butter' (or refuse)",
+          "actual": "applied correctly",
+          "actual_changes": [
+            "+ ingredients: 0.25 cup butter",
+            "- ingredients: 0.25 cup shortening"
+          ],
+          "records": 1,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.3",
+          "why": "Unique span inside a long frosting step",
+          "expected": "instructions[4] '1/4 cup shortening' -> '1/4 cup butter'",
+          "actual": "applied correctly",
+          "actual_changes": [
+            "+ instructions: Combine confectioners' sugar, 1/4 cup butter, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake.",
+            "- instructions: Combine confectioners' sugar, 1/4 cup shortening, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+          ],
+          "records": 1,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.4",
+          "why": "Short span found in two steps (1 and 4); line hint says 4",
+          "expected": "instructions[4] 'cinnamon' -> 'ground cinnamon' (or refuse)",
+          "actual": "applied correctly",
+          "actual_changes": [
+            "+ instructions: Combine confectioners' sugar, 1/4 cup shortening, 1/4 teaspoon ground cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake.",
+            "- instructions: Combine confectioners' sugar, 1/4 cup shortening, 1/4 teaspoon cinnamon, and nutmeg in a medium bowl. Beat until frosting is light and creamy. Beat in evaporated milk 1 tablespoon at a time until desired spreading consistency is reached. Spread over top of cooled cake."
+          ],
+          "records": 1,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.5",
+          "why": "Span repeated within one step ('white sugar, and brown sugar')",
+          "expected": "refuse",
+          "actual": "refused",
+          "actual_changes": [],
+          "records": 0,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.6",
+          "why": "Target absent but similar to another line (pecans vs walnuts)",
+          "expected": "refuse",
+          "actual": "refused",
+          "actual_changes": [],
+          "records": 0,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.7",
+          "why": "Paraphrased target: '1/2' vs '0.5' teaspoon salt",
+          "expected": "ingredients[7] -> '1 teaspoon salt' (or refuse)",
+          "actual": "refused",
+          "actual_changes": [],
+          "records": 0,
+          "edits_pass": true,
+          "reporting_pass": true
+        },
+        {
+          "id": "F4.8",
+          "why": "Short unique span inside a long step",
+          "expected": "instructions[1] '350 degrees F' -> '375 degrees F'",
+          "actual": "applied correctly",
+          "actual_changes": [
+            "+ instructions: Preheat the oven to 375 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+            "- instructions: Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth."
+          ],
+          "records": 1,
+          "edits_pass": true,
+          "reporting_pass": true
+        }
+      ]
+    },
+    {
+      "id": "F5_unflagged_reviews",
+      "covers": [
+        "unflagged_reviews",
+        "untested_suggestions"
+      ],
+      "description": "Review 0 contains tweaks but lacks the keyword flag; review 1 mixes a disliked change, a liked change and advice.",
+      "runs": [
+        {
+          "selection": "all reviews extracted (deterministic)",
+          "selection_mode": "deterministic",
+          "reviews_analysed": [
+            0,
+            1
+          ],
+          "captured": [
+            "F5.N3",
+            "F5.N4",
+            "F5.N5",
+            "F5.N1",
+            "F5.N2"
+          ],
+          "groups": [
+            [
+              "F5.N3"
+            ],
+            [
+              "F5.N4"
+            ],
+            [
+              "F5.N5"
+            ],
+            [
+              "F5.N1"
+            ],
+            [
+              "F5.N2"
+            ]
+          ],
+          "passed_on": [
+            "F5.N4"
+          ],
+          "edits_given": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 5,
+              "find": "0.25 cup soy sauce",
+              "replace": "0.25 cup soy sauce, or more to taste"
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 7,
+              "find": "1 tablespoon white sugar",
+              "replace": "1 tablespoon white sugar, or more to taste"
+            }
+          ],
+          "entries": [
+            {
+              "kind": "applied",
+              "tweaks": [
+                "F5.N4"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F5.N3"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F5.N5"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F5.N1"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "F5.N2"
+              ],
+              "type": "addition",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            }
+          ],
+          "output": {
+            "recipe_id": "F5_enhanced",
+            "original_recipe_id": "F5",
+            "title": "Nikujaga (Japanese-Style Meat and Potatoes) (Community Enhanced)",
+            "ingredients": [
+              "8 snow peas",
+              "1 tablespoon vegetable oil",
+              "0.25 pound sirloin steak, thinly sliced",
+              "4 potatoes, cut into bite sized pieces",
+              "2 cups dashi soup",
+              "0.25 cup soy sauce, or more to taste",
+              "0.25 cup sake",
+              "1 tablespoon white sugar, or more to taste",
+              "1 onion, chopped"
+            ],
+            "instructions": [
+              "Put the snow peas in a small saucepan with enough water to cover; bring to a boil and immediately remove from heat. Drain and set aside.",
+              "Heat the oil in a large skillet over medium heat; cook the beef in the oil until browned. Add the potatoes; cook and stir until soft, 5 to 7 minutes. Stir the dashi soup, soy sauce, sake, and sugar into the mixture; simmer for 10 minutes.",
+              "Reduce heat to low and scatter the chopped onion over the mixture; allow to simmer until the liquid is nearly completely evaporated, about 15 minutes more. Top the mixture with the snow peas to serve."
+            ],
+            "modifications_applied": [
+              {
+                "source_review": {
+                  "text": "Overall it was pretty good but the measurements were way off. HAS to be a typo. 1/4lb of meat to serve 4??? I used a lil over 1lb and it even then it was swimming in the broth. After following the recipe, i added extra soy and sugar only because i thought the flavor was a little on the lite side. Overall good.** If you cant find dashi, beef broth/stock works just fine. My japanese mom happen to have some so i was able to get some from her.",
+                  "reviewer": null,
+                  "rating": 4,
+                  "review_id": "rev-fa5985a5dd",
+                  "sources": [
+                    "reviews[1]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "quantity_adjustment",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "0.25 cup soy sauce",
+                    "to_text": "0.25 cup soy sauce, or more to taste",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "ingredient",
+                    "from_text": "1 tablespoon white sugar",
+                    "to_text": "1 tablespoon white sugar, or more to taste",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-fa5985a5dd.t2",
+                "evidence_quote": "i added extra soy and sugar"
+              }
+            ],
+            "enhancement_summary": {
+              "total_changes": 2,
+              "change_types": [
+                "quantity_adjustment"
+              ],
+              "expected_impact": "As stated by the reviewer."
+            },
+            "description": null,
+            "servings": null,
+            "prep_time": null,
+            "cook_time": null,
+            "total_time": null,
+            "pipeline_version": "2.0.0",
+            "source_recipe_hash": "c68776ea6347bae4",
+            "extraction_results": [
+              {
+                "review_id": "rev-fa5985a5dd",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-fa5985a5dd.t1",
+                    "review_id": "rev-fa5985a5dd",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I used a lil over 1lb",
+                    "status": "tried",
+                    "reviewer_outcome": "mixed",
+                    "edits": [
+                      {
+                        "id": "rev-fa5985a5dd.t1.e1",
+                        "tweak_id": "rev-fa5985a5dd.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "0.25 pound sirloin steak",
+                        "replace": "a little over 1 pound sirloin steak",
+                        "add": null,
+                        "line_id": "ing-2"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-fa5985a5dd.t2",
+                    "review_id": "rev-fa5985a5dd",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "i added extra soy and sugar",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-fa5985a5dd.t2.e1",
+                        "tweak_id": "rev-fa5985a5dd.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "0.25 cup soy sauce",
+                        "replace": "0.25 cup soy sauce, or more to taste",
+                        "add": null,
+                        "line_id": "ing-5"
+                      },
+                      {
+                        "id": "rev-fa5985a5dd.t2.e2",
+                        "tweak_id": "rev-fa5985a5dd.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1 tablespoon white sugar",
+                        "replace": "1 tablespoon white sugar, or more to taste",
+                        "add": null,
+                        "line_id": "ing-7"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-fa5985a5dd.t3",
+                    "review_id": "rev-fa5985a5dd",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "If you cant find dashi, beef broth/stock works just fine",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-fa5985a5dd.t3.e1",
+                        "tweak_id": "rev-fa5985a5dd.t3",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "2 cups dashi soup",
+                        "replace": "2 cups dashi soup (or beef broth)",
+                        "add": null,
+                        "line_id": "ing-4"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-c0466b6484",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-c0466b6484.t1",
+                    "review_id": "rev-c0466b6484",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "You need at least a 1lb of beef for this",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-c0466b6484.t1.e1",
+                        "tweak_id": "rev-c0466b6484.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "0.25 pound sirloin steak",
+                        "replace": "1 pound sirloin steak",
+                        "add": null,
+                        "line_id": "ing-2"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-c0466b6484.t2",
+                    "review_id": "rev-c0466b6484",
+                    "modification_type": "addition",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I threw in carrots since i had them around",
+                    "status": "tried",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-c0466b6484.t2.e1",
+                        "tweak_id": "rev-c0466b6484.t2",
+                        "target": "ingredients",
+                        "operation": "add_after",
+                        "find": "4 potatoes, cut into bite sized pieces",
+                        "replace": null,
+                        "add": "carrots (amount not specified)",
+                        "line_id": "ing-3"
+                      },
+                      {
+                        "id": "rev-c0466b6484.t2.e2",
+                        "tweak_id": "rev-c0466b6484.t2",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "Add the potatoes;",
+                        "replace": "Add the potatoes and carrots;",
+                        "add": null,
+                        "line_id": "step-1"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              }
+            ],
+            "tweak_outcomes": [
+              {
+                "tweak_id": "rev-fa5985a5dd.t2",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-fa5985a5dd.t2.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-5",
+                    "before": "0.25 cup soy sauce",
+                    "after": "0.25 cup soy sauce, or more to taste",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-fa5985a5dd.t2.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-7",
+                    "before": "1 tablespoon white sugar",
+                    "after": "1 tablespoon white sugar, or more to taste",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-fa5985a5dd.t1",
+                "status": "skipped",
+                "reason": "outcome_not_positive",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-fa5985a5dd.t3",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-c0466b6484.t1",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-c0466b6484.t2",
+                "status": "skipped",
+                "reason": "outcome_not_positive",
+                "detail": "",
+                "edit_outcomes": []
+              }
+            ],
+            "status": "enhanced",
+            "reviews": [
+              {
+                "text": "Overall it was pretty good but the measurements were way off. HAS to be a typo. 1/4lb of meat to serve 4??? I used a lil over 1lb and it even then it was swimming in the broth. After following the recipe, i added extra soy and sugar only because i thought the flavor was a little on the lite side. Overall good.** If you cant find dashi, beef broth/stock works just fine. My japanese mom happen to have some so i was able to get some from her.",
+                "reviewer": null,
+                "rating": 4,
+                "review_id": "rev-fa5985a5dd",
+                "sources": [
+                  "reviews[1]"
+                ],
+                "featured": false,
+                "rank": 1
+              },
+              {
+                "text": "Great recipe and not hard, even for someone like me who never cooks. The taste is really good, but i agree with everyone else about the measurements. You need at least a 1lb of beef for this. Also, I threw in carrots since i had them around.",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-c0466b6484",
+                "sources": [
+                  "reviews[0]"
+                ],
+                "featured": false,
+                "rank": 2
+              }
+            ],
+            "recipe_diff": [
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-5",
+                "before": "0.25 cup soy sauce",
+                "after": "0.25 cup soy sauce, or more to taste",
+                "tweak_ids": [
+                  "rev-fa5985a5dd.t2"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-7",
+                "before": "1 tablespoon white sugar",
+                "after": "1 tablespoon white sugar, or more to taste",
+                "tweak_ids": [
+                  "rev-fa5985a5dd.t2"
+                ]
+              }
+            ],
+            "diff_verified": true,
+            "diff_problems": [],
+            "extraction_source": "model gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo",
+            "prompt_version": "37cc3c30e9f6"
+          },
+          "warnings": [],
+          "scores": {
+            "extraction": {
+              "reviews_analysed": "2/2",
+              "tweaks_captured": "5/5",
+              "tried_tweaks_captured": "3/3",
+              "captured_as_own_record": "5/5",
+              "missed": {},
+              "ineligible_passed_to_modifier": {}
+            },
+            "edits": {
+              "edits_given": 2,
+              "expected_line_changes": 4,
+              "correct": 4,
+              "missing": [],
+              "unexpected": [],
+              "recipe_exact": true
+            },
+            "reporting": {
+              "output_written": true,
+              "change_records": 2,
+              "noop_records": 0,
+              "claimed_but_not_in_text": [],
+              "in_text_but_not_recorded": [],
+              "summary_total_changes": 2,
+              "title_claims_enhancement": true,
+              "text_actually_changed": true,
+              "tweaks_accounted_for": "5/5",
+              "tweak_records_with_no_tweak": 0,
+              "type_mislabelled": [],
+              "records_with_review_pointer": "5/5",
+              "records_with_evidence_quote": "5/5",
+              "title_honest": true
+            },
+            "end_to_end": {
+              "recipe_exact": true,
+              "missing": [],
+              "unexpected": []
+            }
+          }
+        }
+      ],
+      "distinct_outputs_across_runs": 1
+    }
+  ],
+  "observed": [
+    {
+      "id": "O1",
+      "output": "src/data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "original (schema matches)",
+      "captured": "1/2",
+      "missed": [
+        "C1"
+      ],
+      "defects": [],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O2",
+      "output": "data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/4",
+      "missed": [
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "defects": [
+        "Three of the four numbered tweaks were dropped"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O3",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/3",
+      "missed": [
+        "S1",
+        "S3"
+      ],
+      "defects": [
+        "Amounts and cuts invented: '1 cup', 'halved', 'diced', 'bell' are not in the review",
+        "Two ingredients written on one line",
+        "No step adds the new vegetables"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O4",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/1",
+      "missed": [],
+      "defects": [
+        "An untried suggestion was applied",
+        "Ground-to-fresh ginger swapped 1:1, an amount the reviewer never gave"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    }
+  ],
+  "summary": {
+    "per_fixture": [
+      {
+        "fixture": "F1_multi_tweak",
+        "runs": 1,
+        "distinct recipes across runs": 1,
+        "reviews analysed": "1/1",
+        "tweaks captured": "4/4",
+        "captured with own record": "4/4",
+        "ineligible tweaks passed on": "0",
+        "edit line changes correct": "9/9",
+        "unexpected line changes": "0",
+        "title misstates change": "0",
+        "tweaks accounted for": "4/4",
+        "type-mislabelled tweaks": "0",
+        "policy recipe matched": "1"
+      },
+      {
+        "fixture": "F2_untested_suggestions",
+        "runs": 1,
+        "distinct recipes across runs": 1,
+        "reviews analysed": "2/2",
+        "tweaks captured": "3/3",
+        "captured with own record": "3/3",
+        "ineligible tweaks passed on": "0",
+        "edit line changes correct": "0/0",
+        "unexpected line changes": "0",
+        "title misstates change": "0",
+        "tweaks accounted for": "3/3",
+        "type-mislabelled tweaks": "0",
+        "policy recipe matched": "1"
+      },
+      {
+        "fixture": "F3_conflicting_reviews",
+        "runs": 1,
+        "distinct recipes across runs": 1,
+        "reviews analysed": "2/2",
+        "tweaks captured": "6/6",
+        "captured with own record": "6/6",
+        "ineligible tweaks passed on": "0",
+        "edit line changes correct": "16/16",
+        "unexpected line changes": "0",
+        "title misstates change": "0",
+        "tweaks accounted for": "6/6",
+        "type-mislabelled tweaks": "0",
+        "policy recipe matched": "1"
+      },
+      {
+        "fixture": "F5_unflagged_reviews",
+        "runs": 1,
+        "distinct recipes across runs": 1,
+        "reviews analysed": "2/2",
+        "tweaks captured": "5/5",
+        "captured with own record": "5/5",
+        "ineligible tweaks passed on": "0",
+        "edit line changes correct": "4/4",
+        "unexpected line changes": "0",
+        "title misstates change": "0",
+        "tweaks accounted for": "5/5",
+        "type-mislabelled tweaks": "0",
+        "policy recipe matched": "1"
+      }
+    ],
+    "edit_cases": {
+      "passed": "8/8",
+      "wrong edits": [],
+      "phantom or unrecorded changes": []
+    }
+  }
+}

@@ -1,0 +1,1100 @@
+{
+  "implementation": {
+    "label": "improved-heldout",
+    "path": "src",
+    "fingerprint": "9d7ba74a2b3e716f"
+  },
+  "fixtures": [
+    {
+      "id": "H1_soup_unused_reviews",
+      "covers": [
+        "held_out",
+        "multiple_tweaks",
+        "untested_suggestions",
+        "unflagged_reviews"
+      ],
+      "description": "HELD OUT: the four soup reviews never used during implementation. Quotes and labels from the 16:01 gold set; edits and expected recipe written from the spec before any run.",
+      "runs": [
+        {
+          "selection": "all reviews extracted (deterministic)",
+          "selection_mode": "deterministic",
+          "reviews_analysed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "captured": [
+            "H1.S1",
+            "H1.S2",
+            "H1.S3",
+            "H1.S5",
+            "H1.S8",
+            "H1.S9",
+            "H1.S10",
+            "H1.S4"
+          ],
+          "groups": [
+            [
+              "H1.S1"
+            ],
+            [
+              "H1.S2"
+            ],
+            [
+              "H1.S3"
+            ],
+            [
+              "H1.S5"
+            ],
+            [
+              "H1.S8"
+            ],
+            [
+              "H1.S9"
+            ],
+            [
+              "H1.S10"
+            ],
+            [
+              "H1.S4"
+            ]
+          ],
+          "passed_on": [
+            "H1.S1",
+            "H1.S2",
+            "H1.S3",
+            "H1.S10"
+          ],
+          "edits_given": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 1,
+              "find": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+              "replace": "canned yams (amount not specified)"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 1,
+              "find": "Add sweet potatoes, then onion",
+              "replace": "Add yams, then onion"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 4,
+              "find": "until sweet potatoes are tender",
+              "replace": "until yams are tender"
+            },
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line": 2,
+              "find": "1 large onion, cut into large dice",
+              "add": "roasted Brussels sprouts (amount not specified)"
+            },
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line": 2,
+              "find": "1 large onion, cut into large dice",
+              "add": "roasted peppers (amount not specified)"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 6,
+              "find": "ladle into bowls, garnish and serve.",
+              "replace": "ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve."
+            },
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line": 12,
+              "find": "Garnish: chopped honey-roasted peanuts",
+              "add": "heavy cream, for drizzling (amount not specified)"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line": 6,
+              "find": "garnish and serve.",
+              "replace": "drizzle with heavy cream, garnish and serve."
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line": 6,
+              "find": "1.5 teaspoons ground ginger",
+              "replace": "fresh grated ginger (amount not specified)"
+            }
+          ],
+          "entries": [
+            {
+              "kind": "applied",
+              "tweaks": [
+                "H1.S1"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "H1.S2"
+              ],
+              "type": "addition",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "H1.S3"
+              ],
+              "type": "addition",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "applied",
+              "tweaks": [
+                "H1.S10"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "H1.S5"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "H1.S8"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "H1.S9"
+              ],
+              "type": "quantity_adjustment",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            },
+            {
+              "kind": "recorded",
+              "tweaks": [
+                "H1.S4"
+              ],
+              "type": "ingredient_substitution",
+              "has_review_pointer": true,
+              "has_evidence_quote": true
+            }
+          ],
+          "output": {
+            "recipe_id": "H1_enhanced",
+            "original_recipe_id": "H1",
+            "title": "Creamy Sweet Potato With Ginger Soup (Community Enhanced)",
+            "ingredients": [
+              "2 tablespoons olive oil",
+              "canned yams (amount not specified)",
+              "1 large onion, cut into large dice",
+              "roasted Brussels sprouts (amount not specified)",
+              "roasted peppers (amount not specified)",
+              "1 tablespoon butter",
+              "1 pinch sugar",
+              "3 large garlic cloves, thickly sliced",
+              "fresh grated ginger (amount not specified)",
+              "0.5 teaspoon ground nutmeg",
+              "0.125 teaspoon cayenne pepper",
+              "3 cups chicken broth, homemade or from a carton or can",
+              "1.5 cups half-and-half (or whole milk)",
+              "Salt and freshly ground pepper, to taste",
+              "Garnish: chopped honey-roasted peanuts",
+              "heavy cream, for drizzling (amount not specified)"
+            ],
+            "instructions": [
+              "Gather the ingredients.",
+              "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add yams, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+              "Reduce heat to low and add butter, sugar and garlic; continue cooking until all vegetables are a rich spotty caramel color, about 10 minutes longer.",
+              "Add ginger, nutmeg and cayenne pepper; continue to saute until fragrant, 30 seconds to 1 minute longer.",
+              "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until yams are tender, about 10 minutes.",
+              "Using an immersion blender or traditional blender, puree until very smooth, 30 seconds to 1 minute. (If using a traditional blender, vent it either by removing the lid's pop-out center or by lifting one edge of the lid. Drape the blender canister with a kitchen towel. To 'clean' the canister, pour in a little half-and-half, blend briefly, then add to the soup.)",
+              "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, drizzle with heavy cream, garnish and serve."
+            ],
+            "modifications_applied": [
+              {
+                "source_review": {
+                  "text": "I made this with canned yams. I added roasted Brussels Sprouts and peppers. I drizzled heavy cream at the end. Loved the contrast of the roasted greens to the sweet and spicy. Turned out amazing!",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-24b0a3dc6c",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "ingredient_substitution",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                    "to_text": "canned yams (amount not specified)",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "to_text": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add yams, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "operation": "replace"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                    "to_text": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until yams are tender, about 10 minutes.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-24b0a3dc6c.t1",
+                "evidence_quote": "I made this with canned yams"
+              },
+              {
+                "source_review": {
+                  "text": "I made this with canned yams. I added roasted Brussels Sprouts and peppers. I drizzled heavy cream at the end. Loved the contrast of the roasted greens to the sweet and spicy. Turned out amazing!",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-24b0a3dc6c",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "addition",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "",
+                    "to_text": "roasted Brussels sprouts (amount not specified)",
+                    "operation": "add"
+                  },
+                  {
+                    "type": "ingredient",
+                    "from_text": "",
+                    "to_text": "roasted peppers (amount not specified)",
+                    "operation": "add"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "to_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-24b0a3dc6c.t2",
+                "evidence_quote": "I added roasted Brussels Sprouts and peppers"
+              },
+              {
+                "source_review": {
+                  "text": "I made this with canned yams. I added roasted Brussels Sprouts and peppers. I drizzled heavy cream at the end. Loved the contrast of the roasted greens to the sweet and spicy. Turned out amazing!",
+                  "reviewer": null,
+                  "rating": 5,
+                  "review_id": "rev-24b0a3dc6c",
+                  "sources": [
+                    "reviews[0]"
+                  ],
+                  "featured": false,
+                  "rank": 1
+                },
+                "modification_type": "addition",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "",
+                    "to_text": "heavy cream, for drizzling (amount not specified)",
+                    "operation": "add"
+                  },
+                  {
+                    "type": "instruction",
+                    "from_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve.",
+                    "to_text": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, drizzle with heavy cream, garnish and serve.",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-24b0a3dc6c.t3",
+                "evidence_quote": "I drizzled heavy cream at the end"
+              },
+              {
+                "source_review": {
+                  "text": "Def has a kick! Very thick.. Even w 2% milk- will use more broth next time. Used fresh grated ginger. Hearty and yummy!",
+                  "reviewer": null,
+                  "rating": 4,
+                  "review_id": "rev-043991c914",
+                  "sources": [
+                    "reviews[3]"
+                  ],
+                  "featured": false,
+                  "rank": 3
+                },
+                "modification_type": "ingredient_substitution",
+                "reasoning": "As stated by the reviewer.",
+                "changes_made": [
+                  {
+                    "type": "ingredient",
+                    "from_text": "1.5 teaspoons ground ginger",
+                    "to_text": "fresh grated ginger (amount not specified)",
+                    "operation": "replace"
+                  }
+                ],
+                "tweak_id": "rev-043991c914.t3",
+                "evidence_quote": "Used fresh grated ginger"
+              }
+            ],
+            "enhancement_summary": {
+              "total_changes": 9,
+              "change_types": [
+                "addition",
+                "ingredient_substitution"
+              ],
+              "expected_impact": "As stated by the reviewer.; As stated by the reviewer.; As stated by the reviewer. (and 1 more improvements)"
+            },
+            "description": null,
+            "servings": null,
+            "prep_time": null,
+            "cook_time": null,
+            "total_time": null,
+            "pipeline_version": "2.0.0",
+            "source_recipe_hash": "a49b43e465c77227",
+            "extraction_results": [
+              {
+                "review_id": "rev-24b0a3dc6c",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-24b0a3dc6c.t1",
+                    "review_id": "rev-24b0a3dc6c",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I made this with canned yams",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-24b0a3dc6c.t1.e1",
+                        "tweak_id": "rev-24b0a3dc6c.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                        "replace": "canned yams (amount not specified)",
+                        "add": null,
+                        "line_id": "ing-1"
+                      },
+                      {
+                        "id": "rev-24b0a3dc6c.t1.e2",
+                        "tweak_id": "rev-24b0a3dc6c.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "Add sweet potatoes, then onion",
+                        "replace": "Add yams, then onion",
+                        "add": null,
+                        "line_id": "step-1"
+                      },
+                      {
+                        "id": "rev-24b0a3dc6c.t1.e3",
+                        "tweak_id": "rev-24b0a3dc6c.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "until sweet potatoes are tender",
+                        "replace": "until yams are tender",
+                        "add": null,
+                        "line_id": "step-4"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-24b0a3dc6c.t2",
+                    "review_id": "rev-24b0a3dc6c",
+                    "modification_type": "addition",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I added roasted Brussels Sprouts and peppers",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-24b0a3dc6c.t2.e1",
+                        "tweak_id": "rev-24b0a3dc6c.t2",
+                        "target": "ingredients",
+                        "operation": "add_after",
+                        "find": "1 large onion, cut into large dice",
+                        "replace": null,
+                        "add": "roasted Brussels sprouts (amount not specified)",
+                        "line_id": "ing-2"
+                      },
+                      {
+                        "id": "rev-24b0a3dc6c.t2.e2",
+                        "tweak_id": "rev-24b0a3dc6c.t2",
+                        "target": "ingredients",
+                        "operation": "add_after",
+                        "find": "1 large onion, cut into large dice",
+                        "replace": null,
+                        "add": "roasted peppers (amount not specified)",
+                        "line_id": "ing-2"
+                      },
+                      {
+                        "id": "rev-24b0a3dc6c.t2.e3",
+                        "tweak_id": "rev-24b0a3dc6c.t2",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "ladle into bowls, garnish and serve.",
+                        "replace": "ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve.",
+                        "add": null,
+                        "line_id": "step-6"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-24b0a3dc6c.t3",
+                    "review_id": "rev-24b0a3dc6c",
+                    "modification_type": "addition",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I drizzled heavy cream at the end",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-24b0a3dc6c.t3.e1",
+                        "tweak_id": "rev-24b0a3dc6c.t3",
+                        "target": "ingredients",
+                        "operation": "add_after",
+                        "find": "Garnish: chopped honey-roasted peanuts",
+                        "replace": null,
+                        "add": "heavy cream, for drizzling (amount not specified)",
+                        "line_id": "ing-12"
+                      },
+                      {
+                        "id": "rev-24b0a3dc6c.t3.e2",
+                        "tweak_id": "rev-24b0a3dc6c.t3",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "garnish and serve.",
+                        "replace": "drizzle with heavy cream, garnish and serve.",
+                        "add": null,
+                        "line_id": "step-6"
+                      }
+                    ],
+                    "warnings": [
+                      "ing-12: words in neither review nor recipe: drizzling"
+                    ]
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-b9fd601a6f",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-b9fd601a6f.t1",
+                    "review_id": "rev-b9fd601a6f",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "when I make it again I will use fresh ginger",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-b9fd601a6f.t1.e1",
+                        "tweak_id": "rev-b9fd601a6f.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 teaspoons ground ginger",
+                        "replace": "fresh ginger (amount not specified)",
+                        "add": null,
+                        "line_id": "ing-6"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-043991c914",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-043991c914.t1",
+                    "review_id": "rev-043991c914",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "Even w 2% milk",
+                    "status": "tried",
+                    "reviewer_outcome": "mixed",
+                    "edits": [
+                      {
+                        "id": "rev-043991c914.t1.e1",
+                        "tweak_id": "rev-043991c914.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 cups half-and-half (or whole milk)",
+                        "replace": "1.5 cups 2% milk",
+                        "add": null,
+                        "line_id": "ing-10"
+                      },
+                      {
+                        "id": "rev-043991c914.t1.e2",
+                        "tweak_id": "rev-043991c914.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "pour in a little half-and-half",
+                        "replace": "pour in a little 2% milk",
+                        "add": null,
+                        "line_id": "step-5"
+                      },
+                      {
+                        "id": "rev-043991c914.t1.e3",
+                        "tweak_id": "rev-043991c914.t1",
+                        "target": "instructions",
+                        "operation": "replace",
+                        "find": "add enough half-and-half",
+                        "replace": "add enough 2% milk",
+                        "add": null,
+                        "line_id": "step-6"
+                      }
+                    ],
+                    "warnings": []
+                  },
+                  {
+                    "id": "rev-043991c914.t2",
+                    "review_id": "rev-043991c914",
+                    "modification_type": "quantity_adjustment",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "will use more broth next time",
+                    "status": "suggested",
+                    "reviewer_outcome": "unclear",
+                    "edits": [
+                      {
+                        "id": "rev-043991c914.t2.e1",
+                        "tweak_id": "rev-043991c914.t2",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "3 cups chicken broth",
+                        "replace": "3 cups chicken broth, plus more as needed",
+                        "add": null,
+                        "line_id": "ing-9"
+                      }
+                    ],
+                    "warnings": [
+                      "ing-9: words in neither review nor recipe: plu"
+                    ]
+                  },
+                  {
+                    "id": "rev-043991c914.t3",
+                    "review_id": "rev-043991c914",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "Used fresh grated ginger",
+                    "status": "tried",
+                    "reviewer_outcome": "positive",
+                    "edits": [
+                      {
+                        "id": "rev-043991c914.t3.e1",
+                        "tweak_id": "rev-043991c914.t3",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 teaspoons ground ginger",
+                        "replace": "fresh grated ginger (amount not specified)",
+                        "add": null,
+                        "line_id": "ing-6"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              },
+              {
+                "review_id": "rev-8d336a5962",
+                "status": "ok",
+                "tweaks": [
+                  {
+                    "id": "rev-8d336a5962.t1",
+                    "review_id": "rev-8d336a5962",
+                    "modification_type": "ingredient_substitution",
+                    "reasoning": "As stated by the reviewer.",
+                    "evidence_quote": "I forgot to get ground ginger and used minced",
+                    "status": "tried",
+                    "reviewer_outcome": "mixed",
+                    "edits": [
+                      {
+                        "id": "rev-8d336a5962.t1.e1",
+                        "tweak_id": "rev-8d336a5962.t1",
+                        "target": "ingredients",
+                        "operation": "replace",
+                        "find": "1.5 teaspoons ground ginger",
+                        "replace": "minced ginger (amount not specified)",
+                        "add": null,
+                        "line_id": "ing-6"
+                      }
+                    ],
+                    "warnings": []
+                  }
+                ],
+                "rejected": [],
+                "errors": [],
+                "attempts": 1
+              }
+            ],
+            "tweak_outcomes": [
+              {
+                "tweak_id": "rev-24b0a3dc6c.t1",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t1.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-1",
+                    "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                    "after": "canned yams (amount not specified)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t1.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-1",
+                    "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add yams, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t1.e3",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-4",
+                    "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                    "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until yams are tender, about 10 minutes.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-24b0a3dc6c.t2",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t2.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-2",
+                    "before": null,
+                    "after": "roasted Brussels sprouts (amount not specified)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t2.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-2",
+                    "before": null,
+                    "after": "roasted peppers (amount not specified)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t2.e3",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-6",
+                    "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                    "after": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-24b0a3dc6c.t3",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t3.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-12",
+                    "before": null,
+                    "after": "heavy cream, for drizzling (amount not specified)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  },
+                  {
+                    "edit_id": "rev-24b0a3dc6c.t3.e2",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "step-6",
+                    "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, garnish and serve.",
+                    "after": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, drizzle with heavy cream, garnish and serve.",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-043991c914.t3",
+                "status": "applied",
+                "reason": null,
+                "detail": "",
+                "edit_outcomes": [
+                  {
+                    "edit_id": "rev-043991c914.t3.e1",
+                    "status": "applied",
+                    "reason": null,
+                    "detail": "",
+                    "line_id": "ing-6",
+                    "before": "1.5 teaspoons ground ginger",
+                    "after": "fresh grated ginger (amount not specified)",
+                    "match_method": "exact",
+                    "match_score": 1.0
+                  }
+                ]
+              },
+              {
+                "tweak_id": "rev-b9fd601a6f.t1",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-043991c914.t1",
+                "status": "skipped",
+                "reason": "outcome_not_positive",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-043991c914.t2",
+                "status": "skipped",
+                "reason": "not_tried",
+                "detail": "",
+                "edit_outcomes": []
+              },
+              {
+                "tweak_id": "rev-8d336a5962.t1",
+                "status": "skipped",
+                "reason": "outcome_not_positive",
+                "detail": "",
+                "edit_outcomes": []
+              }
+            ],
+            "status": "enhanced",
+            "reviews": [
+              {
+                "text": "I made this with canned yams. I added roasted Brussels Sprouts and peppers. I drizzled heavy cream at the end. Loved the contrast of the roasted greens to the sweet and spicy. Turned out amazing!",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-24b0a3dc6c",
+                "sources": [
+                  "reviews[0]"
+                ],
+                "featured": false,
+                "rank": 1
+              },
+              {
+                "text": "It was amazing!! The portion is only enough for 2-3 people. Very good as is but when I make it again I will use fresh ginger to give it more of a ginger flavour.",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-b9fd601a6f",
+                "sources": [
+                  "reviews[2]"
+                ],
+                "featured": false,
+                "rank": 2
+              },
+              {
+                "text": "Def has a kick! Very thick.. Even w 2% milk- will use more broth next time. Used fresh grated ginger. Hearty and yummy!",
+                "reviewer": null,
+                "rating": 4,
+                "review_id": "rev-043991c914",
+                "sources": [
+                  "reviews[3]"
+                ],
+                "featured": false,
+                "rank": 3
+              },
+              {
+                "text": "I kinda followed this recipe, how much is 1.5lbs of sweet potato any ways, was pretty awesome!! However, I forgot to get ground ginger and used minced, they don't measure out the same... lolI shared it with my cooking friends and we all really liked it, even if the ginger was rowdy AF..",
+                "reviewer": null,
+                "rating": 5,
+                "review_id": "rev-8d336a5962",
+                "sources": [
+                  "reviews[1]"
+                ],
+                "featured": false,
+                "rank": 4
+              }
+            ],
+            "recipe_diff": [
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-1",
+                "before": "1.5 pounds peeled raw sweet potatoes, cut into 1-inch chunks",
+                "after": "canned yams (amount not specified)",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t1"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "added",
+                "line_id": "ing-2",
+                "before": null,
+                "after": "roasted Brussels sprouts (amount not specified)",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t2"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "added",
+                "line_id": "ing-2",
+                "before": null,
+                "after": "roasted peppers (amount not specified)",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t2"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "changed",
+                "line_id": "ing-6",
+                "before": "1.5 teaspoons ground ginger",
+                "after": "fresh grated ginger (amount not specified)",
+                "tweak_ids": [
+                  "rev-043991c914.t3"
+                ]
+              },
+              {
+                "section": "ingredients",
+                "kind": "added",
+                "line_id": "ing-12",
+                "before": null,
+                "after": "heavy cream, for drizzling (amount not specified)",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t3"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-1",
+                "before": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add sweet potatoes, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                "after": "Heat oil over medium-high heat in a large, deep saute pan until shimmering. Add yams, then onion; saute, stirring very little at first, then more frequently, until vegetables start to turn golden brown, 7 to 8 minutes.",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t1"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-4",
+                "before": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until sweet potatoes are tender, about 10 minutes.",
+                "after": "Add broth; bring to a simmer over medium-high heat. Reduce heat to low and simmer, partially covered, until yams are tender, about 10 minutes.",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t1"
+                ]
+              },
+              {
+                "section": "instructions",
+                "kind": "changed",
+                "line_id": "step-6",
+                "before": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, garnish and serve.",
+                "after": "Return to pan (or a soup pot); add enough half-and-half so the mixture is souplike, yet thick enough to float garnish. Taste, and add salt and pepper if needed. Heat through, ladle into bowls, top with the roasted Brussels sprouts and peppers, drizzle with heavy cream, garnish and serve.",
+                "tweak_ids": [
+                  "rev-24b0a3dc6c.t2",
+                  "rev-24b0a3dc6c.t3"
+                ]
+              }
+            ],
+            "diff_verified": true,
+            "diff_problems": [],
+            "extraction_source": "model gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo",
+            "prompt_version": "37cc3c30e9f6"
+          },
+          "warnings": [],
+          "scores": {
+            "extraction": {
+              "reviews_analysed": "4/4",
+              "tweaks_captured": "8/8",
+              "tried_tweaks_captured": "6/6",
+              "captured_as_own_record": "8/8",
+              "missed": {},
+              "ineligible_passed_to_modifier": {}
+            },
+            "edits": {
+              "edits_given": 9,
+              "expected_line_changes": 13,
+              "correct": 13,
+              "missing": [],
+              "unexpected": [],
+              "recipe_exact": true
+            },
+            "reporting": {
+              "output_written": true,
+              "change_records": 9,
+              "noop_records": 0,
+              "claimed_but_not_in_text": [],
+              "in_text_but_not_recorded": [],
+              "summary_total_changes": 9,
+              "title_claims_enhancement": true,
+              "text_actually_changed": true,
+              "tweaks_accounted_for": "8/8",
+              "tweak_records_with_no_tweak": 0,
+              "type_mislabelled": [],
+              "records_with_review_pointer": "8/8",
+              "records_with_evidence_quote": "8/8",
+              "title_honest": true
+            },
+            "end_to_end": {
+              "recipe_exact": true,
+              "missing": [],
+              "unexpected": []
+            }
+          }
+        }
+      ],
+      "distinct_outputs_across_runs": 1
+    }
+  ],
+  "observed": [
+    {
+      "id": "O1",
+      "output": "src/data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "original (schema matches)",
+      "captured": "1/2",
+      "missed": [
+        "C1"
+      ],
+      "defects": [],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O2",
+      "output": "data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/4",
+      "missed": [
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "defects": [
+        "Three of the four numbered tweaks were dropped"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O3",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/3",
+      "missed": [
+        "S1",
+        "S3"
+      ],
+      "defects": [
+        "Amounts and cuts invented: '1 cup', 'halved', 'diced', 'bell' are not in the review",
+        "Two ingredients written on one line",
+        "No step adds the new vegetables"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    },
+    {
+      "id": "O4",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "captured": "1/1",
+      "missed": [],
+      "defects": [
+        "An untried suggestion was applied",
+        "Ground-to-fresh ginger swapped 1:1, an amount the reviewer never gave"
+      ],
+      "observation_holds": true,
+      "check_failures": []
+    }
+  ],
+  "summary": {
+    "per_fixture": [
+      {
+        "fixture": "H1_soup_unused_reviews",
+        "runs": 1,
+        "distinct recipes across runs": 1,
+        "reviews analysed": "4/4",
+        "tweaks captured": "8/8",
+        "captured with own record": "8/8",
+        "ineligible tweaks passed on": "0",
+        "edit line changes correct": "13/13",
+        "unexpected line changes": "0",
+        "title misstates change": "0",
+        "tweaks accounted for": "8/8",
+        "type-mislabelled tweaks": "0",
+        "policy recipe matched": "1"
+      }
+    ],
+    "edit_cases": {
+      "passed": "0/0",
+      "wrong edits": [],
+      "phantom or unrecorded changes": []
+    }
+  }
+}

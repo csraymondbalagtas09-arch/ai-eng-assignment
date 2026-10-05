@@ -1,0 +1,1327 @@
+{
+  "recipe_id": "10813_enhanced",
+  "original_recipe_id": "10813",
+  "title": "Best Chocolate Chip Cookies (Community Enhanced)",
+  "ingredients": [
+    "1 cup butter, softened",
+    "0.5 cup white sugar",
+    "1.5 cups packed brown sugar",
+    "2 eggs",
+    "1 egg yolk",
+    "2 teaspoons vanilla extract",
+    "1 teaspoon baking soda",
+    "1 teaspoon salt",
+    "1 teaspoon cream of tartar",
+    "1 dash cinnamon",
+    "2.5 cups all-purpose flour",
+    "2 cups semisweet chocolate chips"
+  ],
+  "instructions": [
+    "Gather your ingredients, making sure your butter is softened, and your eggs are room temperature.",
+    "Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.",
+    "Beat in eggs and the egg yolk, one at a time, then stir in vanilla.",
+    "Add baking soda to batter along with salt and cream of tartar.",
+    "Stir in flour, cinnamon, and chocolate chips.",
+    "Cover and refrigerate the dough for at least 1 hour.",
+    "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets and press them down slightly.",
+    "Bake in the preheated oven until edges are nicely browned, about 10 minutes.",
+    "Cool on the baking sheets briefly before removing to a wire rack to cool completely.",
+    "Store in an airtight container or serve immediately and enjoy!"
+  ],
+  "modifications_applied": [
+    {
+      "source_review": {
+        "text": "I used an ice cream scoop, that made 16 big cookies. I did add an additional egg yolk to help keep the cookie chewy.They turned out fantastic.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-75f9efbd6e",
+        "sources": [
+          "reviews[0]",
+          "featured_tweaks[0]"
+        ],
+        "featured": true,
+        "rank": 1
+      },
+      "modification_type": "technique_change",
+      "reasoning": "The reviewer used an ice cream scoop for 16 big cookies and says they turned out fantastic.",
+      "changes_made": [
+        {
+          "type": "instruction",
+          "from_text": "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+          "to_text": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-75f9efbd6e.t1",
+      "evidence_quote": "I used an ice cream scoop, that made 16 big cookies"
+    },
+    {
+      "source_review": {
+        "text": "I used an ice cream scoop, that made 16 big cookies. I did add an additional egg yolk to help keep the cookie chewy.They turned out fantastic.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-75f9efbd6e",
+        "sources": [
+          "reviews[0]",
+          "featured_tweaks[0]"
+        ],
+        "featured": true,
+        "rank": 1
+      },
+      "modification_type": "addition",
+      "reasoning": "The reviewer added it to help keep the cookies chewy.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "",
+          "to_text": "1 egg yolk",
+          "operation": "add"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Beat in eggs, one at a time, then stir in vanilla.",
+          "to_text": "Beat in eggs and the egg yolk, one at a time, then stir in vanilla.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-75f9efbd6e.t2",
+      "evidence_quote": "I did add an additional egg yolk"
+    },
+    {
+      "source_review": {
+        "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-7c177579da",
+        "sources": [
+          "reviews[1]",
+          "featured_tweaks[1]"
+        ],
+        "featured": true,
+        "rank": 2
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "1 cup white sugar",
+          "to_text": "0.5 cup white sugar",
+          "operation": "replace"
+        },
+        {
+          "type": "ingredient",
+          "from_text": "1 cup packed brown sugar",
+          "to_text": "1.5 cups packed brown sugar",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-7c177579da.t1",
+      "evidence_quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar"
+    },
+    {
+      "source_review": {
+        "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-7c177579da",
+        "sources": [
+          "reviews[1]",
+          "featured_tweaks[1]"
+        ],
+        "featured": true,
+        "rank": 2
+      },
+      "modification_type": "removal",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "2 teaspoons hot water",
+          "to_text": "",
+          "operation": "remove"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Dissolve baking soda in hot water. Add to batter along with salt.",
+          "to_text": "Add baking soda to batter along with salt.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-7c177579da.t2",
+      "evidence_quote": "I omitted the water"
+    },
+    {
+      "source_review": {
+        "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-7c177579da",
+        "sources": [
+          "reviews[1]",
+          "featured_tweaks[1]"
+        ],
+        "featured": true,
+        "rank": 2
+      },
+      "modification_type": "addition",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "",
+          "to_text": "1 teaspoon cream of tartar",
+          "operation": "add"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Add baking soda to batter along with salt.",
+          "to_text": "Add baking soda to batter along with salt and cream of tartar.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-7c177579da.t3",
+      "evidence_quote": "I added a teaspoon of cream of tartar to the batter"
+    },
+    {
+      "source_review": {
+        "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-7c177579da",
+        "sources": [
+          "reviews[1]",
+          "featured_tweaks[1]"
+        ],
+        "featured": true,
+        "rank": 2
+      },
+      "modification_type": "technique_change",
+      "reasoning": "As stated by the reviewer.",
+      "changes_made": [
+        {
+          "type": "instruction",
+          "from_text": "",
+          "to_text": "Cover and refrigerate the dough for at least 1 hour.",
+          "operation": "add"
+        }
+      ],
+      "tweak_id": "rev-7c177579da.t4",
+      "evidence_quote": "I refrigerated the batter for at least an hour before scooping and baking"
+    },
+    {
+      "source_review": {
+        "text": "I just made these and 😍😋!!!! Changes- used a whole cup of white sugar and 1/2 c of brown (because it's what I had) and 1/2 c less flour after reading some other reviews, and added a tiny dash of cinnamon. They are phenomenal! Crispy edges and gooey center. My husband works from home and he can't stop coming out of his office and trying them!!!! HUGE hit and will be my go to. Thank you!!",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-2625a5a85e",
+        "sources": [
+          "reviews[6]",
+          "featured_tweaks[3]"
+        ],
+        "featured": true,
+        "rank": 3
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "The reviewer followed other reviews and calls the result phenomenal.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "3 cups all-purpose flour",
+          "to_text": "2.5 cups all-purpose flour",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-2625a5a85e.t2",
+      "evidence_quote": "1/2 c less flour"
+    },
+    {
+      "source_review": {
+        "text": "I just made these and 😍😋!!!! Changes- used a whole cup of white sugar and 1/2 c of brown (because it's what I had) and 1/2 c less flour after reading some other reviews, and added a tiny dash of cinnamon. They are phenomenal! Crispy edges and gooey center. My husband works from home and he can't stop coming out of his office and trying them!!!! HUGE hit and will be my go to. Thank you!!",
+        "reviewer": null,
+        "rating": 5,
+        "review_id": "rev-2625a5a85e",
+        "sources": [
+          "reviews[6]",
+          "featured_tweaks[3]"
+        ],
+        "featured": true,
+        "rank": 3
+      },
+      "modification_type": "addition",
+      "reasoning": "The reviewer added it and calls the result phenomenal.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "",
+          "to_text": "1 dash cinnamon",
+          "operation": "add"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Stir in flour, chocolate chips, and walnuts.",
+          "to_text": "Stir in flour, cinnamon, chocolate chips, and walnuts.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-2625a5a85e.t3",
+      "evidence_quote": "added a tiny dash of cinnamon"
+    },
+    {
+      "source_review": {
+        "text": "The first batch that I made was a bit bland. But I did love that they weren't flat! They are a nice thick, chewy cookie. The second batch I used 1 tsp. of salt instead of 1/2 tsp. and omitted the nuts. This was better, but still not quite as flavorful at the traditional Tollhouse cookie recipe. I found that if I pressed them down slightly before baking that worked the best.If I were to rate this recipe on look and texture, it would be a 5. But the flavor falls a bit flat for me. I may keep trying to see how I can make it taste better, but maintain the aesthetic.",
+        "reviewer": null,
+        "rating": 3,
+        "review_id": "rev-14abf70420",
+        "sources": [
+          "reviews[3]",
+          "featured_tweaks[2]"
+        ],
+        "featured": true,
+        "rank": 4
+      },
+      "modification_type": "quantity_adjustment",
+      "reasoning": "The reviewer found the first batch bland and says this was better.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "0.5 teaspoon salt",
+          "to_text": "1 teaspoon salt",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-14abf70420.t1",
+      "evidence_quote": "I used 1 tsp. of salt instead of 1/2 tsp."
+    },
+    {
+      "source_review": {
+        "text": "The first batch that I made was a bit bland. But I did love that they weren't flat! They are a nice thick, chewy cookie. The second batch I used 1 tsp. of salt instead of 1/2 tsp. and omitted the nuts. This was better, but still not quite as flavorful at the traditional Tollhouse cookie recipe. I found that if I pressed them down slightly before baking that worked the best.If I were to rate this recipe on look and texture, it would be a 5. But the flavor falls a bit flat for me. I may keep trying to see how I can make it taste better, but maintain the aesthetic.",
+        "reviewer": null,
+        "rating": 3,
+        "review_id": "rev-14abf70420",
+        "sources": [
+          "reviews[3]",
+          "featured_tweaks[2]"
+        ],
+        "featured": true,
+        "rank": 4
+      },
+      "modification_type": "removal",
+      "reasoning": "Part of the second batch the reviewer says was better.",
+      "changes_made": [
+        {
+          "type": "ingredient",
+          "from_text": "1 cup chopped walnuts",
+          "to_text": "",
+          "operation": "remove"
+        },
+        {
+          "type": "instruction",
+          "from_text": "Stir in flour, cinnamon, chocolate chips, and walnuts.",
+          "to_text": "Stir in flour, cinnamon, and chocolate chips.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-14abf70420.t2",
+      "evidence_quote": "omitted the nuts"
+    },
+    {
+      "source_review": {
+        "text": "The first batch that I made was a bit bland. But I did love that they weren't flat! They are a nice thick, chewy cookie. The second batch I used 1 tsp. of salt instead of 1/2 tsp. and omitted the nuts. This was better, but still not quite as flavorful at the traditional Tollhouse cookie recipe. I found that if I pressed them down slightly before baking that worked the best.If I were to rate this recipe on look and texture, it would be a 5. But the flavor falls a bit flat for me. I may keep trying to see how I can make it taste better, but maintain the aesthetic.",
+        "reviewer": null,
+        "rating": 3,
+        "review_id": "rev-14abf70420",
+        "sources": [
+          "reviews[3]",
+          "featured_tweaks[2]"
+        ],
+        "featured": true,
+        "rank": 4
+      },
+      "modification_type": "technique_change",
+      "reasoning": "The reviewer says pressing them down slightly worked best.",
+      "changes_made": [
+        {
+          "type": "instruction",
+          "from_text": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets.",
+          "to_text": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets and press them down slightly.",
+          "operation": "replace"
+        }
+      ],
+      "tweak_id": "rev-14abf70420.t3",
+      "evidence_quote": "if I pressed them down slightly before baking that worked the best"
+    }
+  ],
+  "enhancement_summary": {
+    "total_changes": 17,
+    "change_types": [
+      "addition",
+      "quantity_adjustment",
+      "removal",
+      "technique_change"
+    ],
+    "expected_impact": "The reviewer used an ice cream scoop for 16 big cookies and says they turned out fantastic.; The reviewer added it to help keep the cookies chewy.; As stated by the reviewer. (and 8 more improvements)"
+  },
+  "description": "This classic chocolate chip cookie recipe makes deliciously buttery cookies with crisp edges, chewy middles, and gooey chocolate chips in every bite.",
+  "servings": "48",
+  "prep_time": "PT20M",
+  "cook_time": "PT10M",
+  "total_time": "PT30M",
+  "created_at": "2026-10-05T20:39:10.542695",
+  "pipeline_version": "2.0.0",
+  "source_recipe_hash": "ce03e6b0f7533f5f",
+  "extraction_results": [
+    {
+      "review_id": "rev-75f9efbd6e",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-75f9efbd6e.t1",
+          "review_id": "rev-75f9efbd6e",
+          "modification_type": "technique_change",
+          "reasoning": "The reviewer used an ice cream scoop for 16 big cookies and says they turned out fantastic.",
+          "evidence_quote": "I used an ice cream scoop, that made 16 big cookies",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-75f9efbd6e.t1.e1",
+              "tweak_id": "rev-75f9efbd6e.t1",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Drop spoonfuls of dough",
+              "replace": "Drop scoops of dough (an ice cream scoop makes 16 big cookies)",
+              "add": null,
+              "line_id": "step-5"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-75f9efbd6e.t2",
+          "review_id": "rev-75f9efbd6e",
+          "modification_type": "addition",
+          "reasoning": "The reviewer added it to help keep the cookies chewy.",
+          "evidence_quote": "I did add an additional egg yolk",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-75f9efbd6e.t2.e1",
+              "tweak_id": "rev-75f9efbd6e.t2",
+              "target": "ingredients",
+              "operation": "add_after",
+              "find": "2 eggs",
+              "replace": null,
+              "add": "1 egg yolk",
+              "line_id": "ing-3"
+            },
+            {
+              "id": "rev-75f9efbd6e.t2.e2",
+              "tweak_id": "rev-75f9efbd6e.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Beat in eggs, one at a time",
+              "replace": "Beat in eggs and the egg yolk, one at a time",
+              "add": null,
+              "line_id": "step-2"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-7c177579da",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-7c177579da.t1",
+          "review_id": "rev-7c177579da",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-7c177579da.t1.e1",
+              "tweak_id": "rev-7c177579da.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1 cup white sugar",
+              "replace": "0.5 cup white sugar",
+              "add": null,
+              "line_id": "ing-1"
+            },
+            {
+              "id": "rev-7c177579da.t1.e2",
+              "tweak_id": "rev-7c177579da.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1 cup packed brown sugar",
+              "replace": "1.5 cups packed brown sugar",
+              "add": null,
+              "line_id": "ing-2"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-7c177579da.t2",
+          "review_id": "rev-7c177579da",
+          "modification_type": "removal",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I omitted the water",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-7c177579da.t2.e1",
+              "tweak_id": "rev-7c177579da.t2",
+              "target": "ingredients",
+              "operation": "remove",
+              "find": "2 teaspoons hot water",
+              "replace": null,
+              "add": null,
+              "line_id": "ing-6"
+            },
+            {
+              "id": "rev-7c177579da.t2.e2",
+              "tweak_id": "rev-7c177579da.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Dissolve baking soda in hot water. Add to batter",
+              "replace": "Add baking soda to batter",
+              "add": null,
+              "line_id": "step-3"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-7c177579da.t3",
+          "review_id": "rev-7c177579da",
+          "modification_type": "addition",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I added a teaspoon of cream of tartar to the batter",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-7c177579da.t3.e1",
+              "tweak_id": "rev-7c177579da.t3",
+              "target": "ingredients",
+              "operation": "add_after",
+              "find": "0.5 teaspoon salt",
+              "replace": null,
+              "add": "1 teaspoon cream of tartar",
+              "line_id": "ing-7"
+            },
+            {
+              "id": "rev-7c177579da.t3.e2",
+              "tweak_id": "rev-7c177579da.t3",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "along with salt.",
+              "replace": "along with salt and cream of tartar.",
+              "add": null,
+              "line_id": "step-3"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-7c177579da.t4",
+          "review_id": "rev-7c177579da",
+          "modification_type": "technique_change",
+          "reasoning": "As stated by the reviewer.",
+          "evidence_quote": "I refrigerated the batter for at least an hour before scooping and baking",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-7c177579da.t4.e1",
+              "tweak_id": "rev-7c177579da.t4",
+              "target": "instructions",
+              "operation": "add_after",
+              "find": "Stir in flour, chocolate chips, and walnuts.",
+              "replace": null,
+              "add": "Cover and refrigerate the dough for at least 1 hour.",
+              "line_id": "step-4"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-2625a5a85e",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-2625a5a85e.t1",
+          "review_id": "rev-2625a5a85e",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "The reviewer used what they had and calls the result phenomenal.",
+          "evidence_quote": "used a whole cup of white sugar and 1/2 c of brown",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-2625a5a85e.t1.e1",
+              "tweak_id": "rev-2625a5a85e.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "1 cup packed brown sugar",
+              "replace": "0.5 cup packed brown sugar",
+              "add": null,
+              "line_id": "ing-2"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-2625a5a85e.t2",
+          "review_id": "rev-2625a5a85e",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "The reviewer followed other reviews and calls the result phenomenal.",
+          "evidence_quote": "1/2 c less flour",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-2625a5a85e.t2.e1",
+              "tweak_id": "rev-2625a5a85e.t2",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "3 cups all-purpose flour",
+              "replace": "2.5 cups all-purpose flour",
+              "add": null,
+              "line_id": "ing-8"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-2625a5a85e.t3",
+          "review_id": "rev-2625a5a85e",
+          "modification_type": "addition",
+          "reasoning": "The reviewer added it and calls the result phenomenal.",
+          "evidence_quote": "added a tiny dash of cinnamon",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-2625a5a85e.t3.e1",
+              "tweak_id": "rev-2625a5a85e.t3",
+              "target": "ingredients",
+              "operation": "add_after",
+              "find": "0.5 teaspoon salt",
+              "replace": null,
+              "add": "1 dash cinnamon",
+              "line_id": "ing-7"
+            },
+            {
+              "id": "rev-2625a5a85e.t3.e2",
+              "tweak_id": "rev-2625a5a85e.t3",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "Stir in flour,",
+              "replace": "Stir in flour, cinnamon,",
+              "add": null,
+              "line_id": "step-4"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-14abf70420",
+      "status": "ok",
+      "tweaks": [
+        {
+          "id": "rev-14abf70420.t1",
+          "review_id": "rev-14abf70420",
+          "modification_type": "quantity_adjustment",
+          "reasoning": "The reviewer found the first batch bland and says this was better.",
+          "evidence_quote": "I used 1 tsp. of salt instead of 1/2 tsp.",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-14abf70420.t1.e1",
+              "tweak_id": "rev-14abf70420.t1",
+              "target": "ingredients",
+              "operation": "replace",
+              "find": "0.5 teaspoon salt",
+              "replace": "1 teaspoon salt",
+              "add": null,
+              "line_id": "ing-7"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-14abf70420.t2",
+          "review_id": "rev-14abf70420",
+          "modification_type": "removal",
+          "reasoning": "Part of the second batch the reviewer says was better.",
+          "evidence_quote": "omitted the nuts",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-14abf70420.t2.e1",
+              "tweak_id": "rev-14abf70420.t2",
+              "target": "ingredients",
+              "operation": "remove",
+              "find": "1 cup chopped walnuts",
+              "replace": null,
+              "add": null,
+              "line_id": "ing-10"
+            },
+            {
+              "id": "rev-14abf70420.t2.e2",
+              "tweak_id": "rev-14abf70420.t2",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "chocolate chips, and walnuts",
+              "replace": "and chocolate chips",
+              "add": null,
+              "line_id": "step-4"
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "id": "rev-14abf70420.t3",
+          "review_id": "rev-14abf70420",
+          "modification_type": "technique_change",
+          "reasoning": "The reviewer says pressing them down slightly worked best.",
+          "evidence_quote": "if I pressed them down slightly before baking that worked the best",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "edits": [
+            {
+              "id": "rev-14abf70420.t3.e1",
+              "tweak_id": "rev-14abf70420.t3",
+              "target": "instructions",
+              "operation": "replace",
+              "find": "onto ungreased baking sheets.",
+              "replace": "onto ungreased baking sheets and press them down slightly.",
+              "add": null,
+              "line_id": "step-5"
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-aca648b9e4",
+      "status": "empty",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-6407431954",
+      "status": "empty",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-33331e401e",
+      "status": "empty",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-0dab36afdd",
+      "status": "empty",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    },
+    {
+      "review_id": "rev-a19f7e8787",
+      "status": "empty",
+      "tweaks": [],
+      "rejected": [],
+      "errors": [],
+      "attempts": 1
+    }
+  ],
+  "tweak_outcomes": [
+    {
+      "tweak_id": "rev-75f9efbd6e.t1",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-75f9efbd6e.t1.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-5",
+          "before": "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+          "after": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-75f9efbd6e.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-75f9efbd6e.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-3",
+          "before": null,
+          "after": "1 egg yolk",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-75f9efbd6e.t2.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-2",
+          "before": "Beat in eggs, one at a time, then stir in vanilla.",
+          "after": "Beat in eggs and the egg yolk, one at a time, then stir in vanilla.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-7c177579da.t1",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-7c177579da.t1.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-1",
+          "before": "1 cup white sugar",
+          "after": "0.5 cup white sugar",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-7c177579da.t1.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-2",
+          "before": "1 cup packed brown sugar",
+          "after": "1.5 cups packed brown sugar",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-7c177579da.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-7c177579da.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-6",
+          "before": "2 teaspoons hot water",
+          "after": null,
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-7c177579da.t2.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-3",
+          "before": "Dissolve baking soda in hot water. Add to batter along with salt.",
+          "after": "Add baking soda to batter along with salt.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-7c177579da.t3",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-7c177579da.t3.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-7",
+          "before": null,
+          "after": "1 teaspoon cream of tartar",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-7c177579da.t3.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-3",
+          "before": "Add baking soda to batter along with salt.",
+          "after": "Add baking soda to batter along with salt and cream of tartar.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-7c177579da.t4",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-7c177579da.t4.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-4",
+          "before": null,
+          "after": "Cover and refrigerate the dough for at least 1 hour.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-2625a5a85e.t1",
+      "status": "refused",
+      "reason": null,
+      "detail": "rev-2625a5a85e.t1.e1: conflict: ing-2 was already changed by rev-7c177579da.t1",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-2625a5a85e.t1.e1",
+          "status": "refused",
+          "reason": "conflict",
+          "detail": "ing-2 was already changed by rev-7c177579da.t1",
+          "line_id": "ing-2",
+          "before": null,
+          "after": null,
+          "match_method": null,
+          "match_score": null
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-2625a5a85e.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-2625a5a85e.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-8",
+          "before": "3 cups all-purpose flour",
+          "after": "2.5 cups all-purpose flour",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-2625a5a85e.t3",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-2625a5a85e.t3.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-7",
+          "before": null,
+          "after": "1 dash cinnamon",
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-2625a5a85e.t3.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-4",
+          "before": "Stir in flour, chocolate chips, and walnuts.",
+          "after": "Stir in flour, cinnamon, chocolate chips, and walnuts.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-14abf70420.t1",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-14abf70420.t1.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-7",
+          "before": "0.5 teaspoon salt",
+          "after": "1 teaspoon salt",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-14abf70420.t2",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-14abf70420.t2.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "ing-10",
+          "before": "1 cup chopped walnuts",
+          "after": null,
+          "match_method": "exact",
+          "match_score": 1.0
+        },
+        {
+          "edit_id": "rev-14abf70420.t2.e2",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-4",
+          "before": "Stir in flour, cinnamon, chocolate chips, and walnuts.",
+          "after": "Stir in flour, cinnamon, and chocolate chips.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    },
+    {
+      "tweak_id": "rev-14abf70420.t3",
+      "status": "applied",
+      "reason": null,
+      "detail": "",
+      "edit_outcomes": [
+        {
+          "edit_id": "rev-14abf70420.t3.e1",
+          "status": "applied",
+          "reason": null,
+          "detail": "",
+          "line_id": "step-5",
+          "before": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets.",
+          "after": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets and press them down slightly.",
+          "match_method": "exact",
+          "match_score": 1.0
+        }
+      ]
+    }
+  ],
+  "status": "enhanced",
+  "reviews": [
+    {
+      "text": "I used an ice cream scoop, that made 16 big cookies. I did add an additional egg yolk to help keep the cookie chewy.They turned out fantastic.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-75f9efbd6e",
+      "sources": [
+        "reviews[0]",
+        "featured_tweaks[0]"
+      ],
+      "featured": true,
+      "rank": 1
+    },
+    {
+      "text": "These are awesome cookies. I followed the advice of others by making the following tweaks: (1) I used a half cup of sugar and one-and-a-half cups of brown sugar; (2) I omitted the water; (3) I added a teaspoon of cream of tartar to the batter; (4) I refrigerated the batter for at least an hour before scooping and baking. The cookies retained their shape and didn't spread when baked. I think the cream of tartar made a difference, and the cookies did not come out too cakey either! This recipe is going in my \"favorites\" cookbook.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-7c177579da",
+      "sources": [
+        "reviews[1]",
+        "featured_tweaks[1]"
+      ],
+      "featured": true,
+      "rank": 2
+    },
+    {
+      "text": "I just made these and 😍😋!!!! Changes- used a whole cup of white sugar and 1/2 c of brown (because it's what I had) and 1/2 c less flour after reading some other reviews, and added a tiny dash of cinnamon. They are phenomenal! Crispy edges and gooey center. My husband works from home and he can't stop coming out of his office and trying them!!!! HUGE hit and will be my go to. Thank you!!",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-2625a5a85e",
+      "sources": [
+        "reviews[6]",
+        "featured_tweaks[3]"
+      ],
+      "featured": true,
+      "rank": 3
+    },
+    {
+      "text": "The first batch that I made was a bit bland. But I did love that they weren't flat! They are a nice thick, chewy cookie. The second batch I used 1 tsp. of salt instead of 1/2 tsp. and omitted the nuts. This was better, but still not quite as flavorful at the traditional Tollhouse cookie recipe. I found that if I pressed them down slightly before baking that worked the best.If I were to rate this recipe on look and texture, it would be a 5. But the flavor falls a bit flat for me. I may keep trying to see how I can make it taste better, but maintain the aesthetic.",
+      "reviewer": null,
+      "rating": 3,
+      "review_id": "rev-14abf70420",
+      "sources": [
+        "reviews[3]",
+        "featured_tweaks[2]"
+      ],
+      "featured": true,
+      "rank": 4
+    },
+    {
+      "text": "It is a great recipe",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-aca648b9e4",
+      "sources": [
+        "reviews[2]"
+      ],
+      "featured": false,
+      "rank": 5
+    },
+    {
+      "text": "They taste good and were so soft. I had my grandmother try it (she’s the cook of the family) and she said they were good. That made me happy. I would use this recipe again. These were my first batch of cookies.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-6407431954",
+      "sources": [
+        "reviews[5]"
+      ],
+      "featured": false,
+      "rank": 6
+    },
+    {
+      "text": "This is my favorite cookie recipe, been making it for 15 years.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-33331e401e",
+      "sources": [
+        "reviews[7]"
+      ],
+      "featured": false,
+      "rank": 7
+    },
+    {
+      "text": "This is an amazing recipe. I followed it EXACTLY. I will make it many times.",
+      "reviewer": null,
+      "rating": 5,
+      "review_id": "rev-0dab36afdd",
+      "sources": [
+        "reviews[8]"
+      ],
+      "featured": false,
+      "rank": 8
+    },
+    {
+      "text": "Well I am not a Baker by any means but these cookies were very easily prepared. The whole family enjoys these. Thanks so much",
+      "reviewer": null,
+      "rating": 4,
+      "review_id": "rev-a19f7e8787",
+      "sources": [
+        "reviews[4]"
+      ],
+      "featured": false,
+      "rank": 9
+    }
+  ],
+  "recipe_diff": [
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-1",
+      "before": "1 cup white sugar",
+      "after": "0.5 cup white sugar",
+      "tweak_ids": [
+        "rev-7c177579da.t1"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-2",
+      "before": "1 cup packed brown sugar",
+      "after": "1.5 cups packed brown sugar",
+      "tweak_ids": [
+        "rev-7c177579da.t1"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "added",
+      "line_id": "ing-3",
+      "before": null,
+      "after": "1 egg yolk",
+      "tweak_ids": [
+        "rev-75f9efbd6e.t2"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "removed",
+      "line_id": "ing-6",
+      "before": "2 teaspoons hot water",
+      "after": null,
+      "tweak_ids": [
+        "rev-7c177579da.t2"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-7",
+      "before": "0.5 teaspoon salt",
+      "after": "1 teaspoon salt",
+      "tweak_ids": [
+        "rev-14abf70420.t1"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "added",
+      "line_id": "ing-7",
+      "before": null,
+      "after": "1 teaspoon cream of tartar",
+      "tweak_ids": [
+        "rev-7c177579da.t3"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "added",
+      "line_id": "ing-7",
+      "before": null,
+      "after": "1 dash cinnamon",
+      "tweak_ids": [
+        "rev-2625a5a85e.t3"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "changed",
+      "line_id": "ing-8",
+      "before": "3 cups all-purpose flour",
+      "after": "2.5 cups all-purpose flour",
+      "tweak_ids": [
+        "rev-2625a5a85e.t2"
+      ]
+    },
+    {
+      "section": "ingredients",
+      "kind": "removed",
+      "line_id": "ing-10",
+      "before": "1 cup chopped walnuts",
+      "after": null,
+      "tweak_ids": [
+        "rev-14abf70420.t2"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-2",
+      "before": "Beat in eggs, one at a time, then stir in vanilla.",
+      "after": "Beat in eggs and the egg yolk, one at a time, then stir in vanilla.",
+      "tweak_ids": [
+        "rev-75f9efbd6e.t2"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-3",
+      "before": "Dissolve baking soda in hot water. Add to batter along with salt.",
+      "after": "Add baking soda to batter along with salt and cream of tartar.",
+      "tweak_ids": [
+        "rev-7c177579da.t2",
+        "rev-7c177579da.t3"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-4",
+      "before": "Stir in flour, chocolate chips, and walnuts.",
+      "after": "Stir in flour, cinnamon, and chocolate chips.",
+      "tweak_ids": [
+        "rev-2625a5a85e.t3",
+        "rev-14abf70420.t2"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "added",
+      "line_id": "step-4",
+      "before": null,
+      "after": "Cover and refrigerate the dough for at least 1 hour.",
+      "tweak_ids": [
+        "rev-7c177579da.t4"
+      ]
+    },
+    {
+      "section": "instructions",
+      "kind": "changed",
+      "line_id": "step-5",
+      "before": "Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.",
+      "after": "Drop scoops of dough (an ice cream scoop makes 16 big cookies) 2 inches apart onto ungreased baking sheets and press them down slightly.",
+      "tweak_ids": [
+        "rev-75f9efbd6e.t1",
+        "rev-14abf70420.t3"
+      ]
+    }
+  ],
+  "diff_verified": true,
+  "diff_problems": [],
+  "extraction_source": "replay of recorded responses (recipe_10813.json, recipe_144299.json, recipe_19117.json, recipe_77935.json)",
+  "model": "gpt-3.5-turbo",
+  "prompt_version": "37cc3c30e9f6"
+}

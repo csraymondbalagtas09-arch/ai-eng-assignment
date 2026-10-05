@@ -1,0 +1,107 @@
+{
+  "pipeline_summary": {
+    "recipes": 6,
+    "by_status": {
+      "enhanced": 3,
+      "unchanged": 1,
+      "skipped": 2,
+      "failed": 0
+    },
+    "tweaks_applied": 16,
+    "tweaks_refused": 2,
+    "tweaks_skipped": 8,
+    "diffs_verified": 4
+  },
+  "recipes": [
+    {
+      "recipe_file": "recipe_10813_best-chocolate-chip-cookies.json",
+      "recipe_id": "10813",
+      "status": "enhanced",
+      "reason": null,
+      "detail": "",
+      "tweaks_applied": 11,
+      "tweaks_refused": 1,
+      "tweaks_skipped": 0,
+      "line_changes": 14,
+      "diff_verified": true,
+      "outputs": [
+        "enhanced_10813_best-chocolate-chip-cookies.json",
+        "enhanced_10813_best-chocolate-chip-cookies.md"
+      ]
+    },
+    {
+      "recipe_file": "recipe_144299_nikujaga-japanese-style-meat-and-potatoes-.json",
+      "recipe_id": "144299",
+      "status": "enhanced",
+      "reason": null,
+      "detail": "",
+      "tweaks_applied": 1,
+      "tweaks_refused": 0,
+      "tweaks_skipped": 4,
+      "line_changes": 2,
+      "diff_verified": true,
+      "outputs": [
+        "enhanced_144299_nikujaga-(japanese-style-meat-.json",
+        "enhanced_144299_nikujaga-(japanese-style-meat-.md"
+      ]
+    },
+    {
+      "recipe_file": "recipe_19117_spicy-apple-cake.json",
+      "recipe_id": "19117",
+      "status": "unchanged",
+      "reason": "nothing_applicable",
+      "detail": "",
+      "tweaks_applied": 0,
+      "tweaks_refused": 0,
+      "tweaks_skipped": 3,
+      "line_changes": 0,
+      "diff_verified": true,
+      "outputs": [
+        "enhanced_19117_spicy-apple-cake.json",
+        "enhanced_19117_spicy-apple-cake.md"
+      ]
+    },
+    {
+      "recipe_file": "recipe_284494_spiced-purple-plum-jam.json",
+      "recipe_id": "284494",
+      "status": "skipped",
+      "reason": "no_reviews",
+      "detail": "",
+      "tweaks_applied": 0,
+      "tweaks_refused": 0,
+      "tweaks_skipped": 0,
+      "line_changes": 0,
+      "diff_verified": null,
+      "outputs": []
+    },
+    {
+      "recipe_file": "recipe_45613_mango-teriyaki-marinade.json",
+      "recipe_id": "45613",
+      "status": "skipped",
+      "reason": "no_reviews",
+      "detail": "",
+      "tweaks_applied": 0,
+      "tweaks_refused": 0,
+      "tweaks_skipped": 0,
+      "line_changes": 0,
+      "diff_verified": null,
+      "outputs": []
+    },
+    {
+      "recipe_file": "recipe_77935_creamy-sweet-potato-with-ginger-soup.json",
+      "recipe_id": "77935",
+      "status": "enhanced",
+      "reason": null,
+      "detail": "",
+      "tweaks_applied": 4,
+      "tweaks_refused": 1,
+      "tweaks_skipped": 1,
+      "line_changes": 8,
+      "diff_verified": true,
+      "outputs": [
+        "enhanced_77935_creamy-sweet-potato-with-ginge.json",
+        "enhanced_77935_creamy-sweet-potato-with-ginge.md"
+      ]
+    }
+  ]
+}

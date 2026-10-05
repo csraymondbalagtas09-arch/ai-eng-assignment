@@ -1,0 +1,60 @@
+{
+  "impl": "src",
+  "mode": "mocked (responses built from the hand-written recordings)",
+  "model": "gpt-3.5-turbo (configured; not called)",
+  "prompt_version": "37cc3c30e9f6",
+  "tokenizer": "tiktoken cl100k_base, +4 tokens framing per message",
+  "request_timeout_s": 30.0,
+  "sdk_retries": 1,
+  "worst_case_requests_per_call": 4,
+  "per_recipe": [
+    {
+      "recipe": "recipe_10813_best-chocolate-chip-cookies.json",
+      "llm_calls": 9,
+      "input_tokens": 13836,
+      "output_tokens": 1653,
+      "pipeline_ms_median": 37.2
+    },
+    {
+      "recipe": "recipe_144299_nikujaga-japanese-style-meat-and-potatoes-.json",
+      "llm_calls": 2,
+      "input_tokens": 3002,
+      "output_tokens": 645,
+      "pipeline_ms_median": 9.7
+    },
+    {
+      "recipe": "recipe_19117_spicy-apple-cake.json",
+      "llm_calls": 2,
+      "input_tokens": 3318,
+      "output_tokens": 298,
+      "pipeline_ms_median": 6.1
+    },
+    {
+      "recipe": "recipe_284494_spiced-purple-plum-jam.json",
+      "llm_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "pipeline_ms_median": 0.5
+    },
+    {
+      "recipe": "recipe_45613_mango-teriyaki-marinade.json",
+      "llm_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "pipeline_ms_median": 0.3
+    },
+    {
+      "recipe": "recipe_77935_creamy-sweet-potato-with-ginger-soup.json",
+      "llm_calls": 6,
+      "input_tokens": 10345,
+      "output_tokens": 941,
+      "pipeline_ms_median": 34.4
+    }
+  ],
+  "totals": {
+    "llm_calls": 19,
+    "input_tokens": 30501,
+    "output_tokens": 3537,
+    "pipeline_ms_median_sum": 88.2
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "mode": "cached (real model output committed with the assignment; model and prompt unrecorded)",
+  "version": "original-era code (O2-O4 from an earlier revision than the original snapshot)",
+  "tweak_recall": "4/10",
+  "items_matching_a_real_tweak": "4/4",
+  "items_faithful_to_the_review": "2/4",
+  "observations": [
+    {
+      "obs": "O1",
+      "output": "src/data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "original (schema matches)",
+      "recall": "1/2",
+      "item_faithful": true,
+      "defects": []
+    },
+    {
+      "obs": "O2",
+      "output": "data/enhanced/enhanced_10813_best-chocolate-chip-cookies.json",
+      "code_version": "earlier (has confidence_score)",
+      "recall": "1/4",
+      "item_faithful": true,
+      "defects": [
+        "Three of the four numbered tweaks were dropped"
+      ]
+    },
+    {
+      "obs": "O3",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "recall": "1/3",
+      "item_faithful": false,
+      "defects": [
+        "Amounts and cuts invented: '1 cup', 'halved', 'diced', 'bell' are not in the review",
+        "Two ingredients written on one line",
+        "No step adds the new vegetables"
+      ]
+    },
+    {
+      "obs": "O4",
+      "output": "data/enhanced/enhanced_77935_creamy-sweet-potato-with-ginge.json",
+      "code_version": "earlier (has confidence_score)",
+      "recall": "1/1",
+      "item_faithful": false,
+      "defects": [
+        "An untried suggestion was applied",
+        "Ground-to-fresh ginger swapped 1:1, an amount the reviewer never gave"
+      ]
+    }
+  ]
+}
