@@ -1,0 +1,289 @@
+{
+  "description": "Hand-written ideal responses for replay (not real model output). They exercise the pipeline end to end; they say nothing about a real model's extraction quality.",
+  "recipe_file": "data/recipe_10813_best-chocolate-chip-cookies.json",
+  "responses": {
+    "rev-75f9efbd6e": {
+      "tweaks": [
+        {
+          "modification_type": "technique_change",
+          "quote": "I used an ice cream scoop, that made 16 big cookies",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer used an ice cream scoop for 16 big cookies and says they turned out fantastic.",
+          "edits": [
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-5",
+              "find": "Drop spoonfuls of dough",
+              "replace": "Drop scoops of dough (an ice cream scoop makes 16 big cookies)",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "addition",
+          "quote": "I did add an additional egg yolk",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer added it to help keep the cookies chewy.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line_id": "ing-3",
+              "find": "2 eggs",
+              "replace": null,
+              "add": "1 egg yolk"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-2",
+              "find": "Beat in eggs, one at a time",
+              "replace": "Beat in eggs and the egg yolk, one at a time",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-7c177579da": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "I used a half cup of sugar and one-and-a-half cups of brown sugar",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-1",
+              "find": "1 cup white sugar",
+              "replace": "0.5 cup white sugar",
+              "add": null
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-2",
+              "find": "1 cup packed brown sugar",
+              "replace": "1.5 cups packed brown sugar",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "removal",
+          "quote": "I omitted the water",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "remove",
+              "line_id": "ing-6",
+              "find": "2 teaspoons hot water",
+              "replace": null,
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-3",
+              "find": "Dissolve baking soda in hot water. Add to batter",
+              "replace": "Add baking soda to batter",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "addition",
+          "quote": "I added a teaspoon of cream of tartar to the batter",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line_id": "ing-7",
+              "find": "0.5 teaspoon salt",
+              "replace": null,
+              "add": "1 teaspoon cream of tartar"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-3",
+              "find": "along with salt.",
+              "replace": "along with salt and cream of tartar.",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "technique_change",
+          "quote": "I refrigerated the batter for at least an hour before scooping and baking",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "instructions",
+              "operation": "add_after",
+              "line_id": "step-4",
+              "find": "Stir in flour, chocolate chips, and walnuts.",
+              "replace": null,
+              "add": "Cover and refrigerate the dough for at least 1 hour."
+            }
+          ]
+        }
+      ]
+    },
+    "rev-2625a5a85e": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "used a whole cup of white sugar and 1/2 c of brown",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer used what they had and calls the result phenomenal.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-2",
+              "find": "1 cup packed brown sugar",
+              "replace": "0.5 cup packed brown sugar",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "1/2 c less flour",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer followed other reviews and calls the result phenomenal.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-8",
+              "find": "3 cups all-purpose flour",
+              "replace": "2.5 cups all-purpose flour",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "addition",
+          "quote": "added a tiny dash of cinnamon",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer added it and calls the result phenomenal.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line_id": "ing-7",
+              "find": "0.5 teaspoon salt",
+              "replace": null,
+              "add": "1 dash cinnamon"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-4",
+              "find": "Stir in flour,",
+              "replace": "Stir in flour, cinnamon,",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-14abf70420": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "I used 1 tsp. of salt instead of 1/2 tsp.",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer found the first batch bland and says this was better.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-7",
+              "find": "0.5 teaspoon salt",
+              "replace": "1 teaspoon salt",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "removal",
+          "quote": "omitted the nuts",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "Part of the second batch the reviewer says was better.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "remove",
+              "line_id": "ing-10",
+              "find": "1 cup chopped walnuts",
+              "replace": null,
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-4",
+              "find": "chocolate chips, and walnuts",
+              "replace": "and chocolate chips",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "technique_change",
+          "quote": "if I pressed them down slightly before baking that worked the best",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "The reviewer says pressing them down slightly worked best.",
+          "edits": [
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-5",
+              "find": "onto ungreased baking sheets.",
+              "replace": "onto ungreased baking sheets and press them down slightly.",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-aca648b9e4": {
+      "tweaks": []
+    },
+    "rev-6407431954": {
+      "tweaks": []
+    },
+    "rev-33331e401e": {
+      "tweaks": []
+    },
+    "rev-0dab36afdd": {
+      "tweaks": []
+    },
+    "rev-a19f7e8787": {
+      "tweaks": []
+    }
+  }
+}

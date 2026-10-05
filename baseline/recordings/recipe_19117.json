@@ -1,0 +1,56 @@
+{
+  "description": "Hand-written ideal responses for replay (not real model output). They exercise the pipeline end to end; they say nothing about a real model's extraction quality.",
+  "recipe_file": "data/recipe_19117_spicy-apple-cake.json",
+  "responses": {
+    "rev-3ca4bfb800": {
+      "tweaks": [
+        {
+          "modification_type": "ingredient_substitution",
+          "quote": "I used a different frosting only because I had some leftover from another cake",
+          "status": "tried",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": []
+        },
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "The next time I make this I will add one more cup of apples",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-12",
+              "find": "2 cups apple",
+              "replace": "3 cups apple",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-4d178f3fcc": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "I would prefer some more apple chunks in it",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-12",
+              "find": "2 cups apple - peeled, cored, and chopped",
+              "replace": "2 cups apple - peeled, cored, and chopped, or more (amount not specified)",
+              "add": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

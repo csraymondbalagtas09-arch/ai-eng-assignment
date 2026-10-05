@@ -6,8 +6,9 @@ It combines modified recipes with attribution information to create
 comprehensive enhanced recipe objects.
 """
 
+import os
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional, Tuple
 
 from loguru import logger
 
@@ -15,12 +16,16 @@ from .models import (
     ChangeRecord,
     EnhancedRecipe,
     EnhancementSummary,
+    ExtractionResult,
     ModificationApplied,
     ModificationObject,
     Recipe,
     Review,
     SourceReview,
+    Tweak,
+    TweakOutcome,
 )
+from .report import attribute_diff, compute_diff, render_markdown
 
 
 class EnhancedRecipeGenerator:
@@ -47,7 +52,13 @@ class EnhancedRecipeGenerator:
             SourceReview with attribution information
         """
         return SourceReview(
-            text=review.text, reviewer=review.username, rating=review.rating
+            text=review.text,
+            reviewer=review.username,
+            rating=review.rating,
+            review_id=review.id,
+            sources=list(review.sources),
+            featured=review.featured,
+            rank=review.rank,
         )
 
     def create_modification_applied(
@@ -55,6 +66,7 @@ class EnhancedRecipeGenerator:
         modification: ModificationObject,
         source_review: Review,
         change_records: List[ChangeRecord],
+        tweak_id: Optional[str] = None,
     ) -> ModificationApplied:
         """
         Create a ModificationApplied record for attribution.
@@ -63,6 +75,7 @@ class EnhancedRecipeGenerator:
             modification: Original modification object
             source_review: Review that suggested this modification
             change_records: List of changes that were actually made
+            tweak_id: Stable ID of the tweak this modification was recorded as
 
         Returns:
             ModificationApplied with full attribution
@@ -72,6 +85,7 @@ class EnhancedRecipeGenerator:
             modification_type=modification.modification_type,
             reasoning=modification.reasoning,
             changes_made=change_records,
+            tweak_id=tweak_id,
         )
 
     def calculate_enhancement_summary(
@@ -87,7 +101,7 @@ class EnhancedRecipeGenerator:
             EnhancementSummary with aggregate statistics
         """
         total_changes = sum(len(mod.changes_made) for mod in modifications_applied)
-        change_types = list(set(mod.modification_type for mod in modifications_applied))
+        change_types = sorted(set(mod.modification_type for mod in modifications_applied))
 
         # Generate expected impact summary
         impact_descriptions = []
@@ -115,6 +129,7 @@ class EnhancedRecipeGenerator:
         modification: ModificationObject,
         source_review: Review,
         change_records: List[ChangeRecord],
+        tweak_id: Optional[str] = None,
     ) -> EnhancedRecipe:
         """
         Generate a complete enhanced recipe with attribution.
@@ -125,24 +140,76 @@ class EnhancedRecipeGenerator:
             modification: Single modification that was applied
             source_review: Review that suggested the modification
             change_records: Changes made for the modification
+            tweak_id: Stable ID of the tweak this modification was recorded as
 
         Returns:
             Complete EnhancedRecipe with attribution
         """
-        logger.info(f"Generating enhanced recipe for: {original_recipe.title}")
-
         # Create modification applied record
         modification_applied = self.create_modification_applied(
-            modification, source_review, change_records
+            modification, source_review, change_records, tweak_id=tweak_id
         )
-        modifications_applied = [modification_applied]
+        return self._assemble(original_recipe, modified_recipe, [modification_applied])
+
+    def generate_from_tweaks(
+        self,
+        original_recipe: Recipe,
+        modified_recipe: Recipe,
+        applied: List[Tuple[Tweak, Review, List[ChangeRecord]]],
+        extraction_results: List[ExtractionResult],
+        tweak_outcomes: List[TweakOutcome],
+        reviews: Optional[List[Review]] = None,
+    ) -> EnhancedRecipe:
+        """
+        Generate an enhanced recipe from applied tweaks, recording every extraction.
+
+        Args:
+            original_recipe: Original unmodified recipe
+            modified_recipe: Recipe with the tweaks applied (the original if none applied)
+            applied: Each applied tweak with its review and the changes it made
+            extraction_results: Extraction results for every review analyzed
+            tweak_outcomes: Outcome of every extracted tweak (applied, refused, skipped)
+            reviews: Every review considered, in rank order
+
+        Returns:
+            Complete EnhancedRecipe with attribution and a verified diff
+        """
+        modifications_applied = []
+        for tweak, review, records in applied:
+            record = self.create_modification_applied(
+                tweak.to_modification(), review, records, tweak_id=tweak.id
+            )
+            record.evidence_quote = tweak.evidence_quote
+            modifications_applied.append(record)
+        enhanced = self._assemble(
+            original_recipe, modified_recipe, modifications_applied, extraction_results,
+            tweak_outcomes,
+        )
+        enhanced.reviews = [self.create_source_review(r) for r in reviews or []]
+        diff, problems = attribute_diff(compute_diff(original_recipe, modified_recipe), tweak_outcomes)
+        enhanced.recipe_diff, enhanced.diff_problems = diff, problems
+        enhanced.diff_verified = not problems
+        if problems:
+            logger.error(f"Diff does not reconcile with the applied edits: {problems}")
+        return enhanced
+
+    def _assemble(
+        self,
+        original_recipe: Recipe,
+        modified_recipe: Recipe,
+        modifications_applied: List[ModificationApplied],
+        extraction_results: Optional[List[ExtractionResult]] = None,
+        tweak_outcomes: Optional[List[TweakOutcome]] = None,
+    ) -> EnhancedRecipe:
+        logger.info(f"Generating enhanced recipe for: {original_recipe.title}")
 
         # Calculate enhancement summary
         enhancement_summary = self.calculate_enhancement_summary(modifications_applied)
 
-        # Generate enhanced recipe ID and title
+        # Generate enhanced recipe ID and title; only claim enhancement if text changed
+        changed = enhancement_summary.total_changes > 0
         enhanced_recipe_id = f"{original_recipe.recipe_id}_enhanced"
-        enhanced_title = f"{original_recipe.title} (Community Enhanced)"
+        enhanced_title = original_recipe.title + (" (Community Enhanced)" if changed else "")
 
         # Create the enhanced recipe
         enhanced_recipe = EnhancedRecipe(
@@ -160,6 +227,10 @@ class EnhancedRecipeGenerator:
             total_time=getattr(original_recipe, "total_time", None),
             created_at=datetime.now().isoformat(),
             pipeline_version=self.pipeline_version,
+            source_recipe_hash=original_recipe.content_hash,
+            extraction_results=extraction_results or [],
+            tweak_outcomes=tweak_outcomes or [],
+            status="enhanced" if changed else "unchanged",
         )
 
         logger.info(
@@ -248,3 +319,17 @@ class EnhancedRecipeGenerator:
 
         logger.info(f"Saved enhanced recipe to: {output_path}")
         return output_path
+
+    def save_report(self, enhanced_recipe: EnhancedRecipe, json_path: str) -> List[str]:
+        """
+        Save the enhanced recipe as JSON and its explanation as Markdown alongside it.
+
+        Returns:
+            Paths of the two files written
+        """
+        md_path = os.path.splitext(json_path)[0] + ".md"
+        self.save_enhanced_recipe(enhanced_recipe, json_path)
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write(render_markdown(enhanced_recipe))
+        logger.info(f"Saved explanation to: {md_path}")
+        return [json_path, md_path]

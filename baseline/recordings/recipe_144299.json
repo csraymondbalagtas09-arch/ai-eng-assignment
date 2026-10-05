@@ -1,0 +1,115 @@
+{
+  "description": "Hand-written ideal responses for replay (not real model output). They exercise the pipeline end to end; they say nothing about a real model's extraction quality.",
+  "recipe_file": "data/recipe_144299_nikujaga-japanese-style-meat-and-potatoes-.json",
+  "responses": {
+    "rev-fa5985a5dd": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "I used a lil over 1lb",
+          "status": "tried",
+          "reviewer_outcome": "mixed",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-2",
+              "find": "0.25 pound sirloin steak",
+              "replace": "a little over 1 pound sirloin steak",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "i added extra soy and sugar",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-5",
+              "find": "0.25 cup soy sauce",
+              "replace": "0.25 cup soy sauce, or more to taste",
+              "add": null
+            },
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-7",
+              "find": "1 tablespoon white sugar",
+              "replace": "1 tablespoon white sugar, or more to taste",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "ingredient_substitution",
+          "quote": "If you cant find dashi, beef broth/stock works just fine",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-4",
+              "find": "2 cups dashi soup",
+              "replace": "2 cups dashi soup (or beef broth)",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-c0466b6484": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "You need at least a 1lb of beef for this",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-2",
+              "find": "0.25 pound sirloin steak",
+              "replace": "1 pound sirloin steak",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "addition",
+          "quote": "I threw in carrots since i had them around",
+          "status": "tried",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "add_after",
+              "line_id": "ing-3",
+              "find": "4 potatoes, cut into bite sized pieces",
+              "replace": null,
+              "add": "carrots (amount not specified)"
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-1",
+              "find": "Add the potatoes;",
+              "replace": "Add the potatoes and carrots;",
+              "add": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

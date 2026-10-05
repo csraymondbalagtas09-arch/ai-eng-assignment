@@ -16,7 +16,14 @@ from .models import (
     EnhancedRecipe,
     ModificationApplied,
     EnhancementSummary,
+    RecipeLine,
+    Tweak,
+    TweakEdit,
+    EditOutcome,
+    TweakOutcome,
+    ExtractionResult,
 )
+from .loader import LoadedRecipe, RecipeDataError, load_recipe_file
 from .tweak_extractor import TweakExtractor
 from .recipe_modifier import RecipeModifier
 from .enhanced_recipe_generator import EnhancedRecipeGenerator
@@ -28,6 +35,15 @@ __all__ = [
     "EnhancedRecipe",
     "ModificationApplied",
     "EnhancementSummary",
+    "RecipeLine",
+    "Tweak",
+    "TweakEdit",
+    "EditOutcome",
+    "TweakOutcome",
+    "ExtractionResult",
+    "LoadedRecipe",
+    "RecipeDataError",
+    "load_recipe_file",
     "TweakExtractor",
     "RecipeModifier",
     "EnhancedRecipeGenerator",

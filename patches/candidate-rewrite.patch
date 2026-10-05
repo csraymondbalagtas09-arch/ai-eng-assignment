@@ -1,0 +1,2542 @@
+--- a/src/llm_pipeline/__init__.py
++++ b/src/llm_pipeline/__init__.py
+@@ -13,22 +13,27 @@
+ from .models import (
+     ModificationEdit,
+     ModificationObject,
++    ReviewExtraction,
+     EnhancedRecipe,
+     ModificationApplied,
++    ModificationSkipped,
+     EnhancementSummary,
+ )
+ from .tweak_extractor import TweakExtractor
+-from .recipe_modifier import RecipeModifier
++from .recipe_modifier import EditError, RecipeModifier
+ from .enhanced_recipe_generator import EnhancedRecipeGenerator
+ from .pipeline import LLMAnalysisPipeline
+ 
+ __all__ = [
+     "ModificationEdit",
+     "ModificationObject",
++    "ReviewExtraction",
+     "EnhancedRecipe",
+     "ModificationApplied",
++    "ModificationSkipped",
+     "EnhancementSummary",
+     "TweakExtractor",
++    "EditError",
+     "RecipeModifier",
+     "EnhancedRecipeGenerator",
+     "LLMAnalysisPipeline",
+--- a/src/llm_pipeline/enhanced_recipe_generator.py
++++ b/src/llm_pipeline/enhanced_recipe_generator.py
+@@ -7,7 +7,7 @@
+ """
+ 
+ from datetime import datetime
+-from typing import Any, Dict, List
++from typing import Any, Dict, List, Sequence, Tuple
+ 
+ from loguru import logger
+ 
+@@ -17,6 +17,7 @@
+     EnhancementSummary,
+     ModificationApplied,
+     ModificationObject,
++    ModificationSkipped,
+     Recipe,
+     Review,
+     SourceReview,
+@@ -26,7 +27,7 @@
+ class EnhancedRecipeGenerator:
+     """Generates enhanced recipes with full citation tracking and attribution."""
+ 
+-    def __init__(self, pipeline_version: str = "1.0.0"):
++    def __init__(self, pipeline_version: str = "2.0.0"):
+         """
+         Initialize the Enhanced Recipe Generator.
+ 
+@@ -47,7 +48,11 @@
+             SourceReview with attribution information
+         """
+         return SourceReview(
+-            text=review.text, reviewer=review.username, rating=review.rating
++            text=review.text,
++            reviewer=review.username,
++            rating=review.rating,
++            source=review.source,
++            review_index=review.review_index,
+         )
+ 
+     def create_modification_applied(
+@@ -70,30 +75,67 @@
+         return ModificationApplied(
+             source_review=self.create_source_review(source_review),
+             modification_type=modification.modification_type,
++            evidence_quote=modification.evidence_quote,
+             reasoning=modification.reasoning,
+             changes_made=change_records,
+         )
+ 
++    def create_modification_skipped(
++        self,
++        modification: ModificationObject,
++        source_review: Review,
++        skip_reason: str,
++        detail: str,
++    ) -> ModificationSkipped:
++        """
++        Create a ModificationSkipped record explaining why a tweak was not applied.
++
++        Args:
++            modification: Extracted modification that was not applied
++            source_review: Review that described the modification
++            skip_reason: Machine-readable reason code
++            detail: Human-readable explanation
++
++        Returns:
++            ModificationSkipped with full attribution
++        """
++        return ModificationSkipped(
++            source_review=self.create_source_review(source_review),
++            modification_type=modification.modification_type,
++            evidence_quote=modification.evidence_quote,
++            status=modification.status,
++            outcome=modification.outcome,
++            reasoning=modification.reasoning,
++            skip_reason=skip_reason,
++            detail=detail,
++            proposed_edits=modification.edits,
++        )
++
+     def calculate_enhancement_summary(
+-        self, modifications_applied: List[ModificationApplied]
++        self,
++        modifications_applied: List[ModificationApplied],
++        modifications_skipped: Sequence[ModificationSkipped] = (),
++        reviews_analyzed: int = 0,
+     ) -> EnhancementSummary:
+         """
+         Calculate summary statistics for all applied modifications.
+ 
+         Args:
+             modifications_applied: List of all modifications applied
++            modifications_skipped: Extracted modifications that were not applied
++            reviews_analyzed: Number of reviews sent for extraction
+ 
+         Returns:
+             EnhancementSummary with aggregate statistics
+         """
+         total_changes = sum(len(mod.changes_made) for mod in modifications_applied)
+-        change_types = list(set(mod.modification_type for mod in modifications_applied))
++        change_types = sorted(set(mod.modification_type for mod in modifications_applied))
+ 
+         # Generate expected impact summary
+         impact_descriptions = []
+         for mod in modifications_applied:
+             if mod.reasoning:
+-                impact_descriptions.append(mod.reasoning)
++                impact_descriptions.append(mod.reasoning.strip().rstrip("."))
+ 
+         expected_impact = "; ".join(impact_descriptions[:3])  # Limit to top 3
+         if len(impact_descriptions) > 3:
+@@ -105,16 +147,21 @@
+             total_changes=total_changes,
+             change_types=change_types,
+             expected_impact=expected_impact
+-            or "Community-validated recipe improvements",
++            or "No community tweaks met the criteria for applying them",
++            reviews_analyzed=reviews_analyzed,
++            tweaks_extracted=len(modifications_applied) + len(modifications_skipped),
++            tweaks_applied=len(modifications_applied),
++            tweaks_skipped=len(modifications_skipped),
+         )
+ 
+     def generate_enhanced_recipe(
+         self,
+         original_recipe: Recipe,
+         modified_recipe: Recipe,
+-        modification: ModificationObject,
+-        source_review: Review,
+-        change_records: List[ChangeRecord],
++        applied: Sequence[Tuple[ModificationObject, Review, List[ChangeRecord]]],
++        skipped: Sequence[ModificationSkipped] = (),
++        extraction_failures: Sequence[Review] = (),
++        reviews_analyzed: int = 0,
+     ) -> EnhancedRecipe:
+         """
+         Generate a complete enhanced recipe with attribution.
+@@ -122,27 +169,31 @@
+         Args:
+             original_recipe: Original unmodified recipe
+             modified_recipe: Recipe with modifications applied
+-            modification: Single modification that was applied
+-            source_review: Review that suggested the modification
+-            change_records: Changes made for the modification
++            applied: (modification, source review, changes made) for each applied tweak
++            skipped: Records of extracted tweaks that were not applied
++            extraction_failures: Reviews whose tweaks could not be extracted
++            reviews_analyzed: Number of reviews sent for extraction
+ 
+         Returns:
+             Complete EnhancedRecipe with attribution
+         """
+         logger.info(f"Generating enhanced recipe for: {original_recipe.title}")
+ 
+-        # Create modification applied record
+-        modification_applied = self.create_modification_applied(
+-            modification, source_review, change_records
+-        )
+-        modifications_applied = [modification_applied]
++        modifications_applied = [
++            self.create_modification_applied(modification, review, changes)
++            for modification, review, changes in applied
++        ]
+ 
+         # Calculate enhancement summary
+-        enhancement_summary = self.calculate_enhancement_summary(modifications_applied)
++        enhancement_summary = self.calculate_enhancement_summary(
++            modifications_applied, skipped, reviews_analyzed
++        )
+ 
+-        # Generate enhanced recipe ID and title
++        # Generate enhanced recipe ID and title; only claim enhancement if it happened
+         enhanced_recipe_id = f"{original_recipe.recipe_id}_enhanced"
+-        enhanced_title = f"{original_recipe.title} (Community Enhanced)"
++        enhanced_title = original_recipe.title
++        if enhancement_summary.total_changes:
++            enhanced_title += " (Community Enhanced)"
+ 
+         # Create the enhanced recipe
+         enhanced_recipe = EnhancedRecipe(
+@@ -152,6 +203,8 @@
+             ingredients=modified_recipe.ingredients,
+             instructions=modified_recipe.instructions,
+             modifications_applied=modifications_applied,
++            modifications_skipped=list(skipped),
++            extraction_failures=[self.create_source_review(r) for r in extraction_failures],
+             enhancement_summary=enhancement_summary,
+             description=original_recipe.description,
+             servings=original_recipe.servings,
+@@ -164,7 +217,8 @@
+ 
+         logger.info(
+             f"Generated enhanced recipe with {enhancement_summary.total_changes} changes "
+-            f"from {len(modifications_applied)} modifications"
++            f"from {len(modifications_applied)} modifications "
++            f"({len(skipped)} skipped, {len(extraction_failures)} extraction failures)"
+         )
+ 
+         return enhanced_recipe
+@@ -205,7 +259,10 @@
+                 {
+                     "reviewer": mod.source_review.reviewer,
+                     "rating": mod.source_review.rating,
++                    "source": mod.source_review.source,
++                    "review_index": mod.source_review.review_index,
+                     "modification_type": mod.modification_type,
++                    "evidence_quote": mod.evidence_quote,
+                     "reasoning": mod.reasoning,
+                     "changes": [
+                         {
+--- a/src/llm_pipeline/models.py
++++ b/src/llm_pipeline/models.py
+@@ -3,6 +3,9 @@
+ 
+ These models define the structure for recipe modifications, enhanced recipes,
+ and all intermediate data formats used throughout the pipeline.
++
++ModificationEdit, ModificationObject and ReviewExtraction are sent to the LLM as a
++strict JSON schema, so they must not declare non-None defaults.
+ """
+ 
+ from typing import Any, Dict, List, Literal, Optional
+@@ -17,20 +20,25 @@
+         description="Whether this edit applies to ingredients or instructions"
+     )
+     operation: Literal["replace", "add_after", "remove"] = Field(
+-        default="replace",
+-        description="Type of operation: replace text, add after target, or remove",
++        description="replace a span of a line, add a new line after the target line, "
++        "or remove the whole target line",
++    )
++    line_index: Optional[int] = Field(
++        default=None,
++        description="0-based number of the target line in the original recipe list",
+     )
+-    find: str = Field(description="Text to find in the recipe")
++    find: str = Field(description="Text copied exactly from the target line")
+     replace: Optional[str] = Field(
+-        default=None, description="Replacement text (required for replace operations)"
++        default=None,
++        description="Replacement for the found span (replace only; empty string deletes it)",
+     )
+     add: Optional[str] = Field(
+-        default=None, description="Text to add (required for add_after operations)"
++        default=None, description="Full new line to insert (add_after only)"
+     )
+ 
+ 
+ class ModificationObject(BaseModel):
+-    """Structured modification parsed from a review."""
++    """One distinct tweak described in a review, with the evidence for it."""
+ 
+     modification_type: Literal[
+         "ingredient_substitution",
+@@ -40,17 +48,44 @@
+         "removal",
+     ] = Field(description="Category of modification")
+ 
+-    reasoning: str = Field(description="Why this modification improves the recipe")
++    evidence_quote: str = Field(
++        description="Verbatim span of the review that describes this tweak"
++    )
++    status: Literal["tried", "suggested"] = Field(
++        description="tried: the reviewer made this change; suggested: a plan, wish or "
++        "advice they did not carry out themselves"
++    )
++    outcome: Literal["positive", "mixed", "negative", "unclear"] = Field(
++        description="The reviewer's reported result of this specific change"
++    )
++    reasoning: str = Field(
++        description="The reviewer's own reason for, or result of, this change"
++    )
+ 
+     edits: List[ModificationEdit] = Field(description="List of atomic edits to apply")
+ 
+ 
++class ReviewExtraction(BaseModel):
++    """Every tweak extracted from a single review (empty if it describes none)."""
++
++    modifications: List[ModificationObject] = Field(
++        description="One entry per distinct tweak in the review"
++    )
++
++
+ class SourceReview(BaseModel):
+     """Reference to the original review that suggested the modification."""
+ 
+     text: str = Field(description="Full text of the original review")
+     reviewer: Optional[str] = Field(description="Username of the reviewer")
+     rating: Optional[int] = Field(description="Star rating given by reviewer")
++    source: Optional[str] = Field(
++        default=None,
++        description="List in the recipe file the review came from (reviews or featured_tweaks)",
++    )
++    review_index: Optional[int] = Field(
++        default=None, description="Position of the review in that list"
++    )
+ 
+ 
+ class ChangeRecord(BaseModel):
+@@ -64,6 +99,17 @@
+     operation: Literal["replace", "add", "remove"] = Field(
+         description="Type of operation performed"
+     )
++    line_ref: Optional[int] = Field(
++        default=None,
++        description="Index of the affected line in the original recipe (for add: the line "
++        "the new one follows); None if that line was itself added by a tweak",
++    )
++    match_method: Optional[Literal["exact", "normalized", "fuzzy"]] = Field(
++        default=None, description="How the edit's find text was located"
++    )
++    match_score: Optional[float] = Field(
++        default=None, description="Similarity of the match (1.0 for substring matches)"
++    )
+ 
+ 
+ class ModificationApplied(BaseModel):
+@@ -73,12 +119,41 @@
+         description="Review that suggested this modification"
+     )
+     modification_type: str = Field(description="Category of modification")
++    evidence_quote: Optional[str] = Field(
++        default=None, description="Verbatim span of the review that describes the tweak"
++    )
+     reasoning: str = Field(description="Why this modification was applied")
+     changes_made: List[ChangeRecord] = Field(
+         description="Detailed list of changes made"
+     )
+ 
+ 
++class ModificationSkipped(BaseModel):
++    """Record of an extracted tweak that was not applied, and why."""
++
++    source_review: SourceReview = Field(
++        description="Review that described this modification"
++    )
++    modification_type: str = Field(description="Category of modification")
++    evidence_quote: str = Field(
++        description="Verbatim span of the review that describes the tweak"
++    )
++    status: str = Field(description="tried or suggested")
++    outcome: str = Field(description="The reviewer's reported result")
++    reasoning: str = Field(description="The reviewer's reason for the change")
++    skip_reason: Literal[
++        "not_tried",
++        "outcome_not_positive",
++        "evidence_not_in_review",
++        "no_edits",
++        "edit_failed",
++    ] = Field(description="Why the tweak was not applied")
++    detail: str = Field(description="Human-readable explanation of the skip reason")
++    proposed_edits: List[ModificationEdit] = Field(
++        description="Edits the tweak would have made"
++    )
++
++
+ class EnhancementSummary(BaseModel):
+     """Summary of all modifications applied to a recipe."""
+ 
+@@ -87,6 +162,10 @@
+     expected_impact: str = Field(
+         description="Expected improvement from these modifications"
+     )
++    reviews_analyzed: int = Field(default=0, description="Reviews sent for extraction")
++    tweaks_extracted: int = Field(default=0, description="Tweaks found in all reviews")
++    tweaks_applied: int = Field(default=0, description="Tweaks applied to the recipe")
++    tweaks_skipped: int = Field(default=0, description="Tweaks recorded but not applied")
+ 
+ 
+ class EnhancedRecipe(BaseModel):
+@@ -104,6 +183,14 @@
+     modifications_applied: List[ModificationApplied] = Field(
+         description="Full record of all modifications applied"
+     )
++    modifications_skipped: List[ModificationSkipped] = Field(
++        default_factory=list,
++        description="Extracted tweaks that were not applied, with reasons",
++    )
++    extraction_failures: List[SourceReview] = Field(
++        default_factory=list,
++        description="Reviews whose tweaks could not be extracted",
++    )
+     enhancement_summary: EnhancementSummary = Field(
+         description="Summary of all enhancements"
+     )
+@@ -118,7 +205,7 @@
+     # Generation metadata
+     created_at: str = Field(description="When this enhanced recipe was created")
+     pipeline_version: str = Field(
+-        default="1.0.0", description="Version of the pipeline that created this"
++        default="2.0.0", description="Version of the pipeline that created this"
+     )
+ 
+ 
+@@ -142,3 +229,5 @@
+     rating: Optional[int] = None
+     username: Optional[str] = None
+     has_modification: bool = False
++    source: Literal["reviews", "featured_tweaks"] = "reviews"
++    review_index: Optional[int] = None
+--- a/src/llm_pipeline/pipeline.py
++++ b/src/llm_pipeline/pipeline.py
+@@ -9,6 +9,7 @@
+ Processes recipe data from scraped JSON files and outputs enhanced recipes.
+ """
+ 
++import html
+ import json
+ from pathlib import Path
+ from typing import Any, Dict, List, Optional
+@@ -17,9 +18,46 @@
+ from loguru import logger
+ 
+ from .enhanced_recipe_generator import EnhancedRecipeGenerator
+-from .models import EnhancedRecipe, Recipe, Review
++from .models import EnhancedRecipe, ModificationObject, Recipe, Review
+ from .recipe_modifier import RecipeModifier
+-from .tweak_extractor import TweakExtractor
++from .tweak_extractor import TweakExtractor, quote_in_text
++
++
++def review_label(review: Review) -> str:
++    """Pointer to a review in its recipe file, e.g. reviews[3]."""
++    return f"{review.source}[{review.review_index}]"
++
++
++def application_order(review: Review) -> tuple:
++    """Higher-rated reviews are applied first and win conflicts; ties keep file order."""
++    return (-(review.rating or 0), review.source != "reviews", review.review_index or 0)
++
++
++def skip_reason(modification: ModificationObject, review: Review) -> Optional[tuple]:
++    """
++    Decide whether an extracted tweak is eligible to be applied.
++
++    Only tweaks the reviewer actually made and reported positively are applied,
++    and only if the quoted evidence really appears in the review.
++
++    Returns:
++        (reason code, detail) if the tweak must be skipped, None if eligible
++    """
++    if not quote_in_text(modification.evidence_quote, review.text):
++        return (
++            "evidence_not_in_review",
++            "the quoted evidence does not appear in the review text",
++        )
++    if modification.status != "tried":
++        return "not_tried", "the reviewer suggested this but did not make it"
++    if modification.outcome != "positive":
++        return (
++            "outcome_not_positive",
++            f"the reviewer reported a {modification.outcome} result for this change",
++        )
++    if not modification.edits:
++        return "no_edits", "the tweak could not be expressed as an edit to this recipe"
++    return None
+ 
+ 
+ class LLMAnalysisPipeline:
+@@ -29,7 +67,8 @@
+         self,
+         openai_api_key: Optional[str] = None,
+         output_dir: str = "data/enhanced",
+-        pipeline_version: str = "1.0.0",
++        pipeline_version: str = "2.0.0",
++        tweak_extractor: Optional[TweakExtractor] = None,
+     ):
+         """
+         Initialize the complete LLM Analysis Pipeline.
+@@ -38,6 +77,7 @@
+             openai_api_key: OpenAI API key (loads from env if not provided)
+             output_dir: Directory to save enhanced recipes
+             pipeline_version: Version identifier for tracking
++            tweak_extractor: Pre-built extractor (used by tests)
+         """
+         # Load environment variables
+         load_dotenv()
+@@ -46,7 +86,7 @@
+         self.output_dir.mkdir(parents=True, exist_ok=True)
+ 
+         # Initialize pipeline components
+-        self.tweak_extractor = TweakExtractor(api_key=openai_api_key)
++        self.tweak_extractor = tweak_extractor or TweakExtractor(api_key=openai_api_key)
+         self.recipe_modifier = RecipeModifier()
+         self.enhanced_generator = EnhancedRecipeGenerator(
+             pipeline_version=pipeline_version
+@@ -78,11 +118,13 @@
+         Returns:
+             Recipe object
+         """
++        # Scraped text can contain HTML entities (e.g. "&#39;"), which would stop
++        # the LLM's copied find text from matching the recipe
+         return Recipe(
+             recipe_id=recipe_data.get("recipe_id", "unknown"),
+-            title=recipe_data.get("title", "Unknown Recipe"),
+-            ingredients=recipe_data.get("ingredients", []),
+-            instructions=recipe_data.get("instructions", []),
++            title=html.unescape(recipe_data.get("title", "Unknown Recipe")),
++            ingredients=[html.unescape(x) for x in recipe_data.get("ingredients", [])],
++            instructions=[html.unescape(x) for x in recipe_data.get("instructions", [])],
+             description=recipe_data.get("description"),
+             servings=recipe_data.get("servings"),
+             rating=recipe_data.get("rating"),
+@@ -92,6 +134,9 @@
+         """
+         Parse raw review data into Review objects.
+ 
++        All reviews are kept, whatever their has_modification flag. Featured tweaks
++        are added when their text is not already among the reviews.
++
+         Args:
+             recipe_data: Raw recipe data containing reviews
+ 
+@@ -99,17 +144,27 @@
+             List of Review objects
+         """
+         reviews = []
+-        raw_reviews = recipe_data.get("reviews", [])
++        seen_texts = set()
+ 
+-        for review_data in raw_reviews:
+-            if review_data.get("text"):
+-                review = Review(
+-                    text=review_data["text"],
+-                    rating=review_data.get("rating"),
+-                    username=review_data.get("username"),
+-                    has_modification=review_data.get("has_modification", False),
++        for source in ("reviews", "featured_tweaks"):
++            for index, review_data in enumerate(recipe_data.get(source) or []):
++                text = review_data.get("text")
++                if not text:
++                    continue
++                key = " ".join(text.lower().split())
++                if key in seen_texts:
++                    continue
++                seen_texts.add(key)
++                reviews.append(
++                    Review(
++                        text=text,
++                        rating=review_data.get("rating"),
++                        username=review_data.get("username"),
++                        has_modification=bool(review_data.get("has_modification")),
++                        source=source,
++                        review_index=index,
++                    )
+                 )
+-                reviews.append(review)
+ 
+         return reviews
+ 
+@@ -136,42 +191,76 @@
+ 
+             logger.info(f"Loaded recipe: {recipe.title}")
+             logger.info(
+-                f"Found {len(reviews)} reviews, {len([r for r in reviews if r.has_modification])} with modifications"
++                f"Found {len(reviews)} reviews, {len([r for r in reviews if r.has_modification])} flagged as modifications"
+             )
+ 
+-            if not any(r.has_modification for r in reviews):
+-                logger.warning("No reviews with modifications found")
++            if not reviews:
++                logger.warning("No reviews found")
+                 return None
+ 
+-            # Step 1: Extract modification from one random review
+-            logger.info("Step 1: Extracting modification from a single review...")
+-            modification, source_review = (
+-                self.tweak_extractor.extract_single_modification(reviews, recipe)
+-            )
+-
+-            if not modification or not source_review:
+-                logger.warning("No modification could be extracted")
++            # Step 1: Extract every tweak from every review
++            logger.info("Step 1: Extracting tweaks from all reviews...")
++            extractions = self.tweak_extractor.extract_all_modifications(reviews, recipe)
++
++            failures = [review for review, mods in extractions if mods is None]
++            if len(failures) == len(reviews):
++                logger.error("Extraction failed for every review")
+                 return None
+ 
++            # Decide which tweaks to apply, in application order
++            generator = self.enhanced_generator
++            candidates = []  # (review, modification) eligible for applying
++            skipped = []
++            for review, mods in sorted(
++                (pair for pair in extractions if pair[1] is not None),
++                key=lambda pair: application_order(pair[0]),
++            ):
++                for modification in mods:
++                    reason = skip_reason(modification, review)
++                    if reason:
++                        skipped.append(
++                            generator.create_modification_skipped(modification, review, *reason)
++                        )
++                    else:
++                        candidates.append((review, modification))
++
+             logger.info(
+-                f"Successfully extracted {modification.modification_type} modification"
++                f"Extracted {len(candidates) + len(skipped)} tweaks: "
++                f"{len(candidates)} eligible, {len(skipped)} not eligible"
+             )
+ 
+-            # Step 2: Apply modification to recipe
+-            logger.info("Step 2: Applying modification to recipe...")
+-            modified_recipe, change_records = self.recipe_modifier.apply_modification(
+-                recipe, modification
++            # Step 2: Apply eligible tweaks, each all-or-nothing
++            logger.info("Step 2: Applying tweaks to recipe...")
++            modified_recipe, results = self.recipe_modifier.apply_modifications(
++                recipe, [(review_label(r), m) for r, m in candidates]
+             )
+ 
+-            logger.info(
+-                f"Applied modification: {len(change_records)} total changes made"
+-            )
++            applied = []
++            for (review, modification), result in zip(candidates, results):
++                if result.applied:
++                    applied.append((modification, review, result.changes))
++                else:
++                    skipped.append(
++                        generator.create_modification_skipped(
++                            modification,
++                            review,
++                            "edit_failed",
++                            f"{result.error.reason}: {result.error.detail}",
++                        )
++                    )
++
++            logger.info(f"Applied {len(applied)} tweaks")
+ 
+             # Step 3: Generate enhanced recipe with attribution
+             logger.info("Step 3: Generating enhanced recipe with attribution...")
+ 
+-            enhanced_recipe = self.enhanced_generator.generate_enhanced_recipe(
+-                recipe, modified_recipe, modification, source_review, change_records
++            enhanced_recipe = generator.generate_enhanced_recipe(
++                recipe,
++                modified_recipe,
++                applied,
++                skipped=skipped,
++                extraction_failures=failures,
++                reviews_analyzed=len(reviews),
+             )
+ 
+             logger.info(f"Generated enhanced recipe: {enhanced_recipe.title}")
+@@ -204,7 +293,7 @@
+             List of successfully processed EnhancedRecipe objects
+         """
+         data_path = Path(data_dir)
+-        recipe_files = list(data_path.glob("recipe_*.json"))
++        recipe_files = sorted(data_path.glob("recipe_*.json"))
+ 
+         logger.info(f"Found {len(recipe_files)} recipe files to process")
+ 
+@@ -255,18 +344,41 @@
+                     change_type_counts.get(change_type, 0) + 1
+                 )
+ 
++        def skip_reason_counts(recipes: List[EnhancedRecipe]) -> Dict[str, int]:
++            counts: Dict[str, int] = {}
++            for recipe in recipes:
++                for mod in recipe.modifications_skipped:
++                    counts[mod.skip_reason] = counts.get(mod.skip_reason, 0) + 1
++            return dict(sorted(counts.items()))
++
+         report = {
+             "pipeline_summary": {
+                 "recipes_processed": len(enhanced_recipes),
++                "reviews_analyzed": sum(
++                    r.enhancement_summary.reviews_analyzed for r in enhanced_recipes
++                ),
++                "tweaks_extracted": sum(
++                    r.enhancement_summary.tweaks_extracted for r in enhanced_recipes
++                ),
+                 "total_modifications_applied": total_modifications,
++                "total_modifications_skipped": sum(
++                    len(r.modifications_skipped) for r in enhanced_recipes
++                ),
++                "skip_reasons": skip_reason_counts(enhanced_recipes),
++                "extraction_failures": sum(
++                    len(r.extraction_failures) for r in enhanced_recipes
++                ),
+                 "total_changes_made": total_changes,
+-                "change_type_distribution": change_type_counts,
++                "change_type_distribution": dict(sorted(change_type_counts.items())),
+             },
+             "enhanced_recipes": [
+                 {
+                     "recipe_id": recipe.recipe_id,
+                     "title": recipe.title,
+                     "modifications_count": len(recipe.modifications_applied),
++                    "skipped_count": len(recipe.modifications_skipped),
++                    "skip_reasons": skip_reason_counts([recipe]),
++                    "extraction_failures": len(recipe.extraction_failures),
+                     "changes_count": recipe.enhancement_summary.total_changes,
+                     "change_types": recipe.enhancement_summary.change_types,
+                 }
+--- a/src/llm_pipeline/prompts.py
++++ b/src/llm_pipeline/prompts.py
+@@ -5,221 +5,100 @@
+ modifications from user review text.
+ """
+ 
+-SYSTEM_PROMPT = """You are an expert recipe analyst. Your job is to extract structured recipe modifications from user reviews.
++import json
++from typing import List, Optional
+ 
+-When a user shares their experience modifying a recipe, you need to:
+-1. Identify exactly what changes they made
+-2. Understand why they made those changes
+-3. Convert their modifications into structured edit operations
+-
+-You must output valid JSON that matches the ModificationObject schema.
+-
+-Categories:
+-- "ingredient_substitution": Replacing one ingredient with another
+-- "quantity_adjustment": Changing amounts of existing ingredients
+-- "technique_change": Altering cooking method, temperature, time
+-- "addition": Adding new ingredients or steps
+-- "removal": Removing ingredients or steps
+-
+-Edit operations:
+-- "replace": Find existing text and replace it
+-- "add_after": Add new text after finding target text
+-- "remove": Remove text that matches the find pattern
+-
+-Be precise with text matching - use the exact text from the original recipe when possible."""
+-
+-EXTRACTION_PROMPT = """Original Recipe:
+-Title: {title}
+-Ingredients: {ingredients}
+-Instructions: {instructions}
+-
+-User Review: "{review_text}"
+-
+-Extract the recipe modifications from this review. The user has made changes to improve the recipe.
+-
+-Output a JSON object with this structure:
+-{{
+-    "modification_type": "quantity_adjustment|ingredient_substitution|technique_change|addition|removal",
+-    "reasoning": "Brief explanation of why this modification improves the recipe",
+-    "edits": [
+-        {{
+-            "target": "ingredients|instructions",
+-            "operation": "replace|add_after|remove",
+-            "find": "exact text to find",
+-            "replace": "replacement text (for replace operations)",
+-            "add": "text to add (for add_after operations)"
+-        }}
+-    ]
+-}
++SYSTEM_PROMPT = """You are an expert recipe analyst. Your job is to extract every recipe tweak a reviewer describes and express each one as precise edits to the original recipe.
+ 
+-Focus on concrete changes the user actually made, not general suggestions."""
++A tweak is any change to ingredients (substitution, amount, addition, omission), technique, temperature, timing, equipment or portioning that the reviewer made or proposes. Praise, complaints and comments about taste or yield that do not describe a change are not tweaks.
+ 
+-FEW_SHOT_EXAMPLES = [
+-    {
+-        "review": "I used a half cup of sugar and one-and-a-half cups of brown sugar instead of the recipe amounts. Made the cookies much more chewy and flavorful!",
+-        "ingredients": [
+-            "1 cup butter, softened",
+-            "1 cup white sugar",
+-            "1 cup packed brown sugar",
+-            "2 eggs",
+-        ],
+-        "expected_output": {
+-            "modification_type": "quantity_adjustment",
+-            "reasoning": "Makes cookies more chewy and flavorful by increasing brown sugar ratio",
+-            "edits": [
+-                {
+-                    "target": "ingredients",
+-                    "operation": "replace",
+-                    "find": "1 cup white sugar",
+-                    "replace": "0.5 cup white sugar",
+-                },
+-                {
+-                    "target": "ingredients",
+-                    "operation": "replace",
+-                    "find": "1 cup packed brown sugar",
+-                    "replace": "1.5 cups packed brown sugar",
+-                },
+-            ],
+-        },
+-    },
+-    {
+-        "review": "I added a teaspoon of cream of tartar to the batter and omitted the water. The cookies retained their shape and didn't spread when baked.",
+-        "ingredients": [
+-            "1 teaspoon baking soda",
+-            "2 teaspoons hot water",
+-            "0.5 teaspoon salt",
+-        ],
+-        "expected_output": {
+-            "modification_type": "addition",
+-            "reasoning": "Helps cookies retain shape and prevents spreading during baking",
+-            "edits": [
+-                {
+-                    "target": "ingredients",
+-                    "operation": "add_after",
+-                    "find": "0.5 teaspoon salt",
+-                    "add": "1 teaspoon cream of tartar",
+-                },
+-                {
+-                    "target": "ingredients",
+-                    "operation": "remove",
+-                    "find": "2 teaspoons hot water",
+-                },
+-            ],
+-        },
+-    },
++Rules:
++1. Completeness: return one entry per distinct tweak. Never merge different tweaks into one entry and never drop a tweak because it seems minor. If the review describes no tweak, return an empty list.
++2. evidence_quote: copy the shortest span of the review that states the tweak, character for character, keeping the reviewer's spelling and punctuation. Do not paraphrase.
++3. status: "tried" only if the reviewer says they actually made this change. Use "suggested" for plans, wishes and advice they did not carry out themselves ("next time I will", "I would prefer", "if you can't find X, Y works").
++4. outcome: the reviewer's reported result of this specific change. "positive": they liked it or say it improved the dish. "mixed": they liked it with reservations about this change. "negative": it made things worse. "unclear": no indication.
++5. reasoning: one sentence giving the reviewer's own reason for the change or its result. Do not invent benefits the reviewer did not mention; if they gave no reason, say so.
++6. modification_type: the category that best describes the tweak.
++
++Edits change the ORIGINAL recipe shown in the request, whose lines are numbered from 0:
++- line_index: the number of the target line.
++- find: text copied exactly from that line of the original recipe, even if another edit of the same tweak also changes that line. For "replace", use the shortest span that identifies what changes (e.g. "350 degrees F", not the whole step). For "remove" and "add_after", use the whole line.
++- replace: new text for the found span ("" deletes the span). add: a complete new line, inserted after the target line.
++- "remove" deletes an entire line. To delete part of a step, use "replace".
++- Keep ingredients and instructions consistent: when an ingredient is added, removed or swapped, also edit the step that uses it.
++- Use the reviewer's amounts. Never invent a quantity or a conversion. If the reviewer gives no amount, write "amount not specified" in the new text; for "extra"/"more" of an existing ingredient, keep its amount and add "or more to taste".
++- Write amounts in the recipe's style (decimals such as "0.5 cup" in the ingredient list).
++- Give edits for suggested tweaks too, so they can be reviewed. Use an empty edits list only when the tweak cannot be expressed as an edit to this recipe.
++
++Example
++Recipe ingredients: [0] 1.5 cups all-purpose flour [1] 2 tablespoons white sugar [2] 1.25 cups milk [3] 1 egg
++Recipe instructions: [0] Whisk flour and sugar in a bowl. [1] Stir in milk and egg until just combined. [2] Cook on a hot griddle, about 2 minutes per side.
++Review: "I swapped half the milk for buttermilk and they were so fluffy! Next time I'll add blueberries."
++Output:
++""" + json.dumps(
+     {
+-        "review": "I used 1 tsp of salt instead of 1/2 tsp and omitted the nuts. Much better flavor without being too salty.",
+-        "ingredients": ["0.5 teaspoon salt", "1 cup chopped walnuts"],
+-        "expected_output": {
+-            "modification_type": "quantity_adjustment",
+-            "reasoning": "Improves flavor balance without making cookies too salty",
+-            "edits": [
+-                {
+-                    "target": "ingredients",
+-                    "operation": "replace",
+-                    "find": "0.5 teaspoon salt",
+-                    "replace": "1 teaspoon salt",
+-                },
+-                {
+-                    "target": "ingredients",
+-                    "operation": "remove",
+-                    "find": "1 cup chopped walnuts",
+-                },
+-            ],
+-        },
+-    },
+-    {
+-        "review": "I baked them at 375 degrees instead of 350 for about 8-9 minutes. They came out perfectly crispy on the edges.",
+-        "instructions": [
+-            "Preheat the oven to 350 degrees F (175 degrees C)",
+-            "Bake in the preheated oven until edges are nicely browned, about 10 minutes",
+-        ],
+-        "expected_output": {
+-            "modification_type": "technique_change",
+-            "reasoning": "Higher temperature and shorter time creates crispier edges",
+-            "edits": [
+-                {
+-                    "target": "instructions",
+-                    "operation": "replace",
+-                    "find": "350 degrees F",
+-                    "replace": "375 degrees F",
+-                },
+-                {
+-                    "target": "instructions",
+-                    "operation": "replace",
+-                    "find": "about 10 minutes",
+-                    "replace": "about 8-9 minutes",
+-                },
+-            ],
+-        },
+-    },
+-]
+-
+-
+-def build_few_shot_prompt(
+-    review_text: str, title: str, ingredients: list, instructions: list
+-) -> str:
+-    """Build a few-shot prompt with examples for better extraction accuracy."""
+-
+-    examples_text = "\n\n".join(
+-        [
+-            f"Example {i + 1}:\n"
+-            f'Review: "{example["review"]}"\n'
+-            f"Output: {example['expected_output']}"
+-            for i, example in enumerate(
+-                FEW_SHOT_EXAMPLES[:2]
+-            )  # Use 2 most relevant examples
++        "modifications": [
++            {
++                "modification_type": "ingredient_substitution",
++                "evidence_quote": "I swapped half the milk for buttermilk",
++                "status": "tried",
++                "outcome": "positive",
++                "reasoning": "The reviewer says the pancakes came out very fluffy.",
++                "edits": [
++                    {"target": "ingredients", "operation": "replace", "line_index": 2,
++                     "find": "1.25 cups milk", "replace": "0.625 cup milk", "add": None},
++                    {"target": "ingredients", "operation": "add_after", "line_index": 2,
++                     "find": "1.25 cups milk", "replace": None, "add": "0.625 cup buttermilk"},
++                    {"target": "instructions", "operation": "replace", "line_index": 1,
++                     "find": "Stir in milk and egg", "replace": "Stir in milk, buttermilk and egg", "add": None},
++                ],
++            },
++            {
++                "modification_type": "addition",
++                "evidence_quote": "Next time I'll add blueberries.",
++                "status": "suggested",
++                "outcome": "unclear",
++                "reasoning": "The reviewer plans to add blueberries but has not tried it.",
++                "edits": [
++                    {"target": "ingredients", "operation": "add_after", "line_index": 3,
++                     "find": "1 egg", "replace": None, "add": "blueberries (amount not specified)"},
++                    {"target": "instructions", "operation": "replace", "line_index": 1,
++                     "find": "until just combined.", "replace": "until just combined. Fold in blueberries.", "add": None},
++                ],
++            },
+         ]
+-    )
++    }
++)
+ 
+-    prompt = f"""{SYSTEM_PROMPT}
+ 
+-Here are some examples of how to extract modifications:
++def format_numbered_lines(lines: List[str]) -> str:
++    """Render recipe lines with the 0-based indices that edits refer to."""
++    return "\n".join(f"[{i}] {line}" for i, line in enumerate(lines))
+ 
+-{examples_text}
+ 
+-Now extract from this review:
+-
+-{
+-        EXTRACTION_PROMPT.format(
+-            title=title,
+-            ingredients=ingredients,
+-            instructions=instructions,
+-            review_text=review_text,
+-        )
+-    }"""
+-
+-    return prompt
+-
+-
+-def build_simple_prompt(
+-    review_text: str, title: str, ingredients: list, instructions: list
+-) -> str:
+-    """Build a simple prompt without examples for faster processing."""
+-    return f"""{SYSTEM_PROMPT}
+-
+-Original Recipe:
+-Title: {title}
+-Ingredients: {ingredients}
+-Instructions: {instructions}
+-
+-User Review: "{review_text}"
+-
+-Extract the recipe modifications from this review. The user has made changes to improve the recipe.
+-
+-Output a JSON object with this structure:
+-{{
+-    "modification_type": "quantity_adjustment|ingredient_substitution|technique_change|addition|removal",
+-    "reasoning": "Brief explanation of why this modification improves the recipe",
+-    "edits": [
+-        {{
+-            "target": "ingredients|instructions",
+-            "operation": "replace|add_after|remove",
+-            "find": "exact text to find",
+-            "replace": "replacement text (for replace operations)",
+-            "add": "text to add (for add_after operations)"
+-        }}
+-    ]
+-}}
++def build_extraction_messages(
++    review_text: str,
++    title: str,
++    ingredients: List[str],
++    instructions: List[str],
++    rating: Optional[int] = None,
++) -> List[dict]:
++    """Build the chat messages for extracting every tweak from one review."""
++    rating_text = f"{rating}/5" if rating is not None else "not given"
++    user_prompt = f"""Original Recipe: {title}
+ 
+-Focus on concrete changes the user actually made, not general suggestions."""
++Ingredients:
++{format_numbered_lines(ingredients)}
++
++Instructions:
++{format_numbered_lines(instructions)}
++
++Review (rating {rating_text}):
++\"\"\"{review_text}\"\"\"
++
++Extract every tweak in this review."""
++
++    return [
++        {"role": "system", "content": SYSTEM_PROMPT},
++        {"role": "user", "content": user_prompt},
++    ]
+--- a/src/llm_pipeline/recipe_modifier.py
++++ b/src/llm_pipeline/recipe_modifier.py
+@@ -3,142 +3,339 @@
+ 
+ This module applies structured modifications to recipes using search-and-replace operations.
+ It takes ModificationObject instances and applies their edits to recipe ingredients and instructions.
++
++Edits are applied conservatively: a target must be found unambiguously, a tweak's
++edits are applied all-or-nothing, and an edit never silently overwrites a change
++made by a different review. Every refusal is reported as an EditError so it can be
++recorded rather than lost.
+ """
+ 
+ import copy
++import re
++from dataclasses import dataclass, field
+ from difflib import SequenceMatcher
+-from typing import List, Optional, Tuple
++from typing import Dict, List, Optional, Set, Tuple
+ 
+ from loguru import logger
+ 
+-from .models import (
+-    ModificationObject,
+-    ModificationEdit,
+-    Recipe,
+-    ChangeRecord
+-)
++from .models import ChangeRecord, ModificationEdit, ModificationObject, Recipe
++
++# An instruction step is only removed when the find text covers most of it;
++# otherwise a short find (e.g. "walnuts") would delete a whole step.
++MIN_INSTRUCTION_REMOVE_COVERAGE = 0.6
++
++
++class EditError(Exception):
++    """An edit that could not be applied safely."""
++
++    def __init__(self, reason: str, detail: str):
++        super().__init__(f"{reason}: {detail}")
++        self.reason = reason  # not_found | ambiguous | conflict | no_op | invalid
++        self.detail = detail
++
++
++@dataclass
++class _Line:
++    """A recipe line with its provenance."""
++
++    text: str
++    origin: Optional[int]  # index in the original recipe list; None if added
++    touched_by: Set[str] = field(default_factory=set)  # owners that changed it
++
++
++@dataclass
++class _State:
++    """Working copy of a recipe being modified."""
++
++    lines: Dict[str, List[_Line]]  # keyed by edit target
++    original: Dict[str, List[str]]
++    # (target, original index) -> owner that removed the line
++    removed_by: Dict[Tuple[str, int], str] = field(default_factory=dict)
++
++
++@dataclass
++class ModificationResult:
++    """Outcome of applying one modification."""
++
++    modification: ModificationObject
++    owner: str
++    changes: List[ChangeRecord]
++    error: Optional[EditError] = None
++
++    @property
++    def applied(self) -> bool:
++        return self.error is None
++
++
++def _loose_pattern(text: str) -> str:
++    """Regex matching text case-insensitively with flexible whitespace."""
++    return r"\s+".join(re.escape(token) for token in text.split())
+ 
+ 
+ class RecipeModifier:
+     """Applies structured modifications to recipes using search-and-replace operations."""
+ 
+-    def __init__(self, similarity_threshold: float = 0.6):
++    def __init__(self, similarity_threshold: float = 0.85):
+         """
+         Initialize the RecipeModifier.
+ 
+         Args:
+-            similarity_threshold: Minimum similarity score for fuzzy matching (0-1)
++            similarity_threshold: Minimum whole-line similarity for the fuzzy
++                fallback, used only when the find text is not a substring of any line
+         """
+         self.similarity_threshold = similarity_threshold
+         logger.info(f"Initialized RecipeModifier with similarity threshold: {similarity_threshold}")
+ 
+-    def find_best_match(self, target: str, candidates: List[str]) -> Tuple[Optional[str], Optional[int], float]:
+-        """
+-        Find the best matching string in a list of candidates.
++    def _search(self, find: str, texts: List[str]) -> Tuple[str, List[int]]:
++        """Return the first match method that hits, and the indices it hits."""
++        for method, pattern, flags in (
++            ("exact", re.escape(find), 0),
++            ("normalized", _loose_pattern(find), re.IGNORECASE),
++        ):
++            hits = [i for i, t in enumerate(texts) if re.search(pattern, t, flags)]
++            if hits:
++                return method, hits
++        return "", []
++
++    def find_best_match(
++        self, edit: ModificationEdit, lines: List[_Line]
++    ) -> Tuple[int, str, float]:
++        """
++        Locate the line an edit targets.
++
++        Tries an exact substring, then a case/whitespace-insensitive substring, then
++        a whole-line fuzzy match. Several hits are resolved only by the edit's
++        line_index (which refers to the original recipe numbering).
+ 
+         Args:
+-            target: String to find
+-            candidates: List of strings to search in
++            edit: Edit whose find text to locate
++            lines: Current lines of the edit's target list
+ 
+         Returns:
+-            Tuple of (best_match, index, similarity_score)
+-        """
+-        if not candidates:
+-            return None, None, 0.0
+-
+-        best_match = None
+-        best_index = None
+-        best_score = 0.0
+-
+-        for i, candidate in enumerate(candidates):
+-            similarity = SequenceMatcher(None, target.lower(), candidate.lower()).ratio()
+-            if similarity > best_score:
+-                best_score = similarity
+-                best_match = candidate
+-                best_index = i
+-
+-        if best_score >= self.similarity_threshold:
+-            return best_match, best_index, best_score
+-        else:
+-            return None, None, best_score
++            Tuple of (line position, match method, similarity score)
+ 
+-    def apply_edit(
+-        self,
+-        edit: ModificationEdit,
+-        recipe_content: List[str]
+-    ) -> Tuple[List[str], List[ChangeRecord]]:
+-        """
+-        Apply a single edit to a recipe content list.
+-
+-        Args:
+-            edit: The edit operation to apply
+-            recipe_content: List of ingredients or instructions
+-
+-        Returns:
+-            Tuple of (modified_content, change_records)
++        Raises:
++            EditError: If the target is missing or ambiguous
+         """
+-        modified_content = copy.deepcopy(recipe_content)
+-        change_records = []
+-
+-        logger.debug(f"Applying {edit.operation} edit: find='{edit.find}'")
++        find = edit.find.strip()
++        texts = [line.text for line in lines]
+ 
+-        if edit.operation == "replace":
+-            # Find and replace text
+-            match, index, score = self.find_best_match(edit.find, modified_content)
++        method, hits = self._search(find, texts)
++        if hits:
++            if len(hits) == 1:
++                return hits[0], method, 1.0
++            hinted = [i for i in hits if lines[i].origin == edit.line_index]
++            if len(hinted) == 1:
++                return hinted[0], method, 1.0
++            raise EditError(
++                "ambiguous",
++                f"'{find}' matches {len(hits)} {edit.target} lines and line_index "
++                f"{edit.line_index} does not single one out",
++            )
++
++        scores = sorted(
++            (
++                (SequenceMatcher(None, find.lower(), t.lower()).ratio(), i)
++                for i, t in enumerate(texts)
++            ),
++            reverse=True,
++        )
++        if scores and scores[0][0] >= self.similarity_threshold:
++            score, index = scores[0]
++            if len(scores) > 1 and scores[1][0] >= self.similarity_threshold:
++                raise EditError(
++                    "ambiguous", f"'{find}' is similar to several {edit.target} lines"
++                )
++            return index, "fuzzy", score
+ 
+-            if match and index is not None:
+-                original_text = modified_content[index]
+-                new_text = original_text.replace(edit.find, edit.replace or "")
+-                modified_content[index] = new_text
+-
+-                change_records.append(ChangeRecord(
+-                    type="ingredient" if edit.target == "ingredients" else "instruction",
+-                    from_text=original_text,
+-                    to_text=new_text,
+-                    operation="replace"
+-                ))
++        best = scores[0][0] if scores else 0.0
++        raise EditError(
++            "not_found", f"'{find}' not found in {edit.target} (best similarity {best:.2f})"
++        )
+ 
+-                logger.info(f"Replaced '{edit.find}' with '{edit.replace}' (similarity: {score:.2f})")
+-            else:
+-                logger.warning(f"Could not find '{edit.find}' in {edit.target} (best similarity: {score:.2f})")
++    def _explain_missing(
++        self, edit: ModificationEdit, state: _State, error: EditError
++    ) -> EditError:
++        """Turn a miss into a conflict when an earlier change altered the target."""
++        _, hits = self._search(edit.find.strip(), state.original[edit.target])
++        for origin in hits:
++            owners = {
++                owner
++                for line in state.lines[edit.target]
++                if line.origin == origin
++                for owner in line.touched_by
++            }
++            if (edit.target, origin) in state.removed_by:
++                owners.add(state.removed_by[(edit.target, origin)])
++            if owners:
++                return EditError(
++                    "conflict",
++                    f"'{edit.find}' was already changed by {', '.join(sorted(owners))}",
++                )
++        return error
+ 
+-        elif edit.operation == "add_after":
+-            # Add new content after finding target
+-            match, index, score = self.find_best_match(edit.find, modified_content)
+-
+-            if match and index is not None and edit.add:
+-                modified_content.insert(index + 1, edit.add)
+-
+-                change_records.append(ChangeRecord(
+-                    type="ingredient" if edit.target == "ingredients" else "instruction",
+-                    from_text="",
+-                    to_text=edit.add,
+-                    operation="add"
+-                ))
++    def _locate_original_anchor(
++        self, edit: ModificationEdit, state: _State
++    ) -> Optional[Tuple[int, str, float]]:
++        """Find an add_after anchor by its original text, if that line still exists."""
++        original = [_Line(text, i) for i, text in enumerate(state.original[edit.target])]
++        try:
++            index, method, score = self.find_best_match(edit, original)
++        except EditError:
++            return None
++        lines = state.lines[edit.target]
++        position = next((i for i, line in enumerate(lines) if line.origin == index), None)
++        return None if position is None else (position, method, score)
++
++    def _check_conflict(self, edit: ModificationEdit, line: _Line, owner: str) -> None:
++        """Refuse edits that would overwrite another review's change."""
++        others = line.touched_by - {owner}
++        # Inserting a new line next to a changed one overwrites nothing
++        if not others or edit.operation == "add_after":
++            return
++        # An ingredient line is one amount of one thing, so two reviews changing it
++        # compete. Instruction steps hold many details; a different review may edit
++        # them as long as its find text is still there, but may not delete them.
++        if edit.target == "ingredients" or edit.operation == "remove":
++            raise EditError(
++                "conflict",
++                f"{edit.target} line '{line.text}' was already changed by {', '.join(sorted(others))}",
++            )
++
++    def _validate(self, edit: ModificationEdit) -> None:
++        if not edit.find.strip():
++            raise EditError("invalid", "edit has no find text")
++        if edit.operation == "replace" and edit.replace is None:
++            raise EditError("invalid", f"replace of '{edit.find}' has no replacement text")
++        if edit.operation == "add_after" and not (edit.add or "").strip():
++            raise EditError("invalid", f"add_after '{edit.find}' has no text to add")
++
++    def _apply_located(
++        self, edit: ModificationEdit, line: _Line, method: str, score: float,
++        state: _State, owner: str,
++    ) -> ChangeRecord:
++        """Apply one edit to an already-located line object."""
++        lines = state.lines[edit.target]
++        change_type = "ingredient" if edit.target == "ingredients" else "instruction"
++        position = next((i for i, x in enumerate(lines) if x is line), None)
++        if position is None:
++            raise EditError("conflict", f"'{edit.find}' was removed by another edit of this tweak")
+ 
+-                logger.info(f"Added '{edit.add}' after '{edit.find}' (similarity: {score:.2f})")
++        if edit.operation == "replace":
++            original_text = line.text
++            if method == "fuzzy":
++                new_text = edit.replace
+             else:
+-                logger.warning(f"Could not find target '{edit.find}' for addition")
++                pattern = re.escape(edit.find.strip()) if method == "exact" else _loose_pattern(edit.find)
++                flags = 0 if method == "exact" else re.IGNORECASE
++                matches = list(re.finditer(pattern, original_text, flags))
++                if not matches:
++                    raise EditError("conflict", f"'{edit.find}' was changed by another edit of this tweak")
++                if len(matches) > 1:
++                    raise EditError("ambiguous", f"'{edit.find}' occurs {len(matches)} times in '{original_text}'")
++                start, end = matches[0].span()
++                new_text = original_text[:start] + edit.replace + original_text[end:]
++            new_text = re.sub(r"\s{2,}", " ", new_text).strip()
++            if new_text == original_text:
++                raise EditError("no_op", f"replacing '{edit.find}' leaves the line unchanged")
++            if not new_text:
++                raise EditError("invalid", f"replace would empty '{original_text}'; use remove")
++            line.text = new_text
++            line.touched_by.add(owner)
++            return ChangeRecord(
++                type=change_type, from_text=original_text, to_text=new_text,
++                operation="replace", line_ref=line.origin,
++                match_method=method, match_score=round(score, 3),
++            )
++
++        if edit.operation == "add_after":
++            new_line = _Line(text=edit.add.strip(), origin=None, touched_by={owner})
++            lines.insert(position + 1, new_line)
++            return ChangeRecord(
++                type=change_type, from_text="", to_text=new_line.text,
++                operation="add", line_ref=line.origin,
++                match_method=method, match_score=round(score, 3),
++            )
++
++        # remove
++        if edit.target == "instructions" and method != "fuzzy":
++            coverage = len(edit.find.strip()) / max(len(line.text), 1)
++            if coverage < MIN_INSTRUCTION_REMOVE_COVERAGE:
++                raise EditError(
++                    "invalid",
++                    f"remove of '{edit.find}' would delete the whole step '{line.text}'; "
++                    "a partial removal must be a replace",
++                )
++        lines.pop(position)
++        if line.origin is not None:
++            state.removed_by[(edit.target, line.origin)] = owner
++        return ChangeRecord(
++            type=change_type, from_text=line.text, to_text="",
++            operation="remove", line_ref=line.origin,
++            match_method=method, match_score=round(score, 3),
++        )
+ 
+-        elif edit.operation == "remove":
+-            # Remove matching content
+-            match, index, score = self.find_best_match(edit.find, modified_content)
+-
+-            if match and index is not None:
+-                removed_text = modified_content.pop(index)
+-
+-                change_records.append(ChangeRecord(
+-                    type="ingredient" if edit.target == "ingredients" else "instruction",
+-                    from_text=removed_text,
+-                    to_text="",
+-                    operation="remove"
+-                ))
++    def _apply_to_state(
++        self, state: _State, modification: ModificationObject, owner: str
++    ) -> List[ChangeRecord]:
++        """
++        Apply every edit of a modification to the state, in place.
+ 
+-                logger.info(f"Removed '{edit.find}' (similarity: {score:.2f})")
+-            else:
+-                logger.warning(f"Could not find '{edit.find}' to remove")
++        All targets are located before anything changes, because the extractor
++        writes every find against the original text. Raises EditError on the first
++        edit that cannot be applied; the caller discards the partial state.
++        """
++        located = []
++        for edit in modification.edits:
++            self._validate(edit)
++            try:
++                position, method, score = self.find_best_match(edit, state.lines[edit.target])
++            except EditError as e:
++                if e.reason != "not_found":
++                    raise
++                # An add_after anchor is only a position: if another review changed
++                # its text, the line is still there to insert after
++                anchor = (
++                    self._locate_original_anchor(edit, state)
++                    if edit.operation == "add_after"
++                    else None
++                )
++                if anchor is None:
++                    raise self._explain_missing(edit, state, e)
++                position, method, score = anchor
++            line = state.lines[edit.target][position]
++            self._check_conflict(edit, line, owner)
++            located.append((edit, line, method, score))
++
++        return [
++            self._apply_located(edit, line, method, score, state, owner)
++            for edit, line, method, score in located
++        ]
++
++    @staticmethod
++    def _new_state(recipe: Recipe) -> _State:
++        return _State(
++            lines={
++                "ingredients": [_Line(t, i) for i, t in enumerate(recipe.ingredients)],
++                "instructions": [_Line(t, i) for i, t in enumerate(recipe.instructions)],
++            },
++            original={
++                "ingredients": list(recipe.ingredients),
++                "instructions": list(recipe.instructions),
++            },
++        )
+ 
+-        return modified_content, change_records
++    @staticmethod
++    def _to_recipe(recipe: Recipe, state: _State) -> Recipe:
++        return Recipe(
++            recipe_id=f"{recipe.recipe_id}_modified",
++            title=recipe.title,
++            ingredients=[line.text for line in state.lines["ingredients"]],
++            instructions=[line.text for line in state.lines["instructions"]],
++            description=recipe.description,
++            servings=recipe.servings,
++            rating=recipe.rating,
++        )
+ 
+     def apply_modification(
+         self,
+@@ -154,105 +351,47 @@
+ 
+         Returns:
+             Tuple of (modified_recipe, all_change_records)
+-        """
+-        logger.info(f"Applying {modification.modification_type} with {len(modification.edits)} edits")
+-
+-        # Deep copy the recipe
+-        modified_recipe = Recipe(
+-            recipe_id=f"{recipe.recipe_id}_modified",
+-            title=recipe.title,
+-            ingredients=copy.deepcopy(recipe.ingredients),
+-            instructions=copy.deepcopy(recipe.instructions),
+-            description=recipe.description,
+-            servings=recipe.servings,
+-            rating=recipe.rating
+-        )
+-
+-        all_change_records = []
+-
+-        # Apply each edit
+-        for edit in modification.edits:
+-            if edit.target == "ingredients":
+-                modified_recipe.ingredients, change_records = self.apply_edit(
+-                    edit, modified_recipe.ingredients
+-                )
+-            elif edit.target == "instructions":
+-                modified_recipe.instructions, change_records = self.apply_edit(
+-                    edit, modified_recipe.instructions
+-                )
+-            else:
+-                logger.warning(f"Unknown edit target: {edit.target}")
+-                continue
+ 
+-            all_change_records.extend(change_records)
+-
+-        logger.info(f"Applied modification successfully: {len(all_change_records)} changes made")
+-        return modified_recipe, all_change_records
++        Raises:
++            EditError: If any edit cannot be applied (the recipe is left unchanged)
++        """
++        state = self._new_state(recipe)
++        changes = self._apply_to_state(state, modification, owner="modification")
++        return self._to_recipe(recipe, state), changes
+ 
+-    def apply_modifications_batch(
++    def apply_modifications(
+         self,
+         recipe: Recipe,
+-        modifications: List[ModificationObject]
+-    ) -> Tuple[Recipe, List[List[ChangeRecord]]]:
++        modifications: List[Tuple[str, ModificationObject]],
++    ) -> Tuple[Recipe, List[ModificationResult]]:
+         """
+-        Apply multiple modifications to a recipe sequentially.
++        Apply modifications in order, each all-or-nothing.
+ 
+         Args:
+             recipe: Original recipe to modify
+-            modifications: List of modifications to apply
++            modifications: (owner, modification) pairs; the owner (e.g. a review id)
++                decides what counts as a conflict between modifications
+ 
+         Returns:
+-            Tuple of (final_modified_recipe, list_of_change_records_per_modification)
++            Tuple of (final_modified_recipe, one ModificationResult per modification)
+         """
+-        current_recipe = recipe
+-        all_change_records = []
++        state = self._new_state(recipe)
++        results = []
+ 
+         logger.info(f"Applying {len(modifications)} modifications sequentially")
+ 
+-        for i, modification in enumerate(modifications):
+-            logger.info(f"Applying modification {i + 1}/{len(modifications)}: {modification.modification_type}")
+-
+-            current_recipe, change_records = self.apply_modification(current_recipe, modification)
+-            all_change_records.append(change_records)
+-
+-        logger.info(f"Applied all modifications. Final recipe has {len(current_recipe.ingredients)} ingredients and {len(current_recipe.instructions)} instructions")
+-        return current_recipe, all_change_records
+-
+-    def validate_modification_safety(
+-        self,
+-        modification: ModificationObject,
+-        recipe: Recipe
+-    ) -> Tuple[bool, List[str]]:
+-        """
+-        Validate that a modification won't break the recipe.
+-
+-        Args:
+-            modification: Modification to validate
+-            recipe: Recipe being modified
+-
+-        Returns:
+-            Tuple of (is_safe, list_of_warnings)
+-        """
+-        warnings = []
+-        is_safe = True
+-
+-        for edit in modification.edits:
+-            # Check if target content exists
+-            target_content = recipe.ingredients if edit.target == "ingredients" else recipe.instructions
+-            match, _, score = self.find_best_match(edit.find, target_content)
+-
+-            if not match:
+-                warnings.append(f"Cannot find '{edit.find}' in {edit.target}")
+-                is_safe = False
+-            elif score < 0.8:
+-                warnings.append(f"Low similarity match for '{edit.find}' (score: {score:.2f})")
+-
+-            # Check for required fields
+-            if edit.operation == "replace" and not edit.replace:
+-                warnings.append(f"Replace operation missing replacement text for '{edit.find}'")
+-                is_safe = False
+-            elif edit.operation == "add_after" and not edit.add:
+-                warnings.append(f"Add operation missing text to add after '{edit.find}'")
+-                is_safe = False
+-
+-        return is_safe, warnings
+\ No newline at end of file
++        for owner, modification in modifications:
++            trial = copy.deepcopy(state)
++            try:
++                changes = self._apply_to_state(trial, modification, owner)
++            except EditError as e:
++                logger.warning(f"Skipped {modification.modification_type} from {owner}: {e}")
++                results.append(ModificationResult(modification, owner, [], e))
++                continue
++            state = trial
++            logger.info(f"Applied {modification.modification_type} from {owner}: {len(changes)} changes")
++            results.append(ModificationResult(modification, owner, changes))
++
++        final = self._to_recipe(recipe, state)
++        logger.info(f"Applied all modifications. Final recipe has {len(final.ingredients)} ingredients and {len(final.instructions)} instructions")
++        return final, results
+--- a/src/llm_pipeline/tweak_extractor.py
++++ b/src/llm_pipeline/tweak_extractor.py
+@@ -3,150 +3,149 @@
+ 
+ This module extracts structured modifications from review text using LLM processing.
+ It converts natural language descriptions of recipe changes into structured
+-ModificationObject instances.
++ModificationObject instances, one per distinct tweak in a review.
+ """
+ 
+-import json
+ import os
+-from typing import Optional
++import re
++from typing import List, Optional, Tuple
+ 
+ from loguru import logger
+ from openai import OpenAI
+-from pydantic import ValidationError
+ 
+-from .models import ModificationObject, Recipe, Review
+-from .prompts import build_simple_prompt
++from .models import ModificationObject, Recipe, Review, ReviewExtraction
++from .prompts import build_extraction_messages
++
++DEFAULT_MODEL = "gpt-4o-mini"
++
++_QUOTE_CHARS = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"'})
++
++
++def _normalize_for_quote(text: str) -> str:
++    """Lowercase, unify quote characters and collapse whitespace."""
++    return re.sub(r"\s+", " ", text.translate(_QUOTE_CHARS).lower()).strip()
++
++
++def quote_in_text(quote: str, text: str) -> bool:
++    """
++    Check that an evidence quote really appears in the review text.
++
++    Comparison ignores case, whitespace, curly-vs-straight quotes and punctuation
++    at the ends of the quote. A quote that joins spans with an ellipsis matches
++    when every span appears.
++    """
++    haystack = _normalize_for_quote(text)
++    parts = [
++        _normalize_for_quote(part).strip(" \"'.,;:!?()")
++        for part in re.split(r"\.\.\.|…", quote)
++    ]
++    parts = [part for part in parts if part]
++    return bool(parts) and all(part in haystack for part in parts)
+ 
+ 
+ class TweakExtractor:
+     """Extracts structured modifications from review text using LLM processing."""
+ 
+-    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-3.5-turbo"):
++    def __init__(
++        self,
++        api_key: Optional[str] = None,
++        model: Optional[str] = None,
++        client: Optional[OpenAI] = None,
++    ):
+         """
+         Initialize the TweakExtractor.
+ 
+         Args:
+             api_key: OpenAI API key (defaults to OPENAI_API_KEY env var)
+-            model: OpenAI model to use for extraction
+-        """
+-        self.client = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
+-        self.model = model
+-        logger.info(f"Initialized TweakExtractor with model: {model}")
++            model: OpenAI model to use for extraction (defaults to OPENAI_MODEL env
++                var, then gpt-4o-mini); must support structured outputs
++            client: Pre-built OpenAI-compatible client (used by tests)
++        """
++        self.client = client or OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
++        self.model = model or os.getenv("OPENAI_MODEL") or DEFAULT_MODEL
++        logger.info(f"Initialized TweakExtractor with model: {self.model}")
+ 
+-    def extract_modification(
++    def extract_modifications(
+         self,
+         review: Review,
+         recipe: Recipe,
+         max_retries: int = 2,
+-    ) -> Optional[ModificationObject]:
++    ) -> Optional[List[ModificationObject]]:
+         """
+-        Extract a structured modification from a review.
++        Extract every tweak described in a review.
+ 
+         Args:
+-            review: Review object containing modification text
++            review: Review to analyze (the has_modification flag is not required)
+             recipe: Original recipe being modified
+-            max_retries: Number of retry attempts if parsing fails
++            max_retries: Number of retry attempts if the LLM call or parsing fails
+ 
+         Returns:
+-            ModificationObject if extraction successful, None otherwise
++            List of ModificationObject (empty if the review has no tweaks),
++            or None if extraction failed
+         """
+-        if not review.has_modification:
+-            logger.warning("Review has no modification flag set")
+-            return None
+-
+-        # Build the prompt - use simple prompt to avoid format string issues
+-        prompt = build_simple_prompt(
+-            review.text, recipe.title, recipe.ingredients, recipe.instructions
++        messages = build_extraction_messages(
++            review.text,
++            recipe.title,
++            recipe.ingredients,
++            recipe.instructions,
++            rating=review.rating,
+         )
+ 
+-        logger.debug(
+-            "Extracting modification from review: {}...".format(review.text[:100])
+-        )
++        logger.debug(f"Extracting modifications from review: {review.text[:100]}...")
+ 
+         for attempt in range(max_retries + 1):
+             try:
+-                response = self.client.chat.completions.create(
++                completion = self.client.chat.completions.parse(
+                     model=self.model,
+-                    messages=[{"role": "user", "content": prompt}],
+-                    response_format={"type": "json_object"},
+-                    temperature=0.1,  # Low temperature for consistent extractions
+-                    max_tokens=1000,
++                    messages=messages,
++                    response_format=ReviewExtraction,
++                    temperature=0,
++                    max_tokens=4000,
+                 )
++                message = completion.choices[0].message
+ 
+-                raw_output = response.choices[0].message.content
+-                logger.debug(f"LLM raw output: {raw_output}")
+-
+-                # Check if we got a response
+-                if not raw_output:
++                if message.refusal:
++                    logger.warning(f"Attempt {attempt + 1}: LLM refused: {message.refusal}")
++                    continue
++                if message.parsed is None:
+                     logger.warning(f"Attempt {attempt + 1}: Empty response from LLM")
+                     continue
+ 
+-                # Parse and validate the JSON response
+-                modification_data = json.loads(raw_output)
+-                modification = ModificationObject(**modification_data)
+-
+-                logger.info(
+-                    f"Successfully extracted {modification.modification_type} "
+-                    f"modification with {len(modification.edits)} edits"
+-                )
+-                return modification
+-
+-            except json.JSONDecodeError as e:
+-                logger.warning(f"Attempt {attempt + 1}: Failed to parse JSON: {e}")
+-                if attempt == max_retries:
+-                    logger.error(f"Max retries reached. Raw output: {raw_output}")
+-
+-            except ValidationError as e:
+-                logger.warning(f"Attempt {attempt + 1}: Validation error: {e}")
+-                if attempt == max_retries:
+-                    logger.error(
+-                        f"Max retries reached. Invalid data: {modification_data}"
+-                    )
++                modifications = message.parsed.modifications
++                logger.info(f"Extracted {len(modifications)} tweaks from review")
++                return modifications
+ 
+             except Exception as e:
+-                logger.error(f"Attempt {attempt + 1}: Unexpected error: {e}")
+-                if attempt == max_retries:
+-                    return None
++                logger.warning(f"Attempt {attempt + 1}: Extraction failed: {e}")
+ 
++        logger.error(f"Max retries reached for review: {review.text[:100]}...")
+         return None
+ 
+-    def extract_single_modification(
+-        self, reviews: list[Review], recipe: Recipe
+-    ) -> tuple[ModificationObject, Review] | tuple[None, None]:
++    def extract_all_modifications(
++        self, reviews: List[Review], recipe: Recipe
++    ) -> List[Tuple[Review, Optional[List[ModificationObject]]]]:
+         """
+-        Extract modification from a single randomly selected review.
++        Extract tweaks from every review, in order.
++
++        The scraper's has_modification flag is a keyword heuristic that misses real
++        tweaks, so every review is analyzed and the flag is not used as a filter.
+ 
+         Args:
+-            reviews: List of reviews to choose from
++            reviews: Reviews to analyze
+             recipe: Original recipe being modified
+ 
+         Returns:
+-            Tuple of (ModificationObject, source_Review) if successful, (None, None) otherwise
++            List of (review, modifications or None if extraction failed)
+         """
+-        import random
+-
+-        # Filter to reviews with modifications
+-        modification_reviews = [r for r in reviews if r.has_modification]
+-
+-        if not modification_reviews:
+-            logger.warning("No reviews with modifications found")
+-            return None, None
+-
+-        # Select one random review
+-        selected_review = random.choice(modification_reviews)
+-        logger.info(f"Selected review: {selected_review.text[:100]}...")
+-
+-        modification = self.extract_modification(selected_review, recipe)
+-        if modification:
+-            logger.info("Successfully extracted modification from selected review")
+-            return modification, selected_review
+-        else:
+-            logger.warning("Failed to extract modification from selected review")
+-            return None, None
++        results = []
++        for i, review in enumerate(reviews):
++            logger.info(f"Analyzing review {i + 1}/{len(reviews)}")
++            results.append((review, self.extract_modifications(review, recipe)))
++        return results
+ 
+     def test_extraction(
+         self, review_text: str, recipe_data: dict
+-    ) -> Optional[ModificationObject]:
++    ) -> Optional[List[ModificationObject]]:
+         """
+         Test extraction with raw text and recipe data.
+ 
+@@ -155,7 +154,7 @@
+             recipe_data: Raw recipe dictionary
+ 
+         Returns:
+-            ModificationObject if successful
++            List of ModificationObject if successful
+         """
+         review = Review(text=review_text, has_modification=True)
+         recipe = Recipe(
+@@ -165,4 +164,4 @@
+             instructions=recipe_data.get("instructions", []),
+         )
+ 
+-        return self.extract_modification(review, recipe)
++        return self.extract_modifications(review, recipe)
+--- a/src/test_pipeline.py
++++ b/src/test_pipeline.py
+@@ -57,7 +57,11 @@
+         if enhanced_recipe:
+             logger.success("✓ Single recipe test successful!")
+             logger.info(f"Enhanced recipe: {enhanced_recipe.title}")
++            logger.info(f"Reviews analyzed: {enhanced_recipe.enhancement_summary.reviews_analyzed}")
++            logger.info(f"Tweaks extracted: {enhanced_recipe.enhancement_summary.tweaks_extracted}")
+             logger.info(f"Modifications applied: {len(enhanced_recipe.modifications_applied)}")
++            logger.info(f"Modifications skipped: {len(enhanced_recipe.modifications_skipped)}")
++            logger.info(f"Extraction failures: {len(enhanced_recipe.extraction_failures)}")
+             logger.info(f"Total changes: {enhanced_recipe.enhancement_summary.total_changes}")
+             logger.info(f"Expected impact: {enhanced_recipe.enhancement_summary.expected_impact}")
+             return True
+--- a/README.md
++++ b/README.md
+@@ -26,6 +26,8 @@
+ 
+ ```env
+ OPENAI_API_KEY=your-openai-api-key-here
++# Optional: any model that supports structured outputs (default gpt-4o-mini)
++OPENAI_MODEL=gpt-4o-mini
+ ```
+ 
+ ## Usage
+@@ -59,41 +61,74 @@
+ 
+ ### Data Structure
+ 
+-Original scraped recipes in `data/` directory contain reviews with `has_modification: true` flags. Enhanced recipes include:
++Original scraped recipes in `data/` directory contain `reviews` (and `featured_tweaks`). Enhanced recipes include:
+ 
+ ```json
+ {
+   "recipe_id": "10813_enhanced",
+   "title": "Best Chocolate Chip Cookies (Community Enhanced)",
+-  "ingredients": ["1 cup butter", "1 additional egg yolk", ...],
++  "ingredients": ["1 cup butter, softened", "2 eggs", "1 egg yolk", ...],
+   "modifications_applied": [
+     {
+       "source_review": {
+-        "text": "I added an extra egg yolk for chewier texture",
+-        "rating": 5
++        "text": "I used an ice cream scoop, ... I did add an additional egg yolk to help keep the cookie chewy. ...",
++        "reviewer": null,
++        "rating": 5,
++        "source": "reviews",
++        "review_index": 0
+       },
+       "modification_type": "addition",
+-      "reasoning": "Improves texture and chewiness",
+-      "changes_made": [...]
++      "evidence_quote": "I did add an additional egg yolk to help keep the cookie chewy.",
++      "reasoning": "The reviewer added it to keep the cookies chewy.",
++      "changes_made": [
++        {"type": "ingredient", "from_text": "", "to_text": "1 egg yolk", "operation": "add",
++         "line_ref": 3, "match_method": "exact", "match_score": 1.0}
++      ]
+     }
+   ],
++  "modifications_skipped": [
++    {
++      "source_review": {"text": "...", "rating": 5, "source": "reviews", "review_index": 6},
++      "modification_type": "quantity_adjustment",
++      "evidence_quote": "used a whole cup of white sugar and 1/2 c of brown",
++      "status": "tried",
++      "outcome": "positive",
++      "reasoning": "...",
++      "skip_reason": "edit_failed",
++      "detail": "conflict: ingredient line '1.5 cups packed brown sugar' was already changed by reviews[1]",
++      "proposed_edits": [...]
++    }
++  ],
++  "extraction_failures": [],
+   "enhancement_summary": {
+-    "total_changes": 1,
+-    "change_types": ["addition"],
+-    "expected_impact": "Chewier texture and improved consistency"
++    "total_changes": 9,
++    "change_types": ["addition", "quantity_adjustment", "removal", "technique_change"],
++    "expected_impact": "...",
++    "reviews_analyzed": 9,
++    "tweaks_extracted": 12,
++    "tweaks_applied": 8,
++    "tweaks_skipped": 4
+   }
+ }
+ ```
+ 
++- `source_review.source` + `review_index` point at the exact entry in the recipe file (e.g. `reviews[0]`).
++- `line_ref` is the index of the affected line in the original recipe (for an `add`, the line it follows).
++- `skip_reason` is one of `evidence_not_in_review`, `not_tried`, `outcome_not_positive`, `no_edits`, `edit_failed`.
++
+ ## How It Works
+ 
+ The LLM Analysis Pipeline processes recipes in 3 steps:
+ 
+-1. **Tweak Extraction**: Selects one random review with modifications and uses GPT-4o-mini to extract structured changes
+-2. **Recipe Modification**: Applies changes to the original recipe using fuzzy string matching
+-3. **Enhanced Recipe Generation**: Creates enhanced version with full citation tracking back to source review
++1. **Tweak Extraction**: Sends **every** review to the LLM (the scraper's `has_modification` keyword flag misses real tweaks, so it is not used as a filter). Each review yields a list of tweaks, one per distinct change, each with a verbatim `evidence_quote`, whether the reviewer `tried` or only `suggested` it, the reviewer's reported `outcome`, and edits that target numbered recipe lines. Output is enforced with a JSON schema (structured outputs).
++2. **Recipe Modification**: Applies eligible tweaks to the original recipe:
++   - Eligible = the evidence quote really appears in the review, the reviewer tried it, and reported a positive outcome.
++   - Order: higher-rated reviews first, then file order; earlier reviews win conflicts.
++   - Each edit's target is located by exact substring, then case/whitespace-insensitive substring, then (only if unique and ≥ 0.85 similar) a whole-line fuzzy match. Several matching lines are resolved only by the edit's line number.
++   - Each tweak is applied all-or-nothing. Ambiguous targets, missing targets, no-op edits, and edits that would overwrite another review's change are refused.
++3. **Enhanced Recipe Generation**: Creates the enhanced version. Every applied change cites its review, evidence quote and original line; every tweak that was not applied is listed with the reason; reviews whose extraction failed are listed too.
+ 
+-Each run produces one enhanced recipe per original recipe, with complete attribution showing exactly what changed and why.
++Each run produces one enhanced recipe per original recipe that has reviews, with complete attribution showing exactly what changed, what did not, and why.
+ 
+ ## Development
+ 
+@@ -101,6 +136,9 @@
+ # Add dependencies
+ uv add <package_name>
+ 
+-# Run tests
++# Run offline tests (no API key needed; the LLM is faked)
++uv run pytest
++
++# Run the live pipeline on one recipe (needs OPENAI_API_KEY)
+ cd src && uv run python test_pipeline.py single
+ ```
+--- /dev/null
++++ b/tests/test_pipeline_offline.py
+@@ -0,0 +1,211 @@
++"""
++End-to-end pipeline test on the real cookie recipe with a fake LLM client.
++
++The fake returns hand-written extractions for the actual reviews, so this checks
++everything after the LLM call: review intake, policy, ordering, conflicts,
++atomic application and the attribution written to disk. It does not test the
++quality of the real model's extractions.
++"""
++
++import json
++from pathlib import Path
++from types import SimpleNamespace as NS
++
++import pytest
++
++from llm_pipeline.models import ModificationEdit, ModificationObject, ReviewExtraction
++from llm_pipeline.pipeline import LLMAnalysisPipeline
++from llm_pipeline.tweak_extractor import TweakExtractor, quote_in_text
++
++COOKIES = Path(__file__).resolve().parent.parent / "data" / "recipe_10813_best-chocolate-chip-cookies.json"
++
++
++def E(target, operation, line_index, find, replace=None, add=None):
++    return ModificationEdit(target=target, operation=operation, line_index=line_index,
++                            find=find, replace=replace, add=add)
++
++
++def M(type_, quote, status, outcome, edits):
++    return ModificationObject(modification_type=type_, evidence_quote=quote, status=status,
++                              outcome=outcome, reasoning="Reviewer's stated result.", edits=edits)
++
++
++# Keyed by a distinctive fragment of each review in the cookie recipe file
++SCRIPT = {
++    "ice cream scoop": [
++        M("addition", "I did add an additional egg yolk to help keep the cookie chewy.", "tried", "positive",
++          [E("ingredients", "add_after", 3, "2 eggs", add="1 egg yolk")]),
++    ],
++    "following tweaks": [
++        M("quantity_adjustment", "I used a half cup of sugar and one-and-a-half cups of brown sugar", "tried", "positive",
++          [E("ingredients", "replace", 1, "1 cup white sugar", replace="0.5 cup white sugar"),
++           E("ingredients", "replace", 2, "1 cup packed brown sugar", replace="1.5 cups packed brown sugar")]),
++        M("removal", "I omitted the water", "tried", "positive",
++          [E("ingredients", "remove", 6, "2 teaspoons hot water"),
++           E("instructions", "replace", 3, "Dissolve baking soda in hot water. Add to batter along with salt.",
++             replace="Add baking soda to batter along with salt.")]),
++        M("addition", "I added a teaspoon of cream of tartar to the batter", "tried", "positive",
++          [E("ingredients", "add_after", 7, "0.5 teaspoon salt", add="1 teaspoon cream of tartar")]),
++        M("technique_change", "I refrigerated the batter for at least an hour before scooping and baking", "tried", "positive",
++          [E("instructions", "add_after", 4, "Stir in flour, chocolate chips, and walnuts.",
++             add="Refrigerate the dough for at least 1 hour.")]),
++    ],
++    "The first batch that I made": [
++        M("quantity_adjustment", "I used 1 tsp. of salt instead of 1/2 tsp.", "tried", "positive",
++          [E("ingredients", "replace", 7, "0.5 teaspoon salt", replace="1 teaspoon salt")]),
++        # Fabricated evidence: must be refused even though the edit is valid
++        M("removal", "I always leave out the walnuts", "tried", "positive",
++          [E("ingredients", "remove", 10, "1 cup chopped walnuts")]),
++    ],
++    "phenomenal": [
++        # Conflicts with the higher-priority sugar change above
++        M("quantity_adjustment", "used a whole cup of white sugar and 1/2 c of brown", "tried", "positive",
++          [E("ingredients", "replace", 2, "1 cup packed brown sugar", replace="0.5 cup packed brown sugar")]),
++        M("quantity_adjustment", "1/2 c less flour", "tried", "positive",
++          [E("ingredients", "replace", 8, "3 cups all-purpose flour", replace="2.5 cups all-purpose flour")]),
++        # Atomic: its second edit cannot be located, so its first must not land either
++        M("addition", "added a tiny dash of cinnamon", "tried", "positive",
++          [E("ingredients", "add_after", 7, "0.5 teaspoon salt", add="1 dash ground cinnamon"),
++           E("instructions", "replace", 3, "along with the cinnamon", replace="x")]),
++    ],
++    "15 years": [
++        M("technique_change", "been making it for 15 years", "suggested", "unclear",
++          [E("instructions", "replace", 6, "about 10 minutes", replace="about 12 minutes")]),
++    ],
++}
++
++
++class FakeCompletions:
++    def __init__(self, fail_on=()):
++        self.fail_on = fail_on
++        self.calls = 0
++        self.reviews_seen = set()
++
++    def parse(self, model, messages, response_format, **kwargs):
++        self.calls += 1
++        review = messages[-1]["content"].split('"""')[1]
++        self.reviews_seen.add(review)
++        if any(fragment in review for fragment in self.fail_on):
++            raise RuntimeError("simulated API failure")
++        for fragment, mods in SCRIPT.items():
++            if fragment in review:
++                parsed = ReviewExtraction(modifications=mods)
++                break
++        else:
++            parsed = ReviewExtraction(modifications=[])
++        return NS(choices=[NS(message=NS(parsed=parsed, refusal=None))])
++
++
++def make_pipeline(tmp_path, fail_on=()):
++    fake = FakeCompletions(fail_on)
++    extractor = TweakExtractor(client=NS(chat=NS(completions=fake)), model="fake")
++    return LLMAnalysisPipeline(output_dir=str(tmp_path), tweak_extractor=extractor), fake
++
++
++def test_script_quotes_are_real_except_the_planted_fabrication():
++    reviews = [r["text"] for r in json.loads(COOKIES.read_text(encoding="utf-8"))["reviews"]]
++    for fragment, mods in SCRIPT.items():
++        text = next(t for t in reviews if fragment in t)
++        for mod in mods:
++            expected = mod.evidence_quote != "I always leave out the walnuts"
++            assert quote_in_text(mod.evidence_quote, text) == expected, mod.evidence_quote
++
++
++@pytest.fixture
++def run(tmp_path):
++    pipeline, fake = make_pipeline(tmp_path, fail_on=("first batch of cookies",))
++    enhanced = pipeline.process_single_recipe(str(COOKIES), save_output=True)
++    saved = json.loads(next(tmp_path.glob("enhanced_*.json")).read_text(encoding="utf-8"))
++    return enhanced, saved, fake
++
++
++def skipped_by_quote(saved):
++    return {s["evidence_quote"]: s for s in saved["modifications_skipped"]}
++
++
++def test_every_review_is_analyzed_regardless_of_flag(run):
++    enhanced, saved, fake = run
++    assert len(fake.reviews_seen) == 9  # 4 flagged + 5 unflagged; featured tweaks are duplicates
++    assert fake.calls == 9 + 2  # the failing review is retried twice
++    assert saved["enhancement_summary"]["reviews_analyzed"] == 9
++
++
++def test_recipe_text_reflects_applied_tweaks_only(run):
++    enhanced, _, _ = run
++    assert enhanced.ingredients == [
++        "1 cup butter, softened",
++        "0.5 cup white sugar",
++        "1.5 cups packed brown sugar",
++        "2 eggs",
++        "1 egg yolk",
++        "2 teaspoons vanilla extract",
++        "1 teaspoon baking soda",
++        "1 teaspoon salt",
++        "1 teaspoon cream of tartar",
++        "2.5 cups all-purpose flour",
++        "2 cups semisweet chocolate chips",
++        "1 cup chopped walnuts",
++    ]
++    assert enhanced.instructions[3] == "Add baking soda to batter along with salt."
++    assert enhanced.instructions[5] == "Refrigerate the dough for at least 1 hour."
++    assert enhanced.instructions[7].endswith("about 10 minutes.")
++    assert enhanced.title.endswith("(Community Enhanced)")
++
++
++def test_every_applied_change_is_traceable(run):
++    enhanced, saved, _ = run
++    reviews = json.loads(COOKIES.read_text(encoding="utf-8"))["reviews"]
++    for mod in saved["modifications_applied"]:
++        src = mod["source_review"]
++        assert src["source"] == "reviews"
++        assert reviews[src["review_index"]]["text"] == src["text"]
++        assert quote_in_text(mod["evidence_quote"], src["text"])
++        for change in mod["changes_made"]:
++            assert change["match_method"] in {"exact", "normalized", "fuzzy"}
++            assert change["line_ref"] is not None
++    assert saved["enhancement_summary"]["tweaks_applied"] == 7
++
++
++def test_every_unapplied_tweak_has_a_reason(run):
++    _, saved, _ = run
++    skipped = skipped_by_quote(saved)
++    assert skipped["used a whole cup of white sugar and 1/2 c of brown"]["skip_reason"] == "edit_failed"
++    assert "conflict" in skipped["used a whole cup of white sugar and 1/2 c of brown"]["detail"]
++    assert "reviews[1]" in skipped["used a whole cup of white sugar and 1/2 c of brown"]["detail"]
++    assert skipped["added a tiny dash of cinnamon"]["skip_reason"] == "edit_failed"
++    assert skipped["been making it for 15 years"]["skip_reason"] == "not_tried"
++    assert skipped["been making it for 15 years"]["proposed_edits"][0]["replace"] == "about 12 minutes"
++    assert skipped["I always leave out the walnuts"]["skip_reason"] == "evidence_not_in_review"
++    summary = saved["enhancement_summary"]
++    assert (summary["tweaks_extracted"], summary["tweaks_applied"], summary["tweaks_skipped"]) == (11, 7, 4)
++
++
++def test_fabricated_evidence_and_failed_reviews_are_reported(tmp_path):
++    pipeline, _ = make_pipeline(tmp_path)
++    enhanced = pipeline.process_single_recipe(str(COOKIES), save_output=False)
++    skipped = {s.evidence_quote: s for s in enhanced.modifications_skipped}
++    assert skipped["I always leave out the walnuts"].skip_reason == "evidence_not_in_review"
++    assert "1 cup chopped walnuts" in enhanced.ingredients
++    assert "1 teaspoon salt" in enhanced.ingredients
++    assert enhanced.extraction_failures == []
++
++
++def test_extraction_failure_is_recorded_not_hidden(run):
++    enhanced, saved, _ = run
++    assert len(saved["extraction_failures"]) == 1
++    failed = saved["extraction_failures"][0]
++    assert "first batch of cookies" in failed["text"]
++    assert (failed["source"], failed["review_index"]) == ("reviews", 5)
++
++
++def test_all_extractions_failing_is_a_failure(tmp_path):
++    pipeline, _ = make_pipeline(tmp_path, fail_on=("",))
++    assert pipeline.process_single_recipe(str(COOKIES), save_output=False) is None
++
++
++def test_output_is_deterministic(tmp_path):
++    a, _ = make_pipeline(tmp_path)
++    b, _ = make_pipeline(tmp_path)
++    ra = a.process_single_recipe(str(COOKIES), save_output=False).model_dump(exclude={"created_at"})
++    rb = b.process_single_recipe(str(COOKIES), save_output=False).model_dump(exclude={"created_at"})
++    assert ra == rb
+--- /dev/null
++++ b/tests/test_recipe_modifier.py
+@@ -0,0 +1,232 @@
++"""Tests for RecipeModifier: locating targets, refusing unsafe edits, conflicts."""
++
++import json
++from pathlib import Path
++
++import pytest
++
++from llm_pipeline.models import ModificationEdit, ModificationObject, Recipe
++from llm_pipeline.recipe_modifier import EditError, RecipeModifier
++
++DATA = Path(__file__).resolve().parent.parent / "data"
++
++
++def load(name: str) -> Recipe:
++    d = json.loads((DATA / name).read_text(encoding="utf-8"))
++    return Recipe(
++        recipe_id=d["recipe_id"], title=d["title"],
++        ingredients=d["ingredients"], instructions=d["instructions"],
++    )
++
++
++@pytest.fixture
++def cookies() -> Recipe:
++    return load("recipe_10813_best-chocolate-chip-cookies.json")
++
++
++@pytest.fixture
++def cake() -> Recipe:
++    return load("recipe_19117_spicy-apple-cake.json")
++
++
++def edit(target="ingredients", operation="replace", find="", replace=None, add=None, line_index=None):
++    return ModificationEdit(
++        target=target, operation=operation, find=find,
++        replace=replace, add=add, line_index=line_index,
++    )
++
++
++def mod(*edits, type_="quantity_adjustment"):
++    return ModificationObject(
++        modification_type=type_, evidence_quote="q", status="tried",
++        outcome="positive", reasoning="r", edits=list(edits),
++    )
++
++
++def apply(recipe, *edits):
++    return RecipeModifier().apply_modification(recipe, mod(*edits))
++
++
++# --- Regressions for bugs reproduced against the original modifier -------------
++
++def test_replaces_substring_inside_long_instruction(cookies):
++    """Was: whole-line fuzzy score 0.20 for '350 degrees F', so nothing changed."""
++    result, changes = apply(
++        cookies,
++        edit("instructions", find="350 degrees F", replace="375 degrees F", line_index=1),
++        edit("instructions", find="about 10 minutes", replace="about 8-9 minutes", line_index=6),
++    )
++    assert result.instructions[1].startswith("Preheat the oven to 375 degrees F (175 degrees C).")
++    assert result.instructions[6].endswith("about 8-9 minutes.")
++    assert [c.line_ref for c in changes] == [1, 6]
++    assert all(c.match_method == "exact" for c in changes)
++
++
++def test_paraphrased_find_is_refused_not_recorded_as_change(cookies):
++    """Was: fuzzy hit, literal str.replace miss, recorded a change with from == to."""
++    with pytest.raises(EditError) as err:
++        apply(cookies, edit(find="1/2 teaspoon salt", replace="1 teaspoon salt"))
++    assert err.value.reason == "not_found"
++
++
++def test_remove_of_missing_item_does_not_delete_similar_one(cookies):
++    """Was: removing '1 cup chopped pecans' deleted the walnuts (similarity 0.83)."""
++    with pytest.raises(EditError) as err:
++        apply(cookies, edit(operation="remove", find="1 cup chopped pecans"))
++    assert err.value.reason == "not_found"
++
++
++def test_ambiguous_target_is_refused(cake):
++    """Was: 'shortening' silently picked the first of two shortening lines."""
++    with pytest.raises(EditError) as err:
++        apply(cake, edit(find="shortening", replace="butter"))
++    assert err.value.reason == "ambiguous"
++
++
++def test_line_index_resolves_ambiguity(cake):
++    result, changes = apply(cake, edit(find="shortening", replace="butter", line_index=14))
++    assert result.ingredients[14] == "0.25 cup butter"
++    assert result.ingredients[7] == "0.5 cup shortening"
++    assert changes[0].line_ref == 14
++
++
++def test_conflicting_reviews_first_wins_second_recorded(cookies):
++    """Was: second review's edit became a silent no-op on the first one's result."""
++    first = mod(edit(find="1 cup packed brown sugar", replace="1.5 cups packed brown sugar"))
++    second = mod(edit(find="1 cup packed brown sugar", replace="0.5 cup packed brown sugar"))
++    result, outcomes = RecipeModifier().apply_modifications(
++        cookies, [("review A", first), ("review B", second)]
++    )
++    assert result.ingredients[2] == "1.5 cups packed brown sugar"
++    assert outcomes[0].applied
++    assert not outcomes[1].applied
++    assert outcomes[1].error.reason == "conflict"
++    assert "review A" in outcomes[1].error.detail
++
++
++# --- New rules -----------------------------------------------------------------
++
++def test_tweak_is_atomic(cookies):
++    """A tweak whose second edit fails must leave no trace of its first edit."""
++    bad = mod(
++        edit(find="2 teaspoons hot water", operation="remove"),
++        edit("instructions", find="text that is not there", replace="x"),
++    )
++    good = mod(edit(find="0.5 teaspoon salt", replace="1 teaspoon salt"))
++    result, outcomes = RecipeModifier().apply_modifications(
++        cookies, [("A", bad), ("B", good)]
++    )
++    assert "2 teaspoons hot water" in result.ingredients
++    assert "1 teaspoon salt" in result.ingredients
++    assert [o.applied for o in outcomes] == [False, True]
++    assert outcomes[0].changes == []
++
++
++def test_edits_in_a_tweak_refer_to_original_text(cookies):
++    """add_after may anchor on a line that an earlier edit of the same tweak replaced."""
++    result, changes = apply(
++        cookies,
++        edit(find="1 cup packed brown sugar", replace="1.5 cups packed brown sugar", line_index=2),
++        edit(operation="add_after", find="1 cup packed brown sugar", add="1 teaspoon cream of tartar", line_index=2),
++    )
++    assert result.ingredients[2:4] == ["1.5 cups packed brown sugar", "1 teaspoon cream of tartar"]
++    assert [c.operation for c in changes] == ["replace", "add"]
++
++
++def test_same_review_may_edit_a_line_twice_different_review_may_not(cookies):
++    tweak1 = mod(edit(find="1 cup white sugar", replace="0.5 cup white sugar"))
++    tweak2 = mod(edit(operation="add_after", find="1 cup white sugar", add="1 pinch cinnamon"))
++    _, outcomes = RecipeModifier().apply_modifications(
++        cookies, [("A", tweak1), ("A", tweak2)]
++    )
++    assert all(o.applied for o in outcomes)
++
++    _, outcomes = RecipeModifier().apply_modifications(
++        cookies, [("A", tweak1), ("B", mod(edit(find="1 cup white sugar", operation="remove")))]
++    )
++    assert outcomes[1].error.reason == "conflict"
++
++
++def test_add_after_anchors_on_a_line_another_review_changed(cookies):
++    """Inserting next to a changed line overwrites nothing, so it is not a conflict."""
++    a = mod(edit(find="0.5 teaspoon salt", replace="1 teaspoon salt"))
++    b = mod(edit(operation="add_after", find="0.5 teaspoon salt", add="1 teaspoon cream of tartar", line_index=7))
++    result, outcomes = RecipeModifier().apply_modifications(cookies, [("A", a), ("B", b)])
++    assert all(o.applied for o in outcomes)
++    assert result.ingredients[7:9] == ["1 teaspoon salt", "1 teaspoon cream of tartar"]
++    assert outcomes[1].changes[0].line_ref == 7
++
++
++def test_add_after_anchor_removed_by_another_review_is_a_conflict(cookies):
++    a = mod(edit(operation="remove", find="2 teaspoons hot water"))
++    b = mod(edit(operation="add_after", find="2 teaspoons hot water", add="1 teaspoon milk"))
++    _, outcomes = RecipeModifier().apply_modifications(cookies, [("A", a), ("B", b)])
++    assert outcomes[1].error.reason == "conflict"
++
++
++def test_different_reviews_may_edit_separate_spans_of_one_step(cookies):
++    a = mod(edit("instructions", find="350 degrees F", replace="375 degrees F"))
++    b = mod(edit("instructions", find="in a large bowl", replace="in a stand mixer"))
++    result, outcomes = RecipeModifier().apply_modifications(cookies, [("A", a), ("B", b)])
++    assert all(o.applied for o in outcomes)
++    assert "375 degrees F" in result.instructions[1]
++    assert "in a stand mixer" in result.instructions[1]
++
++
++def test_different_review_may_not_delete_a_step_another_changed(cookies):
++    a = mod(edit("instructions", find="about 10 minutes", replace="about 8 minutes"))
++    b = mod(edit("instructions", operation="remove",
++                 find="Bake in the preheated oven until edges are nicely browned, about 10 minutes."))
++    _, outcomes = RecipeModifier().apply_modifications(cookies, [("A", a), ("B", b)])
++    assert outcomes[1].error.reason == "conflict"
++
++
++def test_partial_instruction_remove_is_refused(cookies):
++    with pytest.raises(EditError) as err:
++        apply(cookies, edit("instructions", operation="remove", find="and walnuts"))
++    assert err.value.reason == "invalid"
++
++
++def test_ingredient_remove_by_name(cookies):
++    result, changes = apply(cookies, edit(operation="remove", find="1 cup chopped walnuts", line_index=10))
++    assert "1 cup chopped walnuts" not in result.ingredients
++    assert changes[0].from_text == "1 cup chopped walnuts" and changes[0].line_ref == 10
++
++
++def test_repeated_span_within_line_is_ambiguous(cookies):
++    with pytest.raises(EditError) as err:
++        apply(cookies, edit("instructions", find="sugar", replace="honey", line_index=1))
++    assert err.value.reason == "ambiguous"
++
++
++def test_normalized_match_preserves_surrounding_text(cookies):
++    result, changes = apply(cookies, edit("instructions", find="ABOUT  10 minutes", replace="about 12 minutes"))
++    assert result.instructions[6] == "Bake in the preheated oven until edges are nicely browned, about 12 minutes."
++    assert changes[0].match_method == "normalized"
++
++
++def test_fuzzy_fallback_needs_high_similarity(cookies):
++    result, changes = apply(cookies, edit(operation="remove", find="1 cup choped walnuts"))
++    assert changes[0].match_method == "fuzzy" and changes[0].match_score >= 0.85
++    assert len(result.ingredients) == len(cookies.ingredients) - 1
++
++
++@pytest.mark.parametrize(
++    "bad_edit, reason",
++    [
++        (edit(find="2 eggs", replace=None), "invalid"),
++        (edit(operation="add_after", find="2 eggs", add="  "), "invalid"),
++        (edit(find="2 eggs", replace="2 eggs"), "no_op"),
++        (edit(find="   "), "invalid"),
++    ],
++)
++def test_invalid_edits(cookies, bad_edit, reason):
++    with pytest.raises(EditError) as err:
++        apply(cookies, bad_edit)
++    assert err.value.reason == reason
++
++
++def test_original_recipe_is_not_mutated(cookies):
++    before = (list(cookies.ingredients), list(cookies.instructions))
++    apply(cookies, edit(find="2 eggs", replace="3 eggs"))
++    assert (cookies.ingredients, cookies.instructions) == before
+--- /dev/null
++++ b/tests/test_tweak_extractor.py
+@@ -0,0 +1,86 @@
++"""Tests for evidence verification and the extractor's failure handling."""
++
++from types import SimpleNamespace as NS
++
++import pytest
++
++from llm_pipeline.models import Recipe, Review, ReviewExtraction
++from llm_pipeline.prompts import build_extraction_messages
++from llm_pipeline.tweak_extractor import TweakExtractor, quote_in_text
++
++REVIEW = (
++    "These are awesome cookies. (1) I used a half cup of sugar; (2) I omitted the water; "
++    "(3) it’s what I had, so I added a teaspoon of cream of tartar."
++)
++
++
++@pytest.mark.parametrize(
++    "quote",
++    [
++        "I omitted the water",
++        "I omitted the water.",           # model added a full stop; review has ";"
++        "\"I omitted the water\"",
++        "i OMITTED   the water",
++        "it's what I had",                # straight vs curly apostrophe
++        "I used a half cup of sugar ... I omitted the water",
++    ],
++)
++def test_real_quotes_are_accepted(quote):
++    assert quote_in_text(quote, REVIEW)
++
++
++@pytest.mark.parametrize(
++    "quote",
++    ["I omitted the eggs", "I used a whole cup of sugar", "", "...", "I used a half cup of sugar ... I doubled it"],
++)
++def test_fabricated_or_empty_quotes_are_rejected(quote):
++    assert not quote_in_text(quote, REVIEW)
++
++
++RECIPE = Recipe(recipe_id="1", title="T", ingredients=["1 cup flour"], instructions=["Mix."])
++
++
++def extractor(*outcomes):
++    calls = []
++
++    def parse(**kwargs):
++        calls.append(kwargs)
++        outcome = outcomes[len(calls) - 1]
++        if isinstance(outcome, Exception):
++            raise outcome
++        parsed, refusal = outcome
++        return NS(choices=[NS(message=NS(parsed=parsed, refusal=refusal))])
++
++    return TweakExtractor(client=NS(chat=NS(completions=NS(parse=parse))), model="fake"), calls
++
++
++def test_no_tweaks_is_an_empty_list_not_a_failure():
++    ex, _ = extractor((ReviewExtraction(modifications=[]), None))
++    assert ex.extract_modifications(Review(text="Great!"), RECIPE) == []
++
++
++def test_refusal_and_errors_are_retried_then_reported_as_none():
++    ex, calls = extractor((None, "I can't help"), RuntimeError("timeout"), (None, None))
++    assert ex.extract_modifications(Review(text="x"), RECIPE) is None
++    assert len(calls) == 3
++
++
++def test_unflagged_reviews_are_still_analyzed():
++    ex, calls = extractor((ReviewExtraction(modifications=[]), None))
++    ex.extract_modifications(Review(text="threw in carrots", has_modification=False), RECIPE)
++    assert len(calls) == 1
++
++
++def test_request_uses_schema_and_numbered_recipe():
++    ex, calls = extractor((ReviewExtraction(modifications=[]), None))
++    ex.extract_modifications(Review(text="x", rating=4), RECIPE)
++    assert calls[0]["response_format"] is ReviewExtraction
++    assert calls[0]["temperature"] == 0
++    user = calls[0]["messages"][1]["content"]
++    assert "[0] 1 cup flour" in user and "[0] Mix." in user and "rating 4/5" in user
++
++
++def test_prompt_example_is_not_taken_from_the_dataset():
++    system = build_extraction_messages("r", "t", [], [])[0]["content"]
++    assert "chocolate chip" not in system.lower()
++    assert "cream of tartar" not in system.lower()

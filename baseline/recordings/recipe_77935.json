@@ -1,0 +1,155 @@
+{
+  "description": "Hand-written ideal responses for replay (not real model output). They exercise the pipeline end to end; they say nothing about a real model's extraction quality.",
+  "recipe_file": "data/recipe_77935_creamy-sweet-potato-with-ginger-soup.json",
+  "responses": {
+    "rev-26e7c1fada": {
+      "tweaks": [
+        {
+          "modification_type": "ingredient_substitution",
+          "quote": "I had one large sweet potato that needed to be used, and 3 white potatoes, so I used those",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-1",
+              "find": "1.5 pounds peeled raw sweet potatoes",
+              "replace": "1 large sweet potato and 3 white potatoes, peeled",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-1",
+              "find": "Add sweet potatoes, then onion",
+              "replace": "Add potatoes, then onion",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-4",
+              "find": "until sweet potatoes are tender",
+              "replace": "until potatoes are tender",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "ingredient_substitution",
+          "quote": "I also substituted 2% milk instead of half-and-half or whole milk",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-10",
+              "find": "1.5 cups half-and-half (or whole milk)",
+              "replace": "1.5 cups 2% milk",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-5",
+              "find": "pour in a little half-and-half",
+              "replace": "pour in a little 2% milk",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-6",
+              "find": "add enough half-and-half",
+              "replace": "add enough 2% milk",
+              "add": null
+            }
+          ]
+        }
+      ]
+    },
+    "rev-d23b070482": {
+      "tweaks": [
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "I added extra cayenne pepper",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-8",
+              "find": "0.125 teaspoon cayenne pepper",
+              "replace": "0.125 teaspoon cayenne pepper, or more to taste",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "quantity_adjustment",
+          "quote": "lots of black pepper",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-11",
+              "find": "freshly ground pepper",
+              "replace": "plenty of freshly ground black pepper",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "ingredient_substitution",
+          "quote": "used heavy cream instead of 1/2 & 1/2",
+          "status": "tried",
+          "reviewer_outcome": "positive",
+          "reasoning": "As stated by the reviewer.",
+          "edits": [
+            {
+              "target": "ingredients",
+              "operation": "replace",
+              "line_id": "ing-10",
+              "find": "1.5 cups half-and-half (or whole milk)",
+              "replace": "1.5 cups heavy cream",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-5",
+              "find": "pour in a little half-and-half",
+              "replace": "pour in a little heavy cream",
+              "add": null
+            },
+            {
+              "target": "instructions",
+              "operation": "replace",
+              "line_id": "step-6",
+              "find": "add enough half-and-half",
+              "replace": "add enough heavy cream",
+              "add": null
+            }
+          ]
+        },
+        {
+          "modification_type": "technique_change",
+          "quote": "I think it would also work fine in the oven",
+          "status": "suggested",
+          "reviewer_outcome": "unclear",
+          "reasoning": "As stated by the reviewer.",
+          "edits": []
+        }
+      ]
+    }
+  }
+}
