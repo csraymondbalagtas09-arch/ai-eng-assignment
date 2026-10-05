@@ -758,8 +758,9 @@ def main():
 
     logger.remove()  # the implementation's own logs are captured per run instead
     adapter = adapter_for(pkg)
+    # Line endings are normalized so a Windows (CRLF) checkout fingerprints the same code identically
     fingerprint = hashlib.sha256(
-        b"".join(p.read_bytes() for p in sorted((impl / "llm_pipeline").glob("*.py")))
+        b"".join(p.read_bytes().replace(b"\r\n", b"\n") for p in sorted((impl / "llm_pipeline").glob("*.py")))
     ).hexdigest()[:16]
 
     results = {

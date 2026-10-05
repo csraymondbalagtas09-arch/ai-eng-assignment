@@ -20,6 +20,10 @@ source .venv/bin/activate
 uv pip sync pyproject.toml
 ```
 
+Or simply `uv sync`, which also installs the test dependencies (`uv run pytest` does this automatically).
+
+On Windows, clone to a short path (or enable long paths): some files in the `openai` package are nested deeply enough that a long clone path pushes them past the 260-character limit, and imports then fail.
+
 ### Environment Variables
 
 Create a `.env` file in the project root:
